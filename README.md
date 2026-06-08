@@ -24,7 +24,7 @@
 ## Installation / 安装
 
 ```bash
-git clone https://github.com/your-org/fast-mic.git
+git clone https://github.com/Zhangjyfree/fast-mic.git
 cd fast-mic
 cargo build --release
 # Binary: ./target/release/fast-mic
