@@ -1,0 +1,1008 @@
+medium	description	compound	name
+LB	Lysogeny broth	adn	Adenosine
+LB	Lysogeny broth	ala__L	L-Alanine
+LB	Lysogeny broth	amp	AMP
+LB	Lysogeny broth	arg__L	L-Arginine
+LB	Lysogeny broth	aso3	Arsenite 
+LB	Lysogeny broth	asp__L	L-Aspartate
+LB	Lysogeny broth	ca2	Ca2+
+LB	Lysogeny broth	cbl1	Vitamin B12
+LB	Lysogeny broth	cd2	Cadmium 
+LB	Lysogeny broth	cl	Cl-
+LB	Lysogeny broth	cmp	CMP
+LB	Lysogeny broth	cobalt2	Co2+
+LB	Lysogeny broth	cro4	Chromate 
+LB	Lysogeny broth	cu2	Cu2+
+LB	Lysogeny broth	cys__L	L-Cysteine
+LB	Lysogeny broth	dad_2	Deoxyadenosine 
+LB	Lysogeny broth	dcyt	Deoxycytidine
+LB	Lysogeny broth	fe2	Fe2+
+LB	Lysogeny broth	fe3	Fe3+
+LB	Lysogeny broth	fol	Folate
+LB	Lysogeny broth	glc__D	D-Glucose
+LB	Lysogeny broth	glu__L	L-Glutamate
+LB	Lysogeny broth	gly	Glycine
+LB	Lysogeny broth	gmp	GMP
+LB	Lysogeny broth	gsn	Guanosine
+LB	Lysogeny broth	h2o	H2O
+LB	Lysogeny broth	h2s	Hydrogen sulfide
+LB	Lysogeny broth	h	H+
+LB	Lysogeny broth	hg2	Hg2+ 
+LB	Lysogeny broth	his__L	L-Histidine
+LB	Lysogeny broth	hxan	Hypoxanthine
+LB	Lysogeny broth	ile__L	L-Isoleucine
+LB	Lysogeny broth	ins	Inosine
+LB	Lysogeny broth	k	K+
+LB	Lysogeny broth	leu__L	L-Leucine
+LB	Lysogeny broth	lipoate	Lipoate
+LB	Lysogeny broth	lys__L	L-Lysine
+LB	Lysogeny broth	met__L	L-Methionine
+LB	Lysogeny broth	mg2	Mg
+LB	Lysogeny broth	mn2	Mn2+
+LB	Lysogeny broth	mobd	Molybdate
+LB	Lysogeny broth	na1	Na+
+LB	Lysogeny broth	nac	Isonicotinic acid
+LB	Lysogeny broth	nh4	Ammonium
+LB	Lysogeny broth	ni2	Ni2+
+LB	Lysogeny broth	o2	O2
+LB	Lysogeny broth	phe__L	L-Phenylalanine
+LB	Lysogeny broth	pheme	Protoheme
+LB	Lysogeny broth	pi	Phosphate
+LB	Lysogeny broth	pnto__R	PAN
+LB	Lysogeny broth	pro__L	L-Proline
+LB	Lysogeny broth	pydx	Pyridoxal
+LB	Lysogeny broth	ribflv	Riboflavin
+LB	Lysogeny broth	ser__L	L-Serine
+LB	Lysogeny broth	so4	Sulfate
+LB	Lysogeny broth	thm	Thiamin
+LB	Lysogeny broth	thr__L	L-Threonine
+LB	Lysogeny broth	thymd	Thymidine
+LB	Lysogeny broth	trp__L	L-Tryptophan
+LB	Lysogeny broth	tyr__L	L-Tyrosine
+LB	Lysogeny broth	ump	UMP
+LB	Lysogeny broth	ura	Uracil
+LB	Lysogeny broth	uri	Uridine
+LB	Lysogeny broth	val__L	L-Valine
+LB	Lysogeny broth	zn2	Zn2+
+LB[-O2]	Lysogeny broth (anaerobic)	adn	Adenosine
+LB[-O2]	Lysogeny broth (anaerobic)	ala__L	L-Alanine
+LB[-O2]	Lysogeny broth (anaerobic)	amp	AMP
+LB[-O2]	Lysogeny broth (anaerobic)	arg__L	L-Arginine
+LB[-O2]	Lysogeny broth (anaerobic)	aso3	Arsenite 
+LB[-O2]	Lysogeny broth (anaerobic)	asp__L	L-Aspartate
+LB[-O2]	Lysogeny broth (anaerobic)	ca2	Ca2+
+LB[-O2]	Lysogeny broth (anaerobic)	cbl1	Vitamin B12
+LB[-O2]	Lysogeny broth (anaerobic)	cd2	Cadmium 
+LB[-O2]	Lysogeny broth (anaerobic)	cl	Cl-
+LB[-O2]	Lysogeny broth (anaerobic)	cmp	CMP
+LB[-O2]	Lysogeny broth (anaerobic)	cobalt2	Co2+
+LB[-O2]	Lysogeny broth (anaerobic)	cro4	Chromate 
+LB[-O2]	Lysogeny broth (anaerobic)	cu2	Cu2+
+LB[-O2]	Lysogeny broth (anaerobic)	cys__L	L-Cysteine
+LB[-O2]	Lysogeny broth (anaerobic)	dad_2	Deoxyadenosine 
+LB[-O2]	Lysogeny broth (anaerobic)	dcyt	Deoxycytidine
+LB[-O2]	Lysogeny broth (anaerobic)	fe2	Fe2+
+LB[-O2]	Lysogeny broth (anaerobic)	fe3	Fe3+
+LB[-O2]	Lysogeny broth (anaerobic)	fol	Folate
+LB[-O2]	Lysogeny broth (anaerobic)	glc__D	D-Glucose
+LB[-O2]	Lysogeny broth (anaerobic)	glu__L	L-Glutamate
+LB[-O2]	Lysogeny broth (anaerobic)	gly	Glycine
+LB[-O2]	Lysogeny broth (anaerobic)	gmp	GMP
+LB[-O2]	Lysogeny broth (anaerobic)	gsn	Guanosine
+LB[-O2]	Lysogeny broth (anaerobic)	h2o	H2O
+LB[-O2]	Lysogeny broth (anaerobic)	h2s	Hydrogen sulfide
+LB[-O2]	Lysogeny broth (anaerobic)	h	H+
+LB[-O2]	Lysogeny broth (anaerobic)	hg2	Hg2+ 
+LB[-O2]	Lysogeny broth (anaerobic)	his__L	L-Histidine
+LB[-O2]	Lysogeny broth (anaerobic)	hxan	Hypoxanthine
+LB[-O2]	Lysogeny broth (anaerobic)	ile__L	L-Isoleucine
+LB[-O2]	Lysogeny broth (anaerobic)	ins	Inosine
+LB[-O2]	Lysogeny broth (anaerobic)	k	K+
+LB[-O2]	Lysogeny broth (anaerobic)	leu__L	L-Leucine
+LB[-O2]	Lysogeny broth (anaerobic)	lipoate	Lipoate
+LB[-O2]	Lysogeny broth (anaerobic)	lys__L	L-Lysine
+LB[-O2]	Lysogeny broth (anaerobic)	met__L	L-Methionine
+LB[-O2]	Lysogeny broth (anaerobic)	mg2	Mg
+LB[-O2]	Lysogeny broth (anaerobic)	mn2	Mn2+
+LB[-O2]	Lysogeny broth (anaerobic)	mobd	Molybdate
+LB[-O2]	Lysogeny broth (anaerobic)	na1	Na+
+LB[-O2]	Lysogeny broth (anaerobic)	nac	Isonicotinic acid
+LB[-O2]	Lysogeny broth (anaerobic)	nh4	Ammonium
+LB[-O2]	Lysogeny broth (anaerobic)	ni2	Ni2+
+LB[-O2]	Lysogeny broth (anaerobic)	phe__L	L-Phenylalanine
+LB[-O2]	Lysogeny broth (anaerobic)	pheme	Protoheme
+LB[-O2]	Lysogeny broth (anaerobic)	pi	Phosphate
+LB[-O2]	Lysogeny broth (anaerobic)	pnto__R	PAN
+LB[-O2]	Lysogeny broth (anaerobic)	pro__L	L-Proline
+LB[-O2]	Lysogeny broth (anaerobic)	pydx	Pyridoxal
+LB[-O2]	Lysogeny broth (anaerobic)	ribflv	Riboflavin
+LB[-O2]	Lysogeny broth (anaerobic)	ser__L	L-Serine
+LB[-O2]	Lysogeny broth (anaerobic)	so4	Sulfate
+LB[-O2]	Lysogeny broth (anaerobic)	thm	Thiamin
+LB[-O2]	Lysogeny broth (anaerobic)	thr__L	L-Threonine
+LB[-O2]	Lysogeny broth (anaerobic)	thymd	Thymidine
+LB[-O2]	Lysogeny broth (anaerobic)	trp__L	L-Tryptophan
+LB[-O2]	Lysogeny broth (anaerobic)	tyr__L	L-Tyrosine
+LB[-O2]	Lysogeny broth (anaerobic)	ump	UMP
+LB[-O2]	Lysogeny broth (anaerobic)	ura	Uracil
+LB[-O2]	Lysogeny broth (anaerobic)	uri	Uridine
+LB[-O2]	Lysogeny broth (anaerobic)	val__L	L-Valine
+LB[-O2]	Lysogeny broth (anaerobic)	zn2	Zn2+
+M9	M9 minimal medium	ca2	Ca2+
+M9	M9 minimal medium	cl	Cl-
+M9	M9 minimal medium	cobalt2	Co2+
+M9	M9 minimal medium	cu2	Cu2+
+M9	M9 minimal medium	fe2	Fe2+
+M9	M9 minimal medium	fe3	Fe3+
+M9	M9 minimal medium	glc__D	D-Glucose
+M9	M9 minimal medium	h2o	H2O
+M9	M9 minimal medium	h	H+
+M9	M9 minimal medium	k	K+
+M9	M9 minimal medium	mg2	Mg
+M9	M9 minimal medium	mn2	Mn2+
+M9	M9 minimal medium	mobd	Molybdate
+M9	M9 minimal medium	na1	Na+
+M9	M9 minimal medium	nh4	Ammonium
+M9	M9 minimal medium	ni2	Ni2+
+M9	M9 minimal medium	o2	O2
+M9	M9 minimal medium	pi	Phosphate
+M9	M9 minimal medium	so4	Sulfate
+M9	M9 minimal medium	zn2	Zn2+
+M9[-O2]	M9 minimal medium (anaerobic)	ca2	Ca2+
+M9[-O2]	M9 minimal medium (anaerobic)	cl	Cl-
+M9[-O2]	M9 minimal medium (anaerobic)	cobalt2	Co2+
+M9[-O2]	M9 minimal medium (anaerobic)	cu2	Cu2+
+M9[-O2]	M9 minimal medium (anaerobic)	fe2	Fe2+
+M9[-O2]	M9 minimal medium (anaerobic)	fe3	Fe3+
+M9[-O2]	M9 minimal medium (anaerobic)	glc__D	D-Glucose
+M9[-O2]	M9 minimal medium (anaerobic)	h2o	H2O
+M9[-O2]	M9 minimal medium (anaerobic)	h	H+
+M9[-O2]	M9 minimal medium (anaerobic)	k	K+
+M9[-O2]	M9 minimal medium (anaerobic)	mg2	Mg
+M9[-O2]	M9 minimal medium (anaerobic)	mn2	Mn2+
+M9[-O2]	M9 minimal medium (anaerobic)	mobd	Molybdate
+M9[-O2]	M9 minimal medium (anaerobic)	na1	Na+
+M9[-O2]	M9 minimal medium (anaerobic)	nh4	Ammonium
+M9[-O2]	M9 minimal medium (anaerobic)	ni2	Ni2+
+M9[-O2]	M9 minimal medium (anaerobic)	pi	Phosphate
+M9[-O2]	M9 minimal medium (anaerobic)	so4	Sulfate
+M9[-O2]	M9 minimal medium (anaerobic)	zn2	Zn2+
+M9[glyc]	M9 minimal medium (glycerol)	ca2	Ca2+
+M9[glyc]	M9 minimal medium (glycerol)	cl	Cl-
+M9[glyc]	M9 minimal medium (glycerol)	cobalt2	Co2+
+M9[glyc]	M9 minimal medium (glycerol)	cu2	Cu2+
+M9[glyc]	M9 minimal medium (glycerol)	fe2	Fe2+
+M9[glyc]	M9 minimal medium (glycerol)	fe3	Fe3+
+M9[glyc]	M9 minimal medium (glycerol)	glyc	Glycerol
+M9[glyc]	M9 minimal medium (glycerol)	h2o	H2O
+M9[glyc]	M9 minimal medium (glycerol)	h	H+
+M9[glyc]	M9 minimal medium (glycerol)	k	K+
+M9[glyc]	M9 minimal medium (glycerol)	mg2	Mg
+M9[glyc]	M9 minimal medium (glycerol)	mn2	Mn2+
+M9[glyc]	M9 minimal medium (glycerol)	mobd	Molybdate
+M9[glyc]	M9 minimal medium (glycerol)	na1	Na+
+M9[glyc]	M9 minimal medium (glycerol)	nh4	Ammonium
+M9[glyc]	M9 minimal medium (glycerol)	ni2	Ni2+
+M9[glyc]	M9 minimal medium (glycerol)	o2	O2
+M9[glyc]	M9 minimal medium (glycerol)	pi	Phosphate
+M9[glyc]	M9 minimal medium (glycerol)	so4	Sulfate
+M9[glyc]	M9 minimal medium (glycerol)	zn2	Zn2+
+PHOTO	photosynthetic minimal medium	ca2	Ca2+
+PHOTO	photosynthetic minimal medium	cl	Cl-
+PHOTO	photosynthetic minimal medium	cobalt2	Co2+
+PHOTO	photosynthetic minimal medium	cu2	Cu2+
+PHOTO	photosynthetic minimal medium	fe2	Fe2+
+PHOTO	photosynthetic minimal medium	fe3	Fe3+
+PHOTO	photosynthetic minimal medium	h2o	H2O
+PHOTO	photosynthetic minimal medium	k	K+
+PHOTO	photosynthetic minimal medium	mg2	Mg
+PHOTO	photosynthetic minimal medium	mn2	Mn2+
+PHOTO	photosynthetic minimal medium	mobd	Molybdate
+PHOTO	photosynthetic minimal medium	na1	Na+
+PHOTO	photosynthetic minimal medium	nh4	Ammonium
+PHOTO	photosynthetic minimal medium	ni2	Ni2+
+PHOTO	photosynthetic minimal medium	pi	Phosphate
+PHOTO	photosynthetic minimal medium	so4	Sulfate
+PHOTO	photosynthetic minimal medium	zn2	Zn2+
+PHOTO	photosynthetic minimal medium	co2	CO2
+PHOTO	photosynthetic minimal medium	photon	light
+WesternDiet	AGORA Western Diet	fru	D-Fructose
+WesternDiet	AGORA Western Diet	glc__D	D-Glucose
+WesternDiet	AGORA Western Diet	gal	D-Galactose
+WesternDiet	AGORA Western Diet	man	D-Mannose
+WesternDiet	AGORA Western Diet	mnl	D-Mannitol
+WesternDiet	AGORA Western Diet	fuc__L	L-Fucose
+WesternDiet	AGORA Western Diet	glcn	D-Gluconate
+WesternDiet	AGORA Western Diet	rmn	L-Rhamnose
+WesternDiet	AGORA Western Diet	arab__L	L-Arabinose
+WesternDiet	AGORA Western Diet	drib	2-Deoxyribose
+WesternDiet	AGORA Western Diet	rib__D	D-Ribose
+WesternDiet	AGORA Western Diet	xyl__D	D-Xylose
+WesternDiet	AGORA Western Diet	oxa	Oxalate
+WesternDiet	AGORA Western Diet	lcts	Lactose
+WesternDiet	AGORA Western Diet	malt	Maltose
+WesternDiet	AGORA Western Diet	sucr	Sucrose
+WesternDiet	AGORA Western Diet	melib	Melibiose
+WesternDiet	AGORA Western Diet	cellb	Cellobiose
+WesternDiet	AGORA Western Diet	tre	Trehalose
+WesternDiet	AGORA Western Diet	strch1	Starch
+WesternDiet	AGORA Western Diet	amylopect900	Amylopectin
+WesternDiet	AGORA Western Diet	amylose300	Amylose
+WesternDiet	AGORA Western Diet	arabinan101	Arabinan
+WesternDiet	AGORA Western Diet	arabinogal	Arabinogalactan
+WesternDiet	AGORA Western Diet	arabinoxyl	Arabinoxylan
+WesternDiet	AGORA Western Diet	bglc	beta-Glucan
+WesternDiet	AGORA Western Diet	cellul	Cellulose
+WesternDiet	AGORA Western Diet	dextran40	Dextran
+WesternDiet	AGORA Western Diet	galmannan	Galactomannan
+WesternDiet	AGORA Western Diet	glcmannan	Glucomannan
+WesternDiet	AGORA Western Diet	homogal	Homogalacturonan
+WesternDiet	AGORA Western Diet	inulin	Inulin
+WesternDiet	AGORA Western Diet	kestopt	Kestose
+WesternDiet	AGORA Western Diet	levan1000	Levan
+WesternDiet	AGORA Western Diet	lmn30	Laminarin
+WesternDiet	AGORA Western Diet	lichn	Lichenan
+WesternDiet	AGORA Western Diet	pect	Pectin
+WesternDiet	AGORA Western Diet	pullulan1200	Pullulan
+WesternDiet	AGORA Western Diet	raffin	Raffinose
+WesternDiet	AGORA Western Diet	rhamnogalurI	Rhamnogalacturonan I
+WesternDiet	AGORA Western Diet	rhamnogalurII	Rhamnogalacturonan II
+WesternDiet	AGORA Western Diet	starch1200	Starch 1200
+WesternDiet	AGORA Western Diet	xylan	Xylan
+WesternDiet	AGORA Western Diet	xyluglc	Xyloglucan
+WesternDiet	AGORA Western Diet	arachd	Arachidonic acid
+WesternDiet	AGORA Western Diet	chsterol	Cholesterol
+WesternDiet	AGORA Western Diet	glyc	Glycerol
+WesternDiet	AGORA Western Diet	hdca	Hexadecanoic acid
+WesternDiet	AGORA Western Diet	hdcea	Hexadecenoic acid
+WesternDiet	AGORA Western Diet	lnlc	Linoleic acid
+WesternDiet	AGORA Western Diet	lnlnca	alpha-Linolenic acid
+WesternDiet	AGORA Western Diet	lnlncg	gamma-Linolenic acid
+WesternDiet	AGORA Western Diet	ocdca	Octadecanoic acid
+WesternDiet	AGORA Western Diet	ocdcea	Oleic acid
+WesternDiet	AGORA Western Diet	octa	Octanoic acid
+WesternDiet	AGORA Western Diet	ttdca	Tetradecanoic acid
+WesternDiet	AGORA Western Diet	ala__L	L-Alanine
+WesternDiet	AGORA Western Diet	ser__L	L-Serine
+WesternDiet	AGORA Western Diet	cys__L	L-Cysteine
+WesternDiet	AGORA Western Diet	arg__L	L-Arginine
+WesternDiet	AGORA Western Diet	ile__L	L-Isoleucine
+WesternDiet	AGORA Western Diet	leu__L	L-Leucine
+WesternDiet	AGORA Western Diet	lys__L	L-Lysine
+WesternDiet	AGORA Western Diet	his__L	L-Histidine
+WesternDiet	AGORA Western Diet	asn__L	L-Asparagine
+WesternDiet	AGORA Western Diet	thr__L	L-Threonine
+WesternDiet	AGORA Western Diet	asp__L	L-Aspartate
+WesternDiet	AGORA Western Diet	glu__L	L-Glutamate
+WesternDiet	AGORA Western Diet	met__L	L-Methionine
+WesternDiet	AGORA Western Diet	gln__L	L-Glutamine
+WesternDiet	AGORA Western Diet	pro__L	L-Proline
+WesternDiet	AGORA Western Diet	val__L	L-Valine
+WesternDiet	AGORA Western Diet	phe__L	L-Phenylalanine
+WesternDiet	AGORA Western Diet	tyr__L	L-Tyrosine
+WesternDiet	AGORA Western Diet	gly	Glycine
+WesternDiet	AGORA Western Diet	trp__L	L-Tryptophan
+WesternDiet	AGORA Western Diet	thm	Thiamine
+WesternDiet	AGORA Western Diet	ribflv	Riboflavin
+WesternDiet	AGORA Western Diet	nac	Nicotinic acid
+WesternDiet	AGORA Western Diet	btn	Biotin
+WesternDiet	AGORA Western Diet	pnto__R	Pantothenate
+WesternDiet	AGORA Western Diet	pydxn	Pyridoxine
+WesternDiet	AGORA Western Diet	pydx	Pyridoxal
+WesternDiet	AGORA Western Diet	pydam	Pyridoxamine
+WesternDiet	AGORA Western Diet	fol	Folate
+WesternDiet	AGORA Western Diet	adpcbl	Adenosylcobalamin
+WesternDiet	AGORA Western Diet	pheme	Protoheme
+WesternDiet	AGORA Western Diet	cbl1	Cobalamin
+WesternDiet	AGORA Western Diet	chol	Choline
+WesternDiet	AGORA Western Diet	h2s	Hydrogen sulfide
+WesternDiet	AGORA Western Diet	so4	Sulfate
+WesternDiet	AGORA Western Diet	spmd	Spermidine
+WesternDiet	AGORA Western Diet	na1	Na+
+WesternDiet	AGORA Western Diet	ca2	Ca2+
+WesternDiet	AGORA Western Diet	cobalt2	Co2+
+WesternDiet	AGORA Western Diet	cl	Cl-
+WesternDiet	AGORA Western Diet	k	K+
+WesternDiet	AGORA Western Diet	fe2	Fe2+
+WesternDiet	AGORA Western Diet	fe3	Fe3+
+WesternDiet	AGORA Western Diet	fe3dcit	Ferric dicitrate
+WesternDiet	AGORA Western Diet	mg2	Mg2+
+WesternDiet	AGORA Western Diet	mn2	Mn2+
+WesternDiet	AGORA Western Diet	mobd	Molybdate
+WesternDiet	AGORA Western Diet	cu2	Cu2+
+WesternDiet	AGORA Western Diet	zn2	Zn2+
+WesternDiet	AGORA Western Diet	sel	Selenite
+WesternDiet	AGORA Western Diet	pime	Pimelate
+WesternDiet	AGORA Western Diet	mqn8	Menaquinone 8
+WesternDiet	AGORA Western Diet	12dgr180	1,2-Diacylglycerol
+WesternDiet	AGORA Western Diet	26dap__M	meso-Diaminopimelate
+WesternDiet	AGORA Western Diet	2obut	2-Oxobutanoate
+WesternDiet	AGORA Western Diet	3mop	3-Methyl-2-oxopentanoate
+WesternDiet	AGORA Western Diet	4hbz	4-Hydroxybenzoate
+WesternDiet	AGORA Western Diet	ac	Acetate
+WesternDiet	AGORA Western Diet	acgam	N-Acetyl-D-glucosamine
+WesternDiet	AGORA Western Diet	acnam	N-Acetylneuraminate
+WesternDiet	AGORA Western Diet	acmana	N-Acetyl-D-mannosamine
+WesternDiet	AGORA Western Diet	ade	Adenine
+WesternDiet	AGORA Western Diet	adn	Adenosine
+WesternDiet	AGORA Western Diet	ala__D	D-Alanine
+WesternDiet	AGORA Western Diet	arab__D	D-Arabinose
+WesternDiet	AGORA Western Diet	cgly	Cys-Gly
+WesternDiet	AGORA Western Diet	chor	Chorismate
+WesternDiet	AGORA Western Diet	cit	Citrate
+WesternDiet	AGORA Western Diet	amet	S-Adenosyl-L-methionine
+WesternDiet	AGORA Western Diet	csn	Cytosine
+WesternDiet	AGORA Western Diet	cytd	Cytidine
+WesternDiet	AGORA Western Diet	dad__2	Deoxyadenosine
+WesternDiet	AGORA Western Diet	dcyt	Deoxycytidine
+WesternDiet	AGORA Western Diet	ddca	Dodecanoic acid
+WesternDiet	AGORA Western Diet	dgsn	Deoxyguanosine
+WesternDiet	AGORA Western Diet	for	Formate
+WesternDiet	AGORA Western Diet	fum	Fumarate
+WesternDiet	AGORA Western Diet	glyc3p	Glycerol 3-phosphate
+WesternDiet	AGORA Western Diet	gsn	Guanosine
+WesternDiet	AGORA Western Diet	gthox	Oxidized glutathione
+WesternDiet	AGORA Western Diet	gua	Guanine
+WesternDiet	AGORA Western Diet	h	H+
+WesternDiet	AGORA Western Diet	hxan	Hypoxanthine
+WesternDiet	AGORA Western Diet	indole	Indole
+WesternDiet	AGORA Western Diet	lanost	Lanosterol
+WesternDiet	AGORA Western Diet	metsox__S__L	L-Methionine S-oxide
+WesternDiet	AGORA Western Diet	mqn7	Menaquinone 7
+WesternDiet	AGORA Western Diet	ncam	Nicotinamide
+WesternDiet	AGORA Western Diet	nmn	NMN
+WesternDiet	AGORA Western Diet	orn	Ornithine
+WesternDiet	AGORA Western Diet	pi	Phosphate
+WesternDiet	AGORA Western Diet	ptrc	Putrescine
+WesternDiet	AGORA Western Diet	pydx5p	Pyridoxal 5-phosphate
+WesternDiet	AGORA Western Diet	q8	Ubiquinone-8
+WesternDiet	AGORA Western Diet	sheme	Siroheme
+WesternDiet	AGORA Western Diet	thymd	Thymidine
+WesternDiet	AGORA Western Diet	ura	Uracil
+WesternDiet	AGORA Western Diet	uri	Uridine
+WesternDiet	AGORA Western Diet	xan	Xanthine
+WesternDiet	AGORA Western Diet	meoh	Methanol
+WesternDiet	AGORA Western Diet	h2o	H2O
+WesternDiet	AGORA Western Diet	2dmmq8	2-Demethylmenaquinone 8
+WesternDiet	AGORA Western Diet	4abz	4-Aminobenzoate
+WesternDiet	AGORA Western Diet	amp	AMP
+WesternDiet	AGORA Western Diet	fald	Formaldehyde
+WesternDiet	AGORA Western Diet	gam	D-Glucosamine
+WesternDiet	AGORA Western Diet	glu__D	D-Glutamate
+WesternDiet	AGORA Western Diet	gthrd	Reduced glutathione
+WesternDiet	AGORA Western Diet	h2	Hydrogen
+WesternDiet	AGORA Western Diet	no2	Nitrite
+WesternDiet_Mucin	AGORA WD+Mucin	fru	D-Fructose
+WesternDiet_Mucin	AGORA WD+Mucin	glc__D	D-Glucose
+WesternDiet_Mucin	AGORA WD+Mucin	gal	D-Galactose
+WesternDiet_Mucin	AGORA WD+Mucin	man	D-Mannose
+WesternDiet_Mucin	AGORA WD+Mucin	mnl	D-Mannitol
+WesternDiet_Mucin	AGORA WD+Mucin	fuc__L	L-Fucose
+WesternDiet_Mucin	AGORA WD+Mucin	glcn	D-Gluconate
+WesternDiet_Mucin	AGORA WD+Mucin	rmn	L-Rhamnose
+WesternDiet_Mucin	AGORA WD+Mucin	arab__L	L-Arabinose
+WesternDiet_Mucin	AGORA WD+Mucin	drib	2-Deoxyribose
+WesternDiet_Mucin	AGORA WD+Mucin	rib__D	D-Ribose
+WesternDiet_Mucin	AGORA WD+Mucin	xyl__D	D-Xylose
+WesternDiet_Mucin	AGORA WD+Mucin	oxa	Oxalate
+WesternDiet_Mucin	AGORA WD+Mucin	lcts	Lactose
+WesternDiet_Mucin	AGORA WD+Mucin	malt	Maltose
+WesternDiet_Mucin	AGORA WD+Mucin	sucr	Sucrose
+WesternDiet_Mucin	AGORA WD+Mucin	melib	Melibiose
+WesternDiet_Mucin	AGORA WD+Mucin	cellb	Cellobiose
+WesternDiet_Mucin	AGORA WD+Mucin	tre	Trehalose
+WesternDiet_Mucin	AGORA WD+Mucin	strch1	Starch
+WesternDiet_Mucin	AGORA WD+Mucin	amylopect900	Amylopectin
+WesternDiet_Mucin	AGORA WD+Mucin	amylose300	Amylose
+WesternDiet_Mucin	AGORA WD+Mucin	arabinan101	Arabinan
+WesternDiet_Mucin	AGORA WD+Mucin	arabinogal	Arabinogalactan
+WesternDiet_Mucin	AGORA WD+Mucin	arabinoxyl	Arabinoxylan
+WesternDiet_Mucin	AGORA WD+Mucin	bglc	beta-Glucan
+WesternDiet_Mucin	AGORA WD+Mucin	cellul	Cellulose
+WesternDiet_Mucin	AGORA WD+Mucin	dextran40	Dextran
+WesternDiet_Mucin	AGORA WD+Mucin	galmannan	Galactomannan
+WesternDiet_Mucin	AGORA WD+Mucin	glcmannan	Glucomannan
+WesternDiet_Mucin	AGORA WD+Mucin	homogal	Homogalacturonan
+WesternDiet_Mucin	AGORA WD+Mucin	inulin	Inulin
+WesternDiet_Mucin	AGORA WD+Mucin	kestopt	Kestose
+WesternDiet_Mucin	AGORA WD+Mucin	levan1000	Levan
+WesternDiet_Mucin	AGORA WD+Mucin	lmn30	Laminarin
+WesternDiet_Mucin	AGORA WD+Mucin	lichn	Lichenan
+WesternDiet_Mucin	AGORA WD+Mucin	pect	Pectin
+WesternDiet_Mucin	AGORA WD+Mucin	pullulan1200	Pullulan
+WesternDiet_Mucin	AGORA WD+Mucin	raffin	Raffinose
+WesternDiet_Mucin	AGORA WD+Mucin	rhamnogalurI	Rhamnogalacturonan I
+WesternDiet_Mucin	AGORA WD+Mucin	rhamnogalurII	Rhamnogalacturonan II
+WesternDiet_Mucin	AGORA WD+Mucin	starch1200	Starch 1200
+WesternDiet_Mucin	AGORA WD+Mucin	xylan	Xylan
+WesternDiet_Mucin	AGORA WD+Mucin	xyluglc	Xyloglucan
+WesternDiet_Mucin	AGORA WD+Mucin	arachd	Arachidonic acid
+WesternDiet_Mucin	AGORA WD+Mucin	chsterol	Cholesterol
+WesternDiet_Mucin	AGORA WD+Mucin	glyc	Glycerol
+WesternDiet_Mucin	AGORA WD+Mucin	hdca	Hexadecanoic acid
+WesternDiet_Mucin	AGORA WD+Mucin	hdcea	Hexadecenoic acid
+WesternDiet_Mucin	AGORA WD+Mucin	lnlc	Linoleic acid
+WesternDiet_Mucin	AGORA WD+Mucin	lnlnca	alpha-Linolenic acid
+WesternDiet_Mucin	AGORA WD+Mucin	lnlncg	gamma-Linolenic acid
+WesternDiet_Mucin	AGORA WD+Mucin	ocdca	Octadecanoic acid
+WesternDiet_Mucin	AGORA WD+Mucin	ocdcea	Oleic acid
+WesternDiet_Mucin	AGORA WD+Mucin	octa	Octanoic acid
+WesternDiet_Mucin	AGORA WD+Mucin	ttdca	Tetradecanoic acid
+WesternDiet_Mucin	AGORA WD+Mucin	ala__L	L-Alanine
+WesternDiet_Mucin	AGORA WD+Mucin	ser__L	L-Serine
+WesternDiet_Mucin	AGORA WD+Mucin	cys__L	L-Cysteine
+WesternDiet_Mucin	AGORA WD+Mucin	arg__L	L-Arginine
+WesternDiet_Mucin	AGORA WD+Mucin	ile__L	L-Isoleucine
+WesternDiet_Mucin	AGORA WD+Mucin	leu__L	L-Leucine
+WesternDiet_Mucin	AGORA WD+Mucin	lys__L	L-Lysine
+WesternDiet_Mucin	AGORA WD+Mucin	his__L	L-Histidine
+WesternDiet_Mucin	AGORA WD+Mucin	asn__L	L-Asparagine
+WesternDiet_Mucin	AGORA WD+Mucin	thr__L	L-Threonine
+WesternDiet_Mucin	AGORA WD+Mucin	asp__L	L-Aspartate
+WesternDiet_Mucin	AGORA WD+Mucin	glu__L	L-Glutamate
+WesternDiet_Mucin	AGORA WD+Mucin	met__L	L-Methionine
+WesternDiet_Mucin	AGORA WD+Mucin	gln__L	L-Glutamine
+WesternDiet_Mucin	AGORA WD+Mucin	pro__L	L-Proline
+WesternDiet_Mucin	AGORA WD+Mucin	val__L	L-Valine
+WesternDiet_Mucin	AGORA WD+Mucin	phe__L	L-Phenylalanine
+WesternDiet_Mucin	AGORA WD+Mucin	tyr__L	L-Tyrosine
+WesternDiet_Mucin	AGORA WD+Mucin	gly	Glycine
+WesternDiet_Mucin	AGORA WD+Mucin	trp__L	L-Tryptophan
+WesternDiet_Mucin	AGORA WD+Mucin	thm	Thiamine
+WesternDiet_Mucin	AGORA WD+Mucin	ribflv	Riboflavin
+WesternDiet_Mucin	AGORA WD+Mucin	nac	Nicotinic acid
+WesternDiet_Mucin	AGORA WD+Mucin	btn	Biotin
+WesternDiet_Mucin	AGORA WD+Mucin	pnto__R	Pantothenate
+WesternDiet_Mucin	AGORA WD+Mucin	pydxn	Pyridoxine
+WesternDiet_Mucin	AGORA WD+Mucin	pydx	Pyridoxal
+WesternDiet_Mucin	AGORA WD+Mucin	pydam	Pyridoxamine
+WesternDiet_Mucin	AGORA WD+Mucin	fol	Folate
+WesternDiet_Mucin	AGORA WD+Mucin	adpcbl	Adenosylcobalamin
+WesternDiet_Mucin	AGORA WD+Mucin	pheme	Protoheme
+WesternDiet_Mucin	AGORA WD+Mucin	cbl1	Cobalamin
+WesternDiet_Mucin	AGORA WD+Mucin	chol	Choline
+WesternDiet_Mucin	AGORA WD+Mucin	h2s	Hydrogen sulfide
+WesternDiet_Mucin	AGORA WD+Mucin	so4	Sulfate
+WesternDiet_Mucin	AGORA WD+Mucin	spmd	Spermidine
+WesternDiet_Mucin	AGORA WD+Mucin	na1	Na+
+WesternDiet_Mucin	AGORA WD+Mucin	ca2	Ca2+
+WesternDiet_Mucin	AGORA WD+Mucin	cobalt2	Co2+
+WesternDiet_Mucin	AGORA WD+Mucin	cl	Cl-
+WesternDiet_Mucin	AGORA WD+Mucin	k	K+
+WesternDiet_Mucin	AGORA WD+Mucin	fe2	Fe2+
+WesternDiet_Mucin	AGORA WD+Mucin	fe3	Fe3+
+WesternDiet_Mucin	AGORA WD+Mucin	fe3dcit	Ferric dicitrate
+WesternDiet_Mucin	AGORA WD+Mucin	mg2	Mg2+
+WesternDiet_Mucin	AGORA WD+Mucin	mn2	Mn2+
+WesternDiet_Mucin	AGORA WD+Mucin	mobd	Molybdate
+WesternDiet_Mucin	AGORA WD+Mucin	cu2	Cu2+
+WesternDiet_Mucin	AGORA WD+Mucin	zn2	Zn2+
+WesternDiet_Mucin	AGORA WD+Mucin	sel	Selenite
+WesternDiet_Mucin	AGORA WD+Mucin	pime	Pimelate
+WesternDiet_Mucin	AGORA WD+Mucin	mqn8	Menaquinone 8
+WesternDiet_Mucin	AGORA WD+Mucin	12dgr180	1,2-Diacylglycerol
+WesternDiet_Mucin	AGORA WD+Mucin	26dap__M	meso-Diaminopimelate
+WesternDiet_Mucin	AGORA WD+Mucin	2obut	2-Oxobutanoate
+WesternDiet_Mucin	AGORA WD+Mucin	3mop	3-Methyl-2-oxopentanoate
+WesternDiet_Mucin	AGORA WD+Mucin	4hbz	4-Hydroxybenzoate
+WesternDiet_Mucin	AGORA WD+Mucin	ac	Acetate
+WesternDiet_Mucin	AGORA WD+Mucin	acgam	N-Acetyl-D-glucosamine
+WesternDiet_Mucin	AGORA WD+Mucin	acnam	N-Acetylneuraminate
+WesternDiet_Mucin	AGORA WD+Mucin	acmana	N-Acetyl-D-mannosamine
+WesternDiet_Mucin	AGORA WD+Mucin	ade	Adenine
+WesternDiet_Mucin	AGORA WD+Mucin	adn	Adenosine
+WesternDiet_Mucin	AGORA WD+Mucin	ala__D	D-Alanine
+WesternDiet_Mucin	AGORA WD+Mucin	arab__D	D-Arabinose
+WesternDiet_Mucin	AGORA WD+Mucin	cgly	Cys-Gly
+WesternDiet_Mucin	AGORA WD+Mucin	chor	Chorismate
+WesternDiet_Mucin	AGORA WD+Mucin	cit	Citrate
+WesternDiet_Mucin	AGORA WD+Mucin	amet	S-Adenosyl-L-methionine
+WesternDiet_Mucin	AGORA WD+Mucin	csn	Cytosine
+WesternDiet_Mucin	AGORA WD+Mucin	cytd	Cytidine
+WesternDiet_Mucin	AGORA WD+Mucin	dad__2	Deoxyadenosine
+WesternDiet_Mucin	AGORA WD+Mucin	dcyt	Deoxycytidine
+WesternDiet_Mucin	AGORA WD+Mucin	ddca	Dodecanoic acid
+WesternDiet_Mucin	AGORA WD+Mucin	dgsn	Deoxyguanosine
+WesternDiet_Mucin	AGORA WD+Mucin	for	Formate
+WesternDiet_Mucin	AGORA WD+Mucin	fum	Fumarate
+WesternDiet_Mucin	AGORA WD+Mucin	glyc3p	Glycerol 3-phosphate
+WesternDiet_Mucin	AGORA WD+Mucin	gsn	Guanosine
+WesternDiet_Mucin	AGORA WD+Mucin	gthox	Oxidized glutathione
+WesternDiet_Mucin	AGORA WD+Mucin	gua	Guanine
+WesternDiet_Mucin	AGORA WD+Mucin	h	H+
+WesternDiet_Mucin	AGORA WD+Mucin	hxan	Hypoxanthine
+WesternDiet_Mucin	AGORA WD+Mucin	indole	Indole
+WesternDiet_Mucin	AGORA WD+Mucin	lanost	Lanosterol
+WesternDiet_Mucin	AGORA WD+Mucin	metsox__S__L	L-Methionine S-oxide
+WesternDiet_Mucin	AGORA WD+Mucin	mqn7	Menaquinone 7
+WesternDiet_Mucin	AGORA WD+Mucin	ncam	Nicotinamide
+WesternDiet_Mucin	AGORA WD+Mucin	nmn	NMN
+WesternDiet_Mucin	AGORA WD+Mucin	orn	Ornithine
+WesternDiet_Mucin	AGORA WD+Mucin	pi	Phosphate
+WesternDiet_Mucin	AGORA WD+Mucin	ptrc	Putrescine
+WesternDiet_Mucin	AGORA WD+Mucin	pydx5p	Pyridoxal 5-phosphate
+WesternDiet_Mucin	AGORA WD+Mucin	q8	Ubiquinone-8
+WesternDiet_Mucin	AGORA WD+Mucin	sheme	Siroheme
+WesternDiet_Mucin	AGORA WD+Mucin	thymd	Thymidine
+WesternDiet_Mucin	AGORA WD+Mucin	ura	Uracil
+WesternDiet_Mucin	AGORA WD+Mucin	uri	Uridine
+WesternDiet_Mucin	AGORA WD+Mucin	xan	Xanthine
+WesternDiet_Mucin	AGORA WD+Mucin	meoh	Methanol
+WesternDiet_Mucin	AGORA WD+Mucin	h2o	H2O
+WesternDiet_Mucin	AGORA WD+Mucin	2dmmq8	2-Demethylmenaquinone 8
+WesternDiet_Mucin	AGORA WD+Mucin	4abz	4-Aminobenzoate
+WesternDiet_Mucin	AGORA WD+Mucin	amp	AMP
+WesternDiet_Mucin	AGORA WD+Mucin	fald	Formaldehyde
+WesternDiet_Mucin	AGORA WD+Mucin	gam	D-Glucosamine
+WesternDiet_Mucin	AGORA WD+Mucin	glu__D	D-Glutamate
+WesternDiet_Mucin	AGORA WD+Mucin	gthrd	Reduced glutathione
+WesternDiet_Mucin	AGORA WD+Mucin	h2	Hydrogen
+WesternDiet_Mucin	AGORA WD+Mucin	no2	Nitrite
+WesternDiet_Mucin	AGORA WD+Mucin	acgam	N-Acetyl-D-glucosamine
+WesternDiet_Mucin	AGORA WD+Mucin	acnam	N-Acetylneuraminate
+WesternDiet_Mucin	AGORA WD+Mucin	fuc__L	L-Fucose
+WesternDiet_Mucin	AGORA WD+Mucin	gal	D-Galactose
+WesternDiet_Mucin	AGORA WD+Mucin	gam	D-Glucosamine
+Akk_Minimal	Van_der_Ark_2017	acgam	N-acetyl-D-glucosamine
+Akk_Minimal	Van_der_Ark_2017	fuc__L	L-Fucose
+Akk_Minimal	Van_der_Ark_2017	thr__L	L-Threonine
+Akk_Minimal	Van_der_Ark_2017	cys__L	L-Cysteine
+Akk_Minimal	Van_der_Ark_2017	pnto__R	(R)-Pantothenate
+Akk_Minimal	Van_der_Ark_2017	nict	Nicotinate
+Akk_Minimal	Van_der_Ark_2017	ribflv	Riboflavin
+Akk_Minimal	Van_der_Ark_2017	thm	Thiamine
+Akk_Minimal	Van_der_Ark_2017	btn	Biotin
+Akk_Minimal	Van_der_Ark_2017	pydxn	Pyridoxine
+Akk_Minimal	Van_der_Ark_2017	cbl1	Cobalamin
+Akk_Minimal	Van_der_Ark_2017	nh4	Ammonium
+Akk_Minimal	Van_der_Ark_2017	pi	Phosphate
+Akk_Minimal	Van_der_Ark_2017	so4	Sulfate
+Akk_Minimal	Van_der_Ark_2017	h2o	H2O
+Akk_Minimal	Van_der_Ark_2017	h	H+
+Akk_Minimal	Van_der_Ark_2017	co2	CO2
+Akk_Minimal	Van_der_Ark_2017	na1	Sodium
+Akk_Minimal	Van_der_Ark_2017	k	Potassium
+Akk_Minimal	Van_der_Ark_2017	mg2	Magnesium
+Akk_Minimal	Van_der_Ark_2017	ca2	Calcium
+Akk_Minimal	Van_der_Ark_2017	cl	Chloride
+Akk_Minimal	Van_der_Ark_2017	fe2	Fe2+
+Akk_Minimal	Van_der_Ark_2017	fe3	Fe3+
+Akk_Minimal	Van_der_Ark_2017	cobalt2	Co2+
+Akk_Minimal	Van_der_Ark_2017	mn2	Mn2+
+Akk_Minimal	Van_der_Ark_2017	zn2	Zn2+
+Akk_Minimal	Van_der_Ark_2017	ni2	Ni2+
+Akk_Minimal	Van_der_Ark_2017	cu2	Cu2+
+Akk_Minimal	Van_der_Ark_2017	mobd	Molybdate
+Akk_CrossFeed	Akk_CrossFeed_2026	acgam	N-acetyl-D-glucosamine
+Akk_CrossFeed	Akk_CrossFeed_2026	cys__L	L-Cysteine
+Akk_CrossFeed	Akk_CrossFeed_2026	pnto__R	(R)-Pantothenate
+Akk_CrossFeed	Akk_CrossFeed_2026	nict	Nicotinate
+Akk_CrossFeed	Akk_CrossFeed_2026	ribflv	Riboflavin
+Akk_CrossFeed	Akk_CrossFeed_2026	thm	Thiamine
+Akk_CrossFeed	Akk_CrossFeed_2026	btn	Biotin
+Akk_CrossFeed	Akk_CrossFeed_2026	pydxn	Pyridoxine
+Akk_CrossFeed	Akk_CrossFeed_2026	nh4	Ammonium
+Akk_CrossFeed	Akk_CrossFeed_2026	pi	Phosphate
+Akk_CrossFeed	Akk_CrossFeed_2026	so4	Sulfate
+Akk_CrossFeed	Akk_CrossFeed_2026	h2o	H2O
+Akk_CrossFeed	Akk_CrossFeed_2026	h	H+
+Akk_CrossFeed	Akk_CrossFeed_2026	co2	CO2
+Akk_CrossFeed	Akk_CrossFeed_2026	na1	Sodium
+Akk_CrossFeed	Akk_CrossFeed_2026	k	Potassium
+Akk_CrossFeed	Akk_CrossFeed_2026	mg2	Magnesium
+Akk_CrossFeed	Akk_CrossFeed_2026	ca2	Calcium
+Akk_CrossFeed	Akk_CrossFeed_2026	cl	Chloride
+Akk_CrossFeed	Akk_CrossFeed_2026	fe2	Fe2+
+Akk_CrossFeed	Akk_CrossFeed_2026	fe3	Fe3+
+Akk_CrossFeed	Akk_CrossFeed_2026	cobalt2	Co2+
+Akk_CrossFeed	Akk_CrossFeed_2026	mn2	Mn2+
+Akk_CrossFeed	Akk_CrossFeed_2026	zn2	Zn2+
+Akk_CrossFeed	Akk_CrossFeed_2026	ni2	Ni2+
+Akk_CrossFeed	Akk_CrossFeed_2026	cu2	Cu2+
+Akk_CrossFeed	Akk_CrossFeed_2026	mobd	Molybdate
+Akk_CrossFeed	Akk_CrossFeed_2026	thr__L	L-Threonine
+Vaginal_NYC	NYC-III-like vaginal medium (microaerobic, BiGG)	glc__D	D-Glucose
+Vaginal_NYC	NYC-III-like vaginal medium (microaerobic, BiGG)	malt	Maltose
+Vaginal_NYC	NYC-III-like vaginal medium (microaerobic, BiGG)	malthx	Maltohexaose (glycogen proxy)
+Vaginal_NYC	NYC-III-like vaginal medium (microaerobic, BiGG)	acgam	N-acetyl-D-glucosamine
+Vaginal_NYC	NYC-III-like vaginal medium (microaerobic, BiGG)	ala__L	L-Alanine
+Vaginal_NYC	NYC-III-like vaginal medium (microaerobic, BiGG)	arg__L	L-Arginine
+Vaginal_NYC	NYC-III-like vaginal medium (microaerobic, BiGG)	asn__L	L-Asparagine
+Vaginal_NYC	NYC-III-like vaginal medium (microaerobic, BiGG)	asp__L	L-Aspartate
+Vaginal_NYC	NYC-III-like vaginal medium (microaerobic, BiGG)	cys__L	L-Cysteine
+Vaginal_NYC	NYC-III-like vaginal medium (microaerobic, BiGG)	glu__L	L-Glutamate
+Vaginal_NYC	NYC-III-like vaginal medium (microaerobic, BiGG)	gln__L	L-Glutamine
+Vaginal_NYC	NYC-III-like vaginal medium (microaerobic, BiGG)	gly	Glycine
+Vaginal_NYC	NYC-III-like vaginal medium (microaerobic, BiGG)	his__L	L-Histidine
+Vaginal_NYC	NYC-III-like vaginal medium (microaerobic, BiGG)	ile__L	L-Isoleucine
+Vaginal_NYC	NYC-III-like vaginal medium (microaerobic, BiGG)	leu__L	L-Leucine
+Vaginal_NYC	NYC-III-like vaginal medium (microaerobic, BiGG)	lys__L	L-Lysine
+Vaginal_NYC	NYC-III-like vaginal medium (microaerobic, BiGG)	met__L	L-Methionine
+Vaginal_NYC	NYC-III-like vaginal medium (microaerobic, BiGG)	phe__L	L-Phenylalanine
+Vaginal_NYC	NYC-III-like vaginal medium (microaerobic, BiGG)	pro__L	L-Proline
+Vaginal_NYC	NYC-III-like vaginal medium (microaerobic, BiGG)	ser__L	L-Serine
+Vaginal_NYC	NYC-III-like vaginal medium (microaerobic, BiGG)	thr__L	L-Threonine
+Vaginal_NYC	NYC-III-like vaginal medium (microaerobic, BiGG)	trp__L	L-Tryptophan
+Vaginal_NYC	NYC-III-like vaginal medium (microaerobic, BiGG)	tyr__L	L-Tyrosine
+Vaginal_NYC	NYC-III-like vaginal medium (microaerobic, BiGG)	val__L	L-Valine
+Vaginal_NYC	NYC-III-like vaginal medium (microaerobic, BiGG)	adn	Adenosine
+Vaginal_NYC	NYC-III-like vaginal medium (microaerobic, BiGG)	cytd	Cytidine
+Vaginal_NYC	NYC-III-like vaginal medium (microaerobic, BiGG)	gsn	Guanosine
+Vaginal_NYC	NYC-III-like vaginal medium (microaerobic, BiGG)	uri	Uridine
+Vaginal_NYC	NYC-III-like vaginal medium (microaerobic, BiGG)	thymd	Thymidine
+Vaginal_NYC	NYC-III-like vaginal medium (microaerobic, BiGG)	hxan	Hypoxanthine
+Vaginal_NYC	NYC-III-like vaginal medium (microaerobic, BiGG)	pheme	Protoheme (hemin)
+Vaginal_NYC	NYC-III-like vaginal medium (microaerobic, BiGG)	pnto__R	(R)-Pantothenate
+Vaginal_NYC	NYC-III-like vaginal medium (microaerobic, BiGG)	nict	Nicotinate
+Vaginal_NYC	NYC-III-like vaginal medium (microaerobic, BiGG)	ribflv	Riboflavin
+Vaginal_NYC	NYC-III-like vaginal medium (microaerobic, BiGG)	thm	Thiamine
+Vaginal_NYC	NYC-III-like vaginal medium (microaerobic, BiGG)	btn	Biotin
+Vaginal_NYC	NYC-III-like vaginal medium (microaerobic, BiGG)	pydxn	Pyridoxine
+Vaginal_NYC	NYC-III-like vaginal medium (microaerobic, BiGG)	cbl1	Cobalamin
+Vaginal_NYC	NYC-III-like vaginal medium (microaerobic, BiGG)	fol	Folate
+Vaginal_NYC	NYC-III-like vaginal medium (microaerobic, BiGG)	4abz	4-Aminobenzoate
+Vaginal_NYC	NYC-III-like vaginal medium (microaerobic, BiGG)	nh4	Ammonium
+Vaginal_NYC	NYC-III-like vaginal medium (microaerobic, BiGG)	pi	Phosphate
+Vaginal_NYC	NYC-III-like vaginal medium (microaerobic, BiGG)	so4	Sulfate
+Vaginal_NYC	NYC-III-like vaginal medium (microaerobic, BiGG)	h2o	H2O
+Vaginal_NYC	NYC-III-like vaginal medium (microaerobic, BiGG)	h	H+
+Vaginal_NYC	NYC-III-like vaginal medium (microaerobic, BiGG)	co2	CO2
+Vaginal_NYC	NYC-III-like vaginal medium (microaerobic, BiGG)	o2	Oxygen (microaerobic)
+Vaginal_NYC	NYC-III-like vaginal medium (microaerobic, BiGG)	na1	Sodium
+Vaginal_NYC	NYC-III-like vaginal medium (microaerobic, BiGG)	k	Potassium
+Vaginal_NYC	NYC-III-like vaginal medium (microaerobic, BiGG)	mg2	Magnesium
+Vaginal_NYC	NYC-III-like vaginal medium (microaerobic, BiGG)	ca2	Calcium
+Vaginal_NYC	NYC-III-like vaginal medium (microaerobic, BiGG)	cl	Chloride
+Vaginal_NYC	NYC-III-like vaginal medium (microaerobic, BiGG)	fe2	Fe2+
+Vaginal_NYC	NYC-III-like vaginal medium (microaerobic, BiGG)	fe3	Fe3+
+Vaginal_NYC	NYC-III-like vaginal medium (microaerobic, BiGG)	mn2	Mn2+
+Vaginal_NYC	NYC-III-like vaginal medium (microaerobic, BiGG)	zn2	Zn2+
+Vaginal_NYC	NYC-III-like vaginal medium (microaerobic, BiGG)	cu2	Cu2+
+Vaginal_NYC	NYC-III-like vaginal medium (microaerobic, BiGG)	cobalt2	Co2+
+Vaginal_NYC	NYC-III-like vaginal medium (microaerobic, BiGG)	ni2	Ni2+
+Vaginal_NYC	NYC-III-like vaginal medium (microaerobic, BiGG)	mobd	Molybdate
+Vaginal_NYC[-O2]	Vaginal_NYC anaerobic variant (BVAB/Gardnerella biofilm)	glc__D	D-Glucose
+Vaginal_NYC[-O2]	Vaginal_NYC anaerobic variant (BVAB/Gardnerella biofilm)	malt	Maltose
+Vaginal_NYC[-O2]	Vaginal_NYC anaerobic variant (BVAB/Gardnerella biofilm)	malthx	Maltohexaose (glycogen proxy)
+Vaginal_NYC[-O2]	Vaginal_NYC anaerobic variant (BVAB/Gardnerella biofilm)	acgam	N-acetyl-D-glucosamine
+Vaginal_NYC[-O2]	Vaginal_NYC anaerobic variant (BVAB/Gardnerella biofilm)	ala__L	L-Alanine
+Vaginal_NYC[-O2]	Vaginal_NYC anaerobic variant (BVAB/Gardnerella biofilm)	arg__L	L-Arginine
+Vaginal_NYC[-O2]	Vaginal_NYC anaerobic variant (BVAB/Gardnerella biofilm)	asn__L	L-Asparagine
+Vaginal_NYC[-O2]	Vaginal_NYC anaerobic variant (BVAB/Gardnerella biofilm)	asp__L	L-Aspartate
+Vaginal_NYC[-O2]	Vaginal_NYC anaerobic variant (BVAB/Gardnerella biofilm)	cys__L	L-Cysteine
+Vaginal_NYC[-O2]	Vaginal_NYC anaerobic variant (BVAB/Gardnerella biofilm)	glu__L	L-Glutamate
+Vaginal_NYC[-O2]	Vaginal_NYC anaerobic variant (BVAB/Gardnerella biofilm)	gln__L	L-Glutamine
+Vaginal_NYC[-O2]	Vaginal_NYC anaerobic variant (BVAB/Gardnerella biofilm)	gly	Glycine
+Vaginal_NYC[-O2]	Vaginal_NYC anaerobic variant (BVAB/Gardnerella biofilm)	his__L	L-Histidine
+Vaginal_NYC[-O2]	Vaginal_NYC anaerobic variant (BVAB/Gardnerella biofilm)	ile__L	L-Isoleucine
+Vaginal_NYC[-O2]	Vaginal_NYC anaerobic variant (BVAB/Gardnerella biofilm)	leu__L	L-Leucine
+Vaginal_NYC[-O2]	Vaginal_NYC anaerobic variant (BVAB/Gardnerella biofilm)	lys__L	L-Lysine
+Vaginal_NYC[-O2]	Vaginal_NYC anaerobic variant (BVAB/Gardnerella biofilm)	met__L	L-Methionine
+Vaginal_NYC[-O2]	Vaginal_NYC anaerobic variant (BVAB/Gardnerella biofilm)	phe__L	L-Phenylalanine
+Vaginal_NYC[-O2]	Vaginal_NYC anaerobic variant (BVAB/Gardnerella biofilm)	pro__L	L-Proline
+Vaginal_NYC[-O2]	Vaginal_NYC anaerobic variant (BVAB/Gardnerella biofilm)	ser__L	L-Serine
+Vaginal_NYC[-O2]	Vaginal_NYC anaerobic variant (BVAB/Gardnerella biofilm)	thr__L	L-Threonine
+Vaginal_NYC[-O2]	Vaginal_NYC anaerobic variant (BVAB/Gardnerella biofilm)	trp__L	L-Tryptophan
+Vaginal_NYC[-O2]	Vaginal_NYC anaerobic variant (BVAB/Gardnerella biofilm)	tyr__L	L-Tyrosine
+Vaginal_NYC[-O2]	Vaginal_NYC anaerobic variant (BVAB/Gardnerella biofilm)	val__L	L-Valine
+Vaginal_NYC[-O2]	Vaginal_NYC anaerobic variant (BVAB/Gardnerella biofilm)	adn	Adenosine
+Vaginal_NYC[-O2]	Vaginal_NYC anaerobic variant (BVAB/Gardnerella biofilm)	cytd	Cytidine
+Vaginal_NYC[-O2]	Vaginal_NYC anaerobic variant (BVAB/Gardnerella biofilm)	gsn	Guanosine
+Vaginal_NYC[-O2]	Vaginal_NYC anaerobic variant (BVAB/Gardnerella biofilm)	uri	Uridine
+Vaginal_NYC[-O2]	Vaginal_NYC anaerobic variant (BVAB/Gardnerella biofilm)	thymd	Thymidine
+Vaginal_NYC[-O2]	Vaginal_NYC anaerobic variant (BVAB/Gardnerella biofilm)	hxan	Hypoxanthine
+Vaginal_NYC[-O2]	Vaginal_NYC anaerobic variant (BVAB/Gardnerella biofilm)	pheme	Protoheme (hemin)
+Vaginal_NYC[-O2]	Vaginal_NYC anaerobic variant (BVAB/Gardnerella biofilm)	pnto__R	(R)-Pantothenate
+Vaginal_NYC[-O2]	Vaginal_NYC anaerobic variant (BVAB/Gardnerella biofilm)	nict	Nicotinate
+Vaginal_NYC[-O2]	Vaginal_NYC anaerobic variant (BVAB/Gardnerella biofilm)	ribflv	Riboflavin
+Vaginal_NYC[-O2]	Vaginal_NYC anaerobic variant (BVAB/Gardnerella biofilm)	thm	Thiamine
+Vaginal_NYC[-O2]	Vaginal_NYC anaerobic variant (BVAB/Gardnerella biofilm)	btn	Biotin
+Vaginal_NYC[-O2]	Vaginal_NYC anaerobic variant (BVAB/Gardnerella biofilm)	pydxn	Pyridoxine
+Vaginal_NYC[-O2]	Vaginal_NYC anaerobic variant (BVAB/Gardnerella biofilm)	cbl1	Cobalamin
+Vaginal_NYC[-O2]	Vaginal_NYC anaerobic variant (BVAB/Gardnerella biofilm)	fol	Folate
+Vaginal_NYC[-O2]	Vaginal_NYC anaerobic variant (BVAB/Gardnerella biofilm)	4abz	4-Aminobenzoate
+Vaginal_NYC[-O2]	Vaginal_NYC anaerobic variant (BVAB/Gardnerella biofilm)	nh4	Ammonium
+Vaginal_NYC[-O2]	Vaginal_NYC anaerobic variant (BVAB/Gardnerella biofilm)	pi	Phosphate
+Vaginal_NYC[-O2]	Vaginal_NYC anaerobic variant (BVAB/Gardnerella biofilm)	so4	Sulfate
+Vaginal_NYC[-O2]	Vaginal_NYC anaerobic variant (BVAB/Gardnerella biofilm)	h2o	H2O
+Vaginal_NYC[-O2]	Vaginal_NYC anaerobic variant (BVAB/Gardnerella biofilm)	h	H+
+Vaginal_NYC[-O2]	Vaginal_NYC anaerobic variant (BVAB/Gardnerella biofilm)	co2	CO2
+Vaginal_NYC[-O2]	Vaginal_NYC anaerobic variant (BVAB/Gardnerella biofilm)	na1	Sodium
+Vaginal_NYC[-O2]	Vaginal_NYC anaerobic variant (BVAB/Gardnerella biofilm)	k	Potassium
+Vaginal_NYC[-O2]	Vaginal_NYC anaerobic variant (BVAB/Gardnerella biofilm)	mg2	Magnesium
+Vaginal_NYC[-O2]	Vaginal_NYC anaerobic variant (BVAB/Gardnerella biofilm)	ca2	Calcium
+Vaginal_NYC[-O2]	Vaginal_NYC anaerobic variant (BVAB/Gardnerella biofilm)	cl	Chloride
+Vaginal_NYC[-O2]	Vaginal_NYC anaerobic variant (BVAB/Gardnerella biofilm)	fe2	Fe2+
+Vaginal_NYC[-O2]	Vaginal_NYC anaerobic variant (BVAB/Gardnerella biofilm)	fe3	Fe3+
+Vaginal_NYC[-O2]	Vaginal_NYC anaerobic variant (BVAB/Gardnerella biofilm)	mn2	Mn2+
+Vaginal_NYC[-O2]	Vaginal_NYC anaerobic variant (BVAB/Gardnerella biofilm)	zn2	Zn2+
+Vaginal_NYC[-O2]	Vaginal_NYC anaerobic variant (BVAB/Gardnerella biofilm)	cu2	Cu2+
+Vaginal_NYC[-O2]	Vaginal_NYC anaerobic variant (BVAB/Gardnerella biofilm)	cobalt2	Co2+
+Vaginal_NYC[-O2]	Vaginal_NYC anaerobic variant (BVAB/Gardnerella biofilm)	ni2	Ni2+
+Vaginal_NYC[-O2]	Vaginal_NYC anaerobic variant (BVAB/Gardnerella biofilm)	mobd	Molybdate
+Oral_ASM	Artificial Saliva Medium (BiGG; supragingival/microaerobic)	glc__D	D-Glucose
+Oral_ASM	Artificial Saliva Medium (BiGG; supragingival/microaerobic)	sucr	Sucrose
+Oral_ASM	Artificial Saliva Medium (BiGG; supragingival/microaerobic)	acgam	N-acetyl-D-glucosamine
+Oral_ASM	Artificial Saliva Medium (BiGG; supragingival/microaerobic)	acnam	N-acetyl-neuraminate (sialic acid)
+Oral_ASM	Artificial Saliva Medium (BiGG; supragingival/microaerobic)	fuc__L	L-Fucose
+Oral_ASM	Artificial Saliva Medium (BiGG; supragingival/microaerobic)	gal	D-Galactose
+Oral_ASM	Artificial Saliva Medium (BiGG; supragingival/microaerobic)	man	D-Mannose
+Oral_ASM	Artificial Saliva Medium (BiGG; supragingival/microaerobic)	urea	Urea
+Oral_ASM	Artificial Saliva Medium (BiGG; supragingival/microaerobic)	ala__L	L-Alanine
+Oral_ASM	Artificial Saliva Medium (BiGG; supragingival/microaerobic)	arg__L	L-Arginine
+Oral_ASM	Artificial Saliva Medium (BiGG; supragingival/microaerobic)	asn__L	L-Asparagine
+Oral_ASM	Artificial Saliva Medium (BiGG; supragingival/microaerobic)	asp__L	L-Aspartate
+Oral_ASM	Artificial Saliva Medium (BiGG; supragingival/microaerobic)	cys__L	L-Cysteine
+Oral_ASM	Artificial Saliva Medium (BiGG; supragingival/microaerobic)	glu__L	L-Glutamate
+Oral_ASM	Artificial Saliva Medium (BiGG; supragingival/microaerobic)	gln__L	L-Glutamine
+Oral_ASM	Artificial Saliva Medium (BiGG; supragingival/microaerobic)	gly	Glycine
+Oral_ASM	Artificial Saliva Medium (BiGG; supragingival/microaerobic)	his__L	L-Histidine
+Oral_ASM	Artificial Saliva Medium (BiGG; supragingival/microaerobic)	ile__L	L-Isoleucine
+Oral_ASM	Artificial Saliva Medium (BiGG; supragingival/microaerobic)	leu__L	L-Leucine
+Oral_ASM	Artificial Saliva Medium (BiGG; supragingival/microaerobic)	lys__L	L-Lysine
+Oral_ASM	Artificial Saliva Medium (BiGG; supragingival/microaerobic)	met__L	L-Methionine
+Oral_ASM	Artificial Saliva Medium (BiGG; supragingival/microaerobic)	phe__L	L-Phenylalanine
+Oral_ASM	Artificial Saliva Medium (BiGG; supragingival/microaerobic)	pro__L	L-Proline
+Oral_ASM	Artificial Saliva Medium (BiGG; supragingival/microaerobic)	ser__L	L-Serine
+Oral_ASM	Artificial Saliva Medium (BiGG; supragingival/microaerobic)	thr__L	L-Threonine
+Oral_ASM	Artificial Saliva Medium (BiGG; supragingival/microaerobic)	trp__L	L-Tryptophan
+Oral_ASM	Artificial Saliva Medium (BiGG; supragingival/microaerobic)	tyr__L	L-Tyrosine
+Oral_ASM	Artificial Saliva Medium (BiGG; supragingival/microaerobic)	val__L	L-Valine
+Oral_ASM	Artificial Saliva Medium (BiGG; supragingival/microaerobic)	adn	Adenosine
+Oral_ASM	Artificial Saliva Medium (BiGG; supragingival/microaerobic)	cytd	Cytidine
+Oral_ASM	Artificial Saliva Medium (BiGG; supragingival/microaerobic)	gsn	Guanosine
+Oral_ASM	Artificial Saliva Medium (BiGG; supragingival/microaerobic)	uri	Uridine
+Oral_ASM	Artificial Saliva Medium (BiGG; supragingival/microaerobic)	thymd	Thymidine
+Oral_ASM	Artificial Saliva Medium (BiGG; supragingival/microaerobic)	hxan	Hypoxanthine
+Oral_ASM	Artificial Saliva Medium (BiGG; supragingival/microaerobic)	pheme	Protoheme (hemin)
+Oral_ASM	Artificial Saliva Medium (BiGG; supragingival/microaerobic)	mqn8	Menaquinone-8
+Oral_ASM	Artificial Saliva Medium (BiGG; supragingival/microaerobic)	mqn7	Menaquinone-7
+Oral_ASM	Artificial Saliva Medium (BiGG; supragingival/microaerobic)	pnto__R	(R)-Pantothenate
+Oral_ASM	Artificial Saliva Medium (BiGG; supragingival/microaerobic)	nict	Nicotinate
+Oral_ASM	Artificial Saliva Medium (BiGG; supragingival/microaerobic)	ribflv	Riboflavin
+Oral_ASM	Artificial Saliva Medium (BiGG; supragingival/microaerobic)	thm	Thiamine
+Oral_ASM	Artificial Saliva Medium (BiGG; supragingival/microaerobic)	btn	Biotin
+Oral_ASM	Artificial Saliva Medium (BiGG; supragingival/microaerobic)	pydxn	Pyridoxine
+Oral_ASM	Artificial Saliva Medium (BiGG; supragingival/microaerobic)	cbl1	Cobalamin
+Oral_ASM	Artificial Saliva Medium (BiGG; supragingival/microaerobic)	fol	Folate
+Oral_ASM	Artificial Saliva Medium (BiGG; supragingival/microaerobic)	4abz	4-Aminobenzoate
+Oral_ASM	Artificial Saliva Medium (BiGG; supragingival/microaerobic)	spmd	Spermidine
+Oral_ASM	Artificial Saliva Medium (BiGG; supragingival/microaerobic)	nh4	Ammonium
+Oral_ASM	Artificial Saliva Medium (BiGG; supragingival/microaerobic)	pi	Phosphate
+Oral_ASM	Artificial Saliva Medium (BiGG; supragingival/microaerobic)	so4	Sulfate
+Oral_ASM	Artificial Saliva Medium (BiGG; supragingival/microaerobic)	h2o	H2O
+Oral_ASM	Artificial Saliva Medium (BiGG; supragingival/microaerobic)	h	H+
+Oral_ASM	Artificial Saliva Medium (BiGG; supragingival/microaerobic)	co2	CO2
+Oral_ASM	Artificial Saliva Medium (BiGG; supragingival/microaerobic)	hco3	Bicarbonate
+Oral_ASM	Artificial Saliva Medium (BiGG; supragingival/microaerobic)	o2	Oxygen (microaerobic)
+Oral_ASM	Artificial Saliva Medium (BiGG; supragingival/microaerobic)	na1	Sodium
+Oral_ASM	Artificial Saliva Medium (BiGG; supragingival/microaerobic)	k	Potassium
+Oral_ASM	Artificial Saliva Medium (BiGG; supragingival/microaerobic)	mg2	Magnesium
+Oral_ASM	Artificial Saliva Medium (BiGG; supragingival/microaerobic)	ca2	Calcium
+Oral_ASM	Artificial Saliva Medium (BiGG; supragingival/microaerobic)	cl	Chloride
+Oral_ASM	Artificial Saliva Medium (BiGG; supragingival/microaerobic)	fe2	Fe2+
+Oral_ASM	Artificial Saliva Medium (BiGG; supragingival/microaerobic)	fe3	Fe3+
+Oral_ASM	Artificial Saliva Medium (BiGG; supragingival/microaerobic)	mn2	Mn2+
+Oral_ASM	Artificial Saliva Medium (BiGG; supragingival/microaerobic)	zn2	Zn2+
+Oral_ASM	Artificial Saliva Medium (BiGG; supragingival/microaerobic)	cu2	Cu2+
+Oral_ASM	Artificial Saliva Medium (BiGG; supragingival/microaerobic)	cobalt2	Co2+
+Oral_ASM	Artificial Saliva Medium (BiGG; supragingival/microaerobic)	ni2	Ni2+
+Oral_ASM	Artificial Saliva Medium (BiGG; supragingival/microaerobic)	mobd	Molybdate
+Oral_ASM[-O2]	Oral_ASM anaerobic variant (subgingival plaque)	glc__D	D-Glucose
+Oral_ASM[-O2]	Oral_ASM anaerobic variant (subgingival plaque)	sucr	Sucrose
+Oral_ASM[-O2]	Oral_ASM anaerobic variant (subgingival plaque)	acgam	N-acetyl-D-glucosamine
+Oral_ASM[-O2]	Oral_ASM anaerobic variant (subgingival plaque)	acnam	N-acetyl-neuraminate (sialic acid)
+Oral_ASM[-O2]	Oral_ASM anaerobic variant (subgingival plaque)	fuc__L	L-Fucose
+Oral_ASM[-O2]	Oral_ASM anaerobic variant (subgingival plaque)	gal	D-Galactose
+Oral_ASM[-O2]	Oral_ASM anaerobic variant (subgingival plaque)	man	D-Mannose
+Oral_ASM[-O2]	Oral_ASM anaerobic variant (subgingival plaque)	urea	Urea
+Oral_ASM[-O2]	Oral_ASM anaerobic variant (subgingival plaque)	ala__L	L-Alanine
+Oral_ASM[-O2]	Oral_ASM anaerobic variant (subgingival plaque)	arg__L	L-Arginine
+Oral_ASM[-O2]	Oral_ASM anaerobic variant (subgingival plaque)	asn__L	L-Asparagine
+Oral_ASM[-O2]	Oral_ASM anaerobic variant (subgingival plaque)	asp__L	L-Aspartate
+Oral_ASM[-O2]	Oral_ASM anaerobic variant (subgingival plaque)	cys__L	L-Cysteine
+Oral_ASM[-O2]	Oral_ASM anaerobic variant (subgingival plaque)	glu__L	L-Glutamate
+Oral_ASM[-O2]	Oral_ASM anaerobic variant (subgingival plaque)	gln__L	L-Glutamine
+Oral_ASM[-O2]	Oral_ASM anaerobic variant (subgingival plaque)	gly	Glycine
+Oral_ASM[-O2]	Oral_ASM anaerobic variant (subgingival plaque)	his__L	L-Histidine
+Oral_ASM[-O2]	Oral_ASM anaerobic variant (subgingival plaque)	ile__L	L-Isoleucine
+Oral_ASM[-O2]	Oral_ASM anaerobic variant (subgingival plaque)	leu__L	L-Leucine
+Oral_ASM[-O2]	Oral_ASM anaerobic variant (subgingival plaque)	lys__L	L-Lysine
+Oral_ASM[-O2]	Oral_ASM anaerobic variant (subgingival plaque)	met__L	L-Methionine
+Oral_ASM[-O2]	Oral_ASM anaerobic variant (subgingival plaque)	phe__L	L-Phenylalanine
+Oral_ASM[-O2]	Oral_ASM anaerobic variant (subgingival plaque)	pro__L	L-Proline
+Oral_ASM[-O2]	Oral_ASM anaerobic variant (subgingival plaque)	ser__L	L-Serine
+Oral_ASM[-O2]	Oral_ASM anaerobic variant (subgingival plaque)	thr__L	L-Threonine
+Oral_ASM[-O2]	Oral_ASM anaerobic variant (subgingival plaque)	trp__L	L-Tryptophan
+Oral_ASM[-O2]	Oral_ASM anaerobic variant (subgingival plaque)	tyr__L	L-Tyrosine
+Oral_ASM[-O2]	Oral_ASM anaerobic variant (subgingival plaque)	val__L	L-Valine
+Oral_ASM[-O2]	Oral_ASM anaerobic variant (subgingival plaque)	adn	Adenosine
+Oral_ASM[-O2]	Oral_ASM anaerobic variant (subgingival plaque)	cytd	Cytidine
+Oral_ASM[-O2]	Oral_ASM anaerobic variant (subgingival plaque)	gsn	Guanosine
+Oral_ASM[-O2]	Oral_ASM anaerobic variant (subgingival plaque)	uri	Uridine
+Oral_ASM[-O2]	Oral_ASM anaerobic variant (subgingival plaque)	thymd	Thymidine
+Oral_ASM[-O2]	Oral_ASM anaerobic variant (subgingival plaque)	hxan	Hypoxanthine
+Oral_ASM[-O2]	Oral_ASM anaerobic variant (subgingival plaque)	pheme	Protoheme (hemin)
+Oral_ASM[-O2]	Oral_ASM anaerobic variant (subgingival plaque)	mqn8	Menaquinone-8
+Oral_ASM[-O2]	Oral_ASM anaerobic variant (subgingival plaque)	mqn7	Menaquinone-7
+Oral_ASM[-O2]	Oral_ASM anaerobic variant (subgingival plaque)	pnto__R	(R)-Pantothenate
+Oral_ASM[-O2]	Oral_ASM anaerobic variant (subgingival plaque)	nict	Nicotinate
+Oral_ASM[-O2]	Oral_ASM anaerobic variant (subgingival plaque)	ribflv	Riboflavin
+Oral_ASM[-O2]	Oral_ASM anaerobic variant (subgingival plaque)	thm	Thiamine
+Oral_ASM[-O2]	Oral_ASM anaerobic variant (subgingival plaque)	btn	Biotin
+Oral_ASM[-O2]	Oral_ASM anaerobic variant (subgingival plaque)	pydxn	Pyridoxine
+Oral_ASM[-O2]	Oral_ASM anaerobic variant (subgingival plaque)	cbl1	Cobalamin
+Oral_ASM[-O2]	Oral_ASM anaerobic variant (subgingival plaque)	fol	Folate
+Oral_ASM[-O2]	Oral_ASM anaerobic variant (subgingival plaque)	4abz	4-Aminobenzoate
+Oral_ASM[-O2]	Oral_ASM anaerobic variant (subgingival plaque)	spmd	Spermidine
+Oral_ASM[-O2]	Oral_ASM anaerobic variant (subgingival plaque)	nh4	Ammonium
+Oral_ASM[-O2]	Oral_ASM anaerobic variant (subgingival plaque)	pi	Phosphate
+Oral_ASM[-O2]	Oral_ASM anaerobic variant (subgingival plaque)	so4	Sulfate
+Oral_ASM[-O2]	Oral_ASM anaerobic variant (subgingival plaque)	h2o	H2O
+Oral_ASM[-O2]	Oral_ASM anaerobic variant (subgingival plaque)	h	H+
+Oral_ASM[-O2]	Oral_ASM anaerobic variant (subgingival plaque)	co2	CO2
+Oral_ASM[-O2]	Oral_ASM anaerobic variant (subgingival plaque)	hco3	Bicarbonate
+Oral_ASM[-O2]	Oral_ASM anaerobic variant (subgingival plaque)	na1	Sodium
+Oral_ASM[-O2]	Oral_ASM anaerobic variant (subgingival plaque)	k	Potassium
+Oral_ASM[-O2]	Oral_ASM anaerobic variant (subgingival plaque)	mg2	Magnesium
+Oral_ASM[-O2]	Oral_ASM anaerobic variant (subgingival plaque)	ca2	Calcium
+Oral_ASM[-O2]	Oral_ASM anaerobic variant (subgingival plaque)	cl	Chloride
+Oral_ASM[-O2]	Oral_ASM anaerobic variant (subgingival plaque)	fe2	Fe2+
+Oral_ASM[-O2]	Oral_ASM anaerobic variant (subgingival plaque)	fe3	Fe3+
+Oral_ASM[-O2]	Oral_ASM anaerobic variant (subgingival plaque)	mn2	Mn2+
+Oral_ASM[-O2]	Oral_ASM anaerobic variant (subgingival plaque)	zn2	Zn2+
+Oral_ASM[-O2]	Oral_ASM anaerobic variant (subgingival plaque)	cu2	Cu2+
+Oral_ASM[-O2]	Oral_ASM anaerobic variant (subgingival plaque)	cobalt2	Co2+
+Oral_ASM[-O2]	Oral_ASM anaerobic variant (subgingival plaque)	ni2	Ni2+
+Oral_ASM[-O2]	Oral_ASM anaerobic variant (subgingival plaque)	mobd	Molybdate
+R2A	Reasoner's 2A (rhizosphere SynCom; MIND benchmark)	glc__D	D-Glucose
+R2A	Reasoner's 2A (rhizosphere SynCom; MIND benchmark)	pyr	Pyruvate
+R2A	Reasoner's 2A (rhizosphere SynCom; MIND benchmark)	malt	Maltose
+R2A	Reasoner's 2A (rhizosphere SynCom; MIND benchmark)	mlthx	Maltohexaose
+R2A	Reasoner's 2A (rhizosphere SynCom; MIND benchmark)	starch1200	Soluble starch
+R2A	Reasoner's 2A (rhizosphere SynCom; MIND benchmark)	ala__L	L-Alanine
+R2A	Reasoner's 2A (rhizosphere SynCom; MIND benchmark)	arg__L	L-Arginine
+R2A	Reasoner's 2A (rhizosphere SynCom; MIND benchmark)	asn__L	L-Asparagine
+R2A	Reasoner's 2A (rhizosphere SynCom; MIND benchmark)	asp__L	L-Aspartate
+R2A	Reasoner's 2A (rhizosphere SynCom; MIND benchmark)	cys__L	L-Cysteine
+R2A	Reasoner's 2A (rhizosphere SynCom; MIND benchmark)	gln__L	L-Glutamine
+R2A	Reasoner's 2A (rhizosphere SynCom; MIND benchmark)	glu__L	L-Glutamate
+R2A	Reasoner's 2A (rhizosphere SynCom; MIND benchmark)	gly	Glycine
+R2A	Reasoner's 2A (rhizosphere SynCom; MIND benchmark)	his__L	L-Histidine
+R2A	Reasoner's 2A (rhizosphere SynCom; MIND benchmark)	ile__L	L-Isoleucine
+R2A	Reasoner's 2A (rhizosphere SynCom; MIND benchmark)	leu__L	L-Leucine
+R2A	Reasoner's 2A (rhizosphere SynCom; MIND benchmark)	lys__L	L-Lysine
+R2A	Reasoner's 2A (rhizosphere SynCom; MIND benchmark)	met__L	L-Methionine
+R2A	Reasoner's 2A (rhizosphere SynCom; MIND benchmark)	phe__L	L-Phenylalanine
+R2A	Reasoner's 2A (rhizosphere SynCom; MIND benchmark)	pro__L	L-Proline
+R2A	Reasoner's 2A (rhizosphere SynCom; MIND benchmark)	ser__L	L-Serine
+R2A	Reasoner's 2A (rhizosphere SynCom; MIND benchmark)	thr__L	L-Threonine
+R2A	Reasoner's 2A (rhizosphere SynCom; MIND benchmark)	trp__L	L-Tryptophan
+R2A	Reasoner's 2A (rhizosphere SynCom; MIND benchmark)	tyr__L	L-Tyrosine
+R2A	Reasoner's 2A (rhizosphere SynCom; MIND benchmark)	val__L	L-Valine
+R2A	Reasoner's 2A (rhizosphere SynCom; MIND benchmark)	thm	Thiamine
+R2A	Reasoner's 2A (rhizosphere SynCom; MIND benchmark)	ribflv	Riboflavin
+R2A	Reasoner's 2A (rhizosphere SynCom; MIND benchmark)	nac	Niacin
+R2A	Reasoner's 2A (rhizosphere SynCom; MIND benchmark)	pnto__R	Pantothenate
+R2A	Reasoner's 2A (rhizosphere SynCom; MIND benchmark)	pydx	Pyridoxine
+R2A	Reasoner's 2A (rhizosphere SynCom; MIND benchmark)	btn	Biotin
+R2A	Reasoner's 2A (rhizosphere SynCom; MIND benchmark)	fol	Folate
+R2A	Reasoner's 2A (rhizosphere SynCom; MIND benchmark)	cbl1	Cobalamin (B12)
+R2A	Reasoner's 2A (rhizosphere SynCom; MIND benchmark)	ade	Adenine
+R2A	Reasoner's 2A (rhizosphere SynCom; MIND benchmark)	gua	Guanine
+R2A	Reasoner's 2A (rhizosphere SynCom; MIND benchmark)	ura	Uracil
+R2A	Reasoner's 2A (rhizosphere SynCom; MIND benchmark)	csn	Cytosine
+R2A	Reasoner's 2A (rhizosphere SynCom; MIND benchmark)	thymd	Thymidine
+R2A	Reasoner's 2A (rhizosphere SynCom; MIND benchmark)	pi	Phosphate
+R2A	Reasoner's 2A (rhizosphere SynCom; MIND benchmark)	so4	Sulfate
+R2A	Reasoner's 2A (rhizosphere SynCom; MIND benchmark)	mg2	Mg2+
+R2A	Reasoner's 2A (rhizosphere SynCom; MIND benchmark)	ca2	Ca2+
+R2A	Reasoner's 2A (rhizosphere SynCom; MIND benchmark)	k	K+
+R2A	Reasoner's 2A (rhizosphere SynCom; MIND benchmark)	na1	Na+
+R2A	Reasoner's 2A (rhizosphere SynCom; MIND benchmark)	cl	Cl-
+R2A	Reasoner's 2A (rhizosphere SynCom; MIND benchmark)	fe2	Fe2+
+R2A	Reasoner's 2A (rhizosphere SynCom; MIND benchmark)	fe3	Fe3+
+R2A	Reasoner's 2A (rhizosphere SynCom; MIND benchmark)	mn2	Mn2+
+R2A	Reasoner's 2A (rhizosphere SynCom; MIND benchmark)	zn2	Zn2+
+R2A	Reasoner's 2A (rhizosphere SynCom; MIND benchmark)	cu2	Cu2+
+R2A	Reasoner's 2A (rhizosphere SynCom; MIND benchmark)	cobalt2	Co2+
+R2A	Reasoner's 2A (rhizosphere SynCom; MIND benchmark)	ni2	Ni2+
+R2A	Reasoner's 2A (rhizosphere SynCom; MIND benchmark)	mobd	Molybdate
+R2A	Reasoner's 2A (rhizosphere SynCom; MIND benchmark)	nh4	Ammonium
+R2A	Reasoner's 2A (rhizosphere SynCom; MIND benchmark)	o2	Oxygen
+R2A	Reasoner's 2A (rhizosphere SynCom; MIND benchmark)	h2o	Water
+R2A	Reasoner's 2A (rhizosphere SynCom; MIND benchmark)	h	Proton
+WesternDiet	AGORA Western Diet	cpd00027	D-Glucose
+WesternDiet	AGORA Western Diet	cpd00082	D-Fructose
+WesternDiet	AGORA Western Diet	cpd00108	D-Galactose
+WesternDiet	AGORA Western Diet	cpd00138	D-Mannose
+WesternDiet	AGORA Western Diet	cpd00314	D-Mannitol
+WesternDiet	AGORA Western Diet	cpd01019	L-Fucose
+WesternDiet	AGORA Western Diet	cpd00222	D-Gluconate
+WesternDiet	AGORA Western Diet	cpd01108	L-Rhamnose
+WesternDiet	AGORA Western Diet	cpd00224	L-Arabinose
+WesternDiet	AGORA Western Diet	cpd00189	D-Arabinose
+WesternDiet	AGORA Western Diet	cpd00382	2-Deoxyribose
+WesternDiet	AGORA Western Diet	cpd00105	D-Ribose
+WesternDiet	AGORA Western Diet	cpd00154	D-Xylose
+WesternDiet	AGORA Western Diet	cpd00208	Lactose
+WesternDiet	AGORA Western Diet	cpd00179	Maltose
+WesternDiet	AGORA Western Diet	cpd00076	Sucrose
+WesternDiet	AGORA Western Diet	cpd00136	Melibiose
+WesternDiet	AGORA Western Diet	cpd00158	Cellobiose
+WesternDiet	AGORA Western Diet	cpd00794	Trehalose
+WesternDiet	AGORA Western Diet	cpd00122	N-Acetyl-D-glucosamine (GlcNAc)
+WesternDiet	AGORA Western Diet	cpd00310	N-Acetylneuraminate (sialic acid)
+WesternDiet	AGORA Western Diet	cpd00276	D-Glucosamine
+WesternDiet	AGORA Western Diet	cpd00291	N-Acetyl-D-mannosamine
+WesternDiet	AGORA Western Diet	cpd00033	Glycine
+WesternDiet	AGORA Western Diet	cpd00035	L-Alanine
+WesternDiet	AGORA Western Diet	cpd00054	L-Serine
+WesternDiet	AGORA Western Diet	cpd00084	L-Cysteine
+WesternDiet	AGORA Western Diet	cpd00051	L-Arginine
+WesternDiet	AGORA Western Diet	cpd00322	L-Isoleucine
+WesternDiet	AGORA Western Diet	cpd00107	L-Leucine
+WesternDiet	AGORA Western Diet	cpd00039	L-Lysine
+WesternDiet	AGORA Western Diet	cpd00119	L-Histidine
+WesternDiet	AGORA Western Diet	cpd00132	L-Asparagine
+WesternDiet	AGORA Western Diet	cpd00161	L-Threonine
+WesternDiet	AGORA Western Diet	cpd00041	L-Aspartate
+WesternDiet	AGORA Western Diet	cpd00023	L-Glutamate
+WesternDiet	AGORA Western Diet	cpd00060	L-Methionine
+WesternDiet	AGORA Western Diet	cpd00053	L-Glutamine
+WesternDiet	AGORA Western Diet	cpd00129	L-Proline
+WesternDiet	AGORA Western Diet	cpd00156	L-Valine
+WesternDiet	AGORA Western Diet	cpd00066	L-Phenylalanine
+WesternDiet	AGORA Western Diet	cpd00069	L-Tyrosine
+WesternDiet	AGORA Western Diet	cpd00065	L-Tryptophan
+WesternDiet	AGORA Western Diet	cpd00010	Coenzyme A
+WesternDiet	AGORA Western Diet	cpd00214	Hexadecanoic acid (palmitate)
+WesternDiet	AGORA Western Diet	cpd00162	Oleic acid
+WesternDiet	AGORA Western Diet	cpd00550	Linoleic acid
+WesternDiet	AGORA Western Diet	cpd01242	alpha-Linolenic acid
+WesternDiet	AGORA Western Diet	cpd01248	gamma-Linolenic acid
+WesternDiet	AGORA Western Diet	cpd00455	Arachidonic acid
+WesternDiet	AGORA Western Diet	cpd00306	Tetradecanoic acid (myristate)
+WesternDiet	AGORA Western Diet	cpd00654	Dodecanoic acid (laurate)
+WesternDiet	AGORA Western Diet	cpd00184	Octadecanoic acid (stearate)
+WesternDiet	AGORA Western Diet	cpd00609	Octanoic acid
+WesternDiet	AGORA Western Diet	cpd00207	Hexadecenoic acid
+WesternDiet	AGORA Western Diet	cpd00121	Cholesterol
+WesternDiet	AGORA Western Diet	cpd00100	Glycerol
+WesternDiet	AGORA Western Diet	cpd00305	Thiamine (B1)
+WesternDiet	AGORA Western Diet	cpd00220	Riboflavin (B2)
+WesternDiet	AGORA Western Diet	cpd00218	Nicotinic acid (B3)
+WesternDiet	AGORA Western Diet	cpd00104	Biotin (B7)
+WesternDiet	AGORA Western Diet	cpd00217	Pantothenate (B5)
+WesternDiet	AGORA Western Diet	cpd00198	Pyridoxine (B6)
+WesternDiet	AGORA Western Diet	cpd00201	Folate (B9)
+WesternDiet	AGORA Western Diet	cpd00423	Cobalamin (B12)
+WesternDiet	AGORA Western Diet	cpd01354	Adenosylcobalamin
+WesternDiet	AGORA Western Diet	cpd00001	H2O
+WesternDiet	AGORA Western Diet	cpd00067	H+
+WesternDiet	AGORA Western Diet	cpd00009	Phosphate
+WesternDiet	AGORA Western Diet	cpd00048	Sulfate
+WesternDiet	AGORA Western Diet	cpd00971	Na+
+WesternDiet	AGORA Western Diet	cpd00063	Ca2+
+WesternDiet	AGORA Western Diet	cpd00205	K+
+WesternDiet	AGORA Western Diet	cpd00099	Cl-
+WesternDiet	AGORA Western Diet	cpd00058	Cu2+
+WesternDiet	AGORA Western Diet	cpd10516	Fe2+
+WesternDiet	AGORA Western Diet	cpd10515	Fe3+
+WesternDiet	AGORA Western Diet	cpd00254	Mg2+
+WesternDiet	AGORA Western Diet	cpd00030	Mn2+
+WesternDiet	AGORA Western Diet	cpd00034	Zn2+
+WesternDiet	AGORA Western Diet	cpd00149	Co2+
+WesternDiet	AGORA Western Diet	cpd00055	Molybdate
+WesternDiet	AGORA Western Diet	cpd00750	Selenite
+WesternDiet	AGORA Western Diet	cpd00029	Acetate
+WesternDiet	AGORA Western Diet	cpd00047	Formate
+WesternDiet	AGORA Western Diet	cpd00106	Fumarate
+WesternDiet	AGORA Western Diet	cpd00137	Citrate
+WesternDiet	AGORA Western Diet	cpd00080	Glycerol-3-phosphate
+WesternDiet	AGORA Western Diet	cpd00239	Hydrogen sulfide
+WesternDiet	AGORA Western Diet	cpd11640	H2
+WesternDiet	AGORA Western Diet	cpd00146	Hypoxanthine
+WesternDiet	AGORA Western Diet	cpd00028	Adenine
+WesternDiet	AGORA Western Diet	cpd00092	Uracil
+WesternDiet	AGORA Western Diet	cpd00015	Adenosine
