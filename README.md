@@ -4,6 +4,8 @@
 
 快速代谢互作计算器 —— 基于 Rust 实现的高性能两两 pFBA 微生物互作分析工具。从基因组尺度代谢模型（GEM）批量计算交叉营养、竞争与互作类型。
 
+> **Associated study / 关联研究**: fast-mic was developed for the study *"Carbon quality governs probiotic cooperation across a prebiotic gradient"* — an exhaustive pairwise interaction screen of *Akkermansia* and *Lactobacillus*-group probiotics against gut (UHGG) and vaginal (VMGC) communities across a 10-level prebiotic gradient (L0–L9). / fast-mic 用于研究《碳源质量决定益生元梯度下的益生菌合作》：在 10 级益生元梯度下，对 *Akkermansia* 与 *Lactobacillus* 类益生菌与肠道（UHGG）、阴道（VMGC）菌群进行穷举式两两互作筛选。
+
 ---
 
 ## Highlights / 功能亮点
@@ -13,11 +15,11 @@
 - **Lexicographic max-min pairwise co-culture** — Rawlsian fairness (max-min growth ratio) followed by utilitarian total-biomass maximisation. Two LPs, unique optimum, no Pareto-front scan. / 两两共培养字典序最大最小优化：先公平，后效率，唯一最优。
 - **Massively parallel** — Rayon-driven per-pair parallelism, near-linear scaling to all cores. Monoculture pFBA cache delivers ~30-50 % speedup in cross-group mode. / Rayon 并行，近线性扩展，单培养 pFBA 缓存再加速 30-50 %。
 - **Dual medium support** — Named medium from TSV database (BiGG IDs, auto-translated to SEED via `--compounds-tsv`) or explicit CSV file (SEED IDs + per-compound `maxFlux`, for gapseq models). / 双重培养基支持。
-- **Validated against COBRApy** — `cargo test -- --ignored` enforces Pearson r ≥ 0.999, MAE ≤ 1e-3. Current cross-tool agreement on 1,000 UHGG models: r = 1.000, MAE = 5.1 × 10⁻⁷. / 与 COBRApy 在 1,000 个模型上对照验证：r = 1.000、MAE = 5.1 × 10⁻⁷。
-- **~149 × faster than COBRApy** on the same LP problem, single-threaded; up to ~215 models s⁻¹ at 12 threads. / 单线程比 COBRApy 快约 149 倍。
+- **Validated against COBRApy** — `cargo test -- --ignored` enforces Pearson r ≥ 0.999, MAE ≤ 1e-3. Current cross-tool agreement on 1,000 UHGG models: r = 1.000, MAE = 5.19 × 10⁻⁷. / 与 COBRApy 在 1,000 个模型上对照验证：r = 1.000、MAE = 5.19 × 10⁻⁷。
+- **~149 × faster than COBRApy** on the same LP problem, single-threaded (~27.7 vs 0.19 models s⁻¹); peaking around ~210 models s⁻¹ at 12 threads on the 1,000-model corpus. / 单线程比 COBRApy 快约 149 倍，12 线程峰值约 210 models/s。
 - **Multi-site analysis** — Cross-group mode (gut × vaginal × oral) with site-resolved figures. Candidate partner ranking, metabolite-flow Sankey. / 跨生境分析：肠道 × 阴道 × 口腔跨组配对，候选合作菌排名与代谢流 Sankey 图。
 - **Prebiotic gradient pipeline** — 10-level cumulative medium gradient (L0–L9) covering inulin, FOS, GOS, XOS, pectin, resistant starch, β-glucan, HMO, MOS. / 10 级益生元梯度培养基流水线。
-- **EIR / EcoGS integration** — Abundance-weighted Ecological Interaction Ratios from public WGS cohorts (curatedMetagenomicData). / 基于公开 WGS 队列的丰度加权生态互作比（EIR）计算。
+- **Interaction typing & metrics** — Per-pair relative benefit (β), competition intensity, cross-feeding score, gene-supported fraction, and six-class interaction typing (mutualism / competition / commensalism / parasitism / amensalism / neutral). / 逐对相对收益（β）、竞争强度、交叉营养得分、基因支持比例与六类互作分型。
 
 ---
 
@@ -298,76 +300,6 @@ bash scripts/run_gradient.sh \
 # Output: gradient_result/L{0-9}_*.tsv  +  L{0-9}_*.full.tsv
 ```
 
-**Aggregate across levels** / 汇总各级:
-
-```bash
-python3 scripts/analyze_gradient.py --results gradient_result
-# Output: gradient_result/summary/  (viability, interaction fractions, figures)
-```
-
-**Profile mutualism subpopulation** / 互利共生亚群画像:
-
-```bash
-python3 scripts/analyze_mutualism.py \
-  --level 8 \
-  --stability-levels 1,2,3,4,5,6,7,8,9 \
-  --exclude-low-confidence
-# Output: gradient_result/mutualism/  (species frequency, metabolites, stability)
-```
-
-### 2. Multi-site candidate analysis / 多生境候选菌分析
-
-Produces paper figures from gut, vaginal, and oral cross-group TSVs:
-
-```bash
-Rscript scripts/make_main_figures.R
-# Fig 1: interaction-type landscape (gut / vaginal / oral stacked bars)
-# Fig 2: metabolite-flow Sankey
-# Fig 3: per-site species candidate ranking + 2-D decision plot
-# Output: results/main_fig{1,2,3}_*.pdf + .png
-```
-
-### 3. EIR pipeline (EcoGS) / 生态互作比计算
-
-Abundance-weights fast-mic predictions with public WGS cohort abundance tables to compute 15 Ecological Interaction Ratios (Marinos *et al.* 2025, *Gut Microbes*).
-
-```bash
-# Install R dependencies once
-Rscript scripts/install_eir_deps.R
-
-# Run pipeline
-Rscript scripts/eir_pipeline.R \
-  --pairwise akk_vs_gut.tsv \
-  --uhgg-metadata test/UHGG_v2/genomes_metadata_with_gtdb.tsv \
-  --study YachidaS_2019,HMP_2012,RampelliS_2015 \
-  --outdir results/eir_demo/
-```
-
-Requires the `curatedMetagenomicData` Bioconductor package. Maps MetaPhlAn4 SGBs to UHGG genome IDs via GTDB taxonomy. Outputs EIR table, linear-model results (FDR-corrected), and 7 figures. See [`scripts/eir_pipeline_README.md`](scripts/eir_pipeline_README.md) for details.
-
-**Longitudinal demo** (time-resolved cohort):
-
-```bash
-Rscript scripts/eir_pipeline.R \
-  --pairwise akk_vs_gut.tsv \
-  --study DavidLA_2015 \
-  --outdir results/eir_time/
-```
-
-### 4. HPLC / GC validation hypotheses / 实验验证假说
-
-Extracts metabolite cross-feeding predictions for specific candidate pairs and ranks them by detectability and gene support:
-
-```bash
-python3 scripts/extract_hplc_hypotheses.py
-# Output: results/hplc_hypotheses.tsv
-#         results/hplc_hypotheses_summary.txt
-```
-
-Assigns each predicted exchange a detection method (HPLC organic-acid, HPLC amino-acid, GC, NMR) and a pilot priority (high / medium / low).
-
----
-
 ## Benchmarking / 基准测试
 
 A standalone binary `bench-single-fba` measures single-species FBA throughput across many models and supports thread-scaling benchmarks.
@@ -444,61 +376,18 @@ println!("growth = {}", result.objective_value);
 
 ---
 
-## Roadmap / 路线图
-
-### Metatranscriptomics integration / 宏转录组数据接口
-
-fast-mic predicts metabolic interactions at the **genome potential** level — all reactions are assumed to be expressed. Metatranscriptomics (meta-RNA-seq) data can refine these predictions by down-weighting or inactivating reactions whose encoding genes are not expressed in a specific condition.
-
-**Planned approach:**
-1. Accept a per-sample gene-expression table (e.g. TPM matrix from a meta-RNA-seq pipeline such as RPKM-normalised counts from SortMeRNA + HUMAnN3 or a custom read-mapping against the UHGG gene catalogue).
-2. Map transcript IDs to GEM reaction IDs via the `fbc:geneProductAssociation` trees already parsed by the SBML reader.
-3. Apply expression-based flux bounds: for reactions whose GPR evaluates to zero expression (all constituent genes below a user-defined TPM threshold), set the upper bound to zero in both the monoculture and co-culture LPs.
-4. Optionally scale upper bounds continuously by normalised expression (soft constraint mode) rather than binary on/off.
-
-**Relevant flag sketch:**
-```
---metatranscriptome <FILE>    TSV with columns: genome_id, gene_id, tpm
---expression-threshold <VAL>  Min TPM to consider a gene expressed (default 1.0)
---expression-mode binary|scale  Binary cutoff or continuous scaling (default binary)
-```
-
-This would allow condition-specific interaction predictions and is the natural complement to the EIR pipeline: compute EIRs stratified by expression state rather than only by species abundance.
-
-### Meta-Ribo-seq integration / Meta-Ribo-seq 数据接口
-
-Meta-Ribo-seq measures **ribosome-protected mRNA fragments** and is a more direct proxy for active translation than steady-state RNA-seq. The integration strategy mirrors the metatranscriptomics interface above but with important differences:
-
-- **Higher signal-to-noise**: ribosome footprints are less contaminated by stable non-coding RNAs and are better correlated with protein levels, making them a more reliable constraint for FBA.
-- **Translation efficiency**: Ribo-seq / RNA-seq read-density ratios (TE scores) can be used to weight bounds independently of absolute expression level.
-- **Codon-usage correction**: in bacteria, Ribo-seq density is confounded by codon-specific ribosome pausing; a GEM constraint should integrate over the entire CDS footprint rather than individual pausing peaks.
-- **Data availability**: currently sparse for gut microbiome communities; Ribo-seq processing pipelines (e.g. RiboTish, ORFik) need to be applied to each community metagenome reference.
-
-**Planned flag sketch:**
-```
---metariboseq <FILE>   TSV with columns: genome_id, gene_id, rpkm_ribo, rpkm_rna
---te-threshold <VAL>   Min translation efficiency (rpkm_ribo / rpkm_rna) (default 0.1)
-```
-
-Both interfaces would share the same GPR-to-reaction mapping layer and could be combined (RNA-seq for gene presence, Ribo-seq TE for flux magnitude).
-
-These features are tracked as future work; contributions and discussion are welcome.
-
----
-
 ## Citing / 引用
 
 If you use fast-mic in published work, please cite:
 
 - **Desouki *et al.* (2015)**, *CycleFreeFlux: efficient removal of thermodynamically infeasible loops from flux distributions*, BMC Bioinformatics **16**:283 — *cycle-removal algorithm.*
 - **Bertsimas, Farias & Trichakis (2011)**, *The Price of Fairness*, Operations Research **59**(1):17-31 — *lexicographic max-min co-culture formulation.*
-- **Marinos *et al.* (2025)**, *EcoGS: Ecological Interaction Ratios from genome-scale metabolic models*, Gut Microbes — *EIR / EcoGS framework.*
 
 ---
 
 ## License / 许可证
 
-MIT or Apache-2.0, at your option.
+MIT
 
 ## Issues & contributions / 问题反馈与贡献
 
