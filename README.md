@@ -1,2 +1,505 @@
 # fast-mic
-fast microbial interaction calculator
+
+**Fast Metabolic Interaction Calculator** — A high-performance Rust tool for pairwise pFBA-based microbial community analysis. Compute cross-feeding, competition, and interaction-type predictions from genome-scale metabolic models (GEMs) at scale.
+
+快速代谢互作计算器 —— 基于 Rust 实现的高性能两两 pFBA 微生物互作分析工具。从基因组尺度代谢模型（GEM）批量计算交叉营养、竞争与互作类型。
+
+---
+
+## Highlights / 功能亮点
+
+- **Pure Rust + HiGHS LP solver** — Single static binary, no Python / COBRApy runtime dependency. / 纯 Rust + HiGHS LP 求解器，单一静态二进制文件。
+- **Hyperparameter-free FBA pipeline** — FBA → CycleFreeFlux (Desouki *et al.* 2015) → parsimonious FBA in one LP. No empirical synergy caps, no flux-ratio thresholds. / 无超参数 FBA 流程，三步合一 LP，无经验性协同上限或通量比阈值。
+- **Lexicographic max-min pairwise co-culture** — Rawlsian fairness (max-min growth ratio) followed by utilitarian total-biomass maximisation. Two LPs, unique optimum, no Pareto-front scan. / 两两共培养字典序最大最小优化：先公平，后效率，唯一最优。
+- **Massively parallel** — Rayon-driven per-pair parallelism, near-linear scaling to all cores. Monoculture pFBA cache delivers ~30-50 % speedup in cross-group mode. / Rayon 并行，近线性扩展，单培养 pFBA 缓存再加速 30-50 %。
+- **Dual medium support** — Named medium from TSV database (BiGG IDs, auto-translated to SEED via `--compounds-tsv`) or explicit CSV file (SEED IDs + per-compound `maxFlux`, for gapseq models). / 双重培养基支持。
+- **Validated against COBRApy** — `cargo test -- --ignored` enforces Pearson r ≥ 0.999, MAE ≤ 1e-3. Current cross-tool agreement on 1,000 UHGG models: r = 1.000, MAE = 5.1 × 10⁻⁷. / 与 COBRApy 在 1,000 个模型上对照验证：r = 1.000、MAE = 5.1 × 10⁻⁷。
+- **~149 × faster than COBRApy** on the same LP problem, single-threaded; up to ~215 models s⁻¹ at 12 threads. / 单线程比 COBRApy 快约 149 倍。
+- **Multi-site analysis** — Cross-group mode (gut × vaginal × oral) with site-resolved figures. Candidate partner ranking, metabolite-flow Sankey. / 跨生境分析：肠道 × 阴道 × 口腔跨组配对，候选合作菌排名与代谢流 Sankey 图。
+- **Prebiotic gradient pipeline** — 10-level cumulative medium gradient (L0–L9) covering inulin, FOS, GOS, XOS, pectin, resistant starch, β-glucan, HMO, MOS. / 10 级益生元梯度培养基流水线。
+- **EIR / EcoGS integration** — Abundance-weighted Ecological Interaction Ratios from public WGS cohorts (curatedMetagenomicData). / 基于公开 WGS 队列的丰度加权生态互作比（EIR）计算。
+
+---
+
+## Installation / 安装
+
+```bash
+git clone https://github.com/your-org/fast-mic.git
+cd fast-mic
+cargo build --release
+# Binary: ./target/release/fast-mic
+```
+
+Requires Rust ≥ 1.75 and a C compiler for the bundled HiGHS solver. / 需要 Rust ≥ 1.75 与 C 编译器（用于内置 HiGHS）。
+
+---
+
+## Quick start / 快速开始
+
+```bash
+# All-vs-all pairwise within one model set / 单组模型两两互作
+fast-mic \
+  --medium-name WesternDiet \
+  --media-db media/media_db.tsv \
+  --compounds-tsv media/compounds.tsv \
+  -o pairwise.tsv \
+  models/*.xml
+
+# Cross-group: each Akkermansia × each gut commensal
+# 跨组：每个 Akkermansia 模型 × 每个肠道共生菌
+fast-mic \
+  --group1 akk_strains/ \
+  --group2 commensals/ \
+  --medium-file media/western_diet_mucin_gapseq.csv \
+  -o akk_vs_gut.tsv --full-tsv akk_vs_gut_full.tsv \
+  --target-reaction EX_ppa_e,EX_ac_e,EX_but_e \
+  --threads 0
+```
+
+---
+
+## Command-line reference / 命令行参考
+
+### Input / 输入
+
+| Flag | Description / 说明 |
+|---|---|
+| `<files>...` | Positional SBML model paths; forms all-vs-all pairs. / 位置参数 SBML 模型路径，自动两两配对。 |
+| `--group1 <DIR>` | Directory of `.xml`/`.sbml` files (group 1). / 第一组模型目录。 |
+| `--group2 <DIR>` | Directory of `.xml`/`.sbml` files (group 2). Computes cross-group pairs with `--group1`. / 第二组目录，与 `--group1` 配合跨组配对。 |
+| `--medium-name <NAME>` | Named medium from `--media-db`. Mutually exclusive with `--medium-file`. / 命名培养基。 |
+| `--medium-file <FILE>` | CSV medium file with SEED compound IDs and per-compound `maxFlux`. For gapseq models. / SEED 格式 CSV 培养基，适用于 gapseq 模型。 |
+| `--media-db <FILE>` | Medium definition TSV (`medium`, `description`, `compound`, `name`). Default: `media_db.tsv`. / 培养基定义 TSV。 |
+| `--compounds-tsv <FILE>` | ModelSEED `compounds.tsv` for BiGG→SEED translation. Default: `compounds.tsv`. / 用于 BiGG→SEED ID 转换。 |
+| `--pair-filter <FILE>` | 2-column TSV restricting which `(species_a, species_b)` pairs to compute. / 限制计算范围的 TSV。 |
+
+### Output / 输出
+
+| Flag | Description / 说明 |
+|---|---|
+| `-o, --output <FILE>` | Compact pairwise TSV. Default: `output.tsv`. / 紧凑两两互作 TSV。 |
+| `--full-tsv <FILE>` | Verbose TSV with per-metabolite cross-feeding details and gene attributions. / 详细 TSV，含逐代谢物交叉营养与基因归因。 |
+| `--json <FILE>` | JSON dump of all pairwise results. / 所有配对结果的 JSON 输出。 |
+| `-v, --verbose` | Per-pair details to stderr. / 在 stderr 输出逐对详情。 |
+| `--summary` | Suppress per-pair output; print final summary only. / 仅输出最终汇总。 |
+
+### Medium uptake limits / 培养基摄取限制
+
+| Flag | Default | Description / 说明 |
+|---|---|---|
+| `--medium-uptake-limit` | 10.0 | Max uptake rate (mmol/gDW/h) for carbon-source compounds. / 碳源最大摄取速率。 |
+
+Tiered limits for amino acids (1.0), nucleobases/nucleosides (0.5), and cofactors (0.1) are applied automatically based on compound classification. / 氨基酸、核碱基/核苷、辅因子的分级限制自动应用。
+
+### Target-reaction tracking / 目标反应追踪
+
+| Flag | Description / 说明 |
+|---|---|
+| `--target-reaction R1,R2,...` | Track flux of one or more reactions (e.g. `EX_ac_e,EX_ppa_e,EX_but_e` for SCFAs). Outputs five columns per reaction: `alone_a`, `alone_b`, `co_total`, `co_a`, `co_b`. / 追踪反应的通量，每个反应输出五列。 |
+
+### LP tolerances / LP 数值公差
+
+| Flag | Default | Description / 说明 |
+|---|---|---|
+| `--lock-tol` | 1e-5 | Tolerance for pinning fluxes in CFF/pFBA lock constraints (`v ∈ [v* ± tol]`). 100 × HiGHS feasibility tolerance. Drop to 1e-7 only for exact single-species reproduction. / CFF/pFBA 锁约束公差。 |
+
+### Performance / 性能
+
+| Flag | Default | Description / 说明 |
+|---|---|---|
+| `--threads N` | 0 | Worker threads. 0 = all cores; 1 = serial. / 工作线程数。 |
+| `--cache-monoculture` | true | Pre-compute monoculture pFBA per model and reuse across pairs (~30-50 % speedup). / 单培养 pFBA 缓存。 |
+
+---
+
+## Output schemas / 输出格式
+
+### Compact TSV (`-o`)
+
+Each row is one species pair. / 每行为一个物种配对。
+
+| Column | Description / 说明 |
+|---|---|
+| `species_a`, `species_b` | Model IDs. / 模型 ID。 |
+| `growth_a_alone`, `growth_b_alone` | Monoculture growth rates (h⁻¹). / 单培养生长速率。 |
+| `growth_a_co`, `growth_b_co` | Co-culture growth rates. / 共培养生长速率。 |
+| `benefit_a`, `benefit_b` | `(growth_co − growth_alone) / growth_alone`. / 相对收益。 |
+| `interaction_type` | `mutualism`, `commensalism`, `parasitism`, `competition`, `amensalism`, or `neutral`. / 互作类型。 |
+| `gene_supported_fraction` | Fraction of cross-feeding flux attributable to annotated genes. / 有基因注释支持的比例。 |
+| `n_exchanged_metabolites` | Number of metabolites exchanged in either direction. / 交换代谢物数量。 |
+| `competition_intensity` | Σ min(uptake_a, uptake_b) over shared resources. / 共享资源竞争强度。 |
+| `{rxn}__alone_a/b`, `{rxn}__co_total/a/b` | Per-reaction flux columns for each `--target-reaction`. / 每个目标反应的通量列。 |
+
+### Full TSV (`--full-tsv`)
+
+Adds per-metabolite cross-feeding columns: `a_to_b_metabolites`, `a_to_b_fluxes`, `a_to_b_donor_genes`, `a_to_b_receiver_genes`, mirror columns for B→A, `a_to_b_inferred` (hypothesis-grade entries), `a_to_b_low_confidence`, and competed-resource columns. Lists are `;`-separated.
+
+在紧凑 TSV 基础上增加逐代谢物交叉营养列：代谢物 ID、通量、供体/受体基因、推断标记、低置信度标记、以及竞争资源列。列表以 `;` 分隔。
+
+---
+
+## Algorithm / 算法
+
+### Single-species: FBA → CycleFreeFlux + pFBA
+
+After standard FBA (max biomass), a single LP achieves cycle removal **and** parsimony simultaneously:
+
+```
+min  Σ |v_i|        over non-exchange, non-biomass reactions
+s.t. S v = 0
+     v_exch_j ∈ [v*_exch_j ± ε]    (preserve FBA exchange profile)
+     0 ≤ v_biomass ≤ v*_biomass
+     lb_i ≤ v_i ≤ ub_i
+```
+
+Fixing exchange fluxes eliminates Type-III internal cycles (they carry net-zero exchange flux). Minimising Σ|v| drives every closed loop to zero.
+
+**Reference**: Desouki *et al.* (2015), *CycleFreeFlux*, BMC Bioinformatics **16**:283.
+
+### Pairwise co-culture: lexicographic max-min
+
+Two species' models are merged into a synthetic joint model sharing a common extracellular pool, with species-specific exchanges replaced by community-level `EX_*` reactions. Joint growth is optimised under a two-phase LP:
+
+**LP1 — Rawlsian fairness**:
+```
+max z   s.t.  g_A ≥ z · g_A^alone
+              g_B ≥ z · g_B^alone,  S v = 0, bounds
+```
+
+**LP2 — Utilitarian productivity within the fair set**:
+```
+max g_A + g_B   s.t.  g_A ≥ (z* − τ) · g_A^alone
+                      g_B ≥ (z* − τ) · g_B^alone,  S v = 0, bounds
+```
+
+A co-culture CycleFreeFlux pass then removes inter-species cycles.
+
+**Reference**: Bertsimas *et al.* (2011), *The Price of Fairness*, Operations Research **59**(1):17-31.
+
+### Design principles / 设计原则
+
+Three scalar constants control the entire FBA pipeline; one is user-configurable.
+
+| Constant | Default | Role / 作用 |
+|---|---|---|
+| `MIN_VIABLE_GROWTH` | 1×10⁻⁴ h⁻¹ | Biological viability floor (~4 doublings/day). / 生物可行性下限。 |
+| `NUMERICAL_TOL` | 1×10⁻⁶ | LP comparison tolerance (10 × HiGHS default primal tolerance). / LP 比较公差。 |
+| `LOCK_TOL` (`--lock-tol`) | 1×10⁻⁵ | CFF/pFBA lock-constraint tolerance. Configurable. / CFF/pFBA 锁约束公差，可配置。 |
+
+No empirical synergy caps, flux-ratio thresholds, metabolite blacklists, or Pareto-front scans. / 无经验性协同上限、通量比阈值、代谢物黑名单或 Pareto 前沿扫描。
+
+---
+
+## Supported SBML features / 支持的 SBML 特性
+
+The parser is a hand-written two-pass `quick-xml` reader. It handles the common GEM dialects (BiGG, AGORA, CarveMe, gapseq) but does **not** implement the full SBML L3 spec.
+
+**Supported / 支持:**
+- SBML L3 core: `<model>`, `<listOfSpecies>`, `<listOfReactions>`, `<listOfCompartments>`, `<listOfParameters>`
+- Species attributes: `id`, `name`, `compartment`, `boundaryCondition`, `fbc:chemicalFormula`
+- Reaction attributes: `id`, `name`, `reversible`, `fbc:lowerFluxBound`, `fbc:upperFluxBound`
+- FBC v2: `<fbc:listOfObjectives>`, `<fbc:objective>`, `<fbc:fluxObjective>`, `<fbc:listOfGeneProducts>`, `<fbc:geneProductAssociation>` with `<fbc:and>`/`<fbc:or>` trees
+- Namespace-prefixed attribute names via local-name matching
+
+**NOT supported / 不支持** (silently ignored or fallback to defaults):
+- `<initialAssignment>` — bounds set via initial assignment not picked up
+- `<listOfRules>` — assignment / rate rules ignored
+- `<listOfEvents>` — kinetic events ignored
+- FBC v1 (deprecated upstream)
+
+If your model uses unsupported features, convert it to plain FBC v2 first (e.g. `cobrapy.io.write_sbml_model`).
+
+---
+
+## Media database format / 培养基数据库格式
+
+`media_db.tsv` — tab-separated TSV with four columns: `medium`, `description`, `compound`, `name`.
+
+```
+medium        description          compound    name
+WesternDiet   AGORA Western Diet   glc__D      D-Glucose
+WesternDiet   AGORA Western Diet   ala__L      L-Alanine
+WesternDiet   AGORA Western Diet   cpd00027    D-Glucose (SEED)
+LB            Lysogeny broth       ala__L      L-Alanine
+```
+
+BiGG (`glc__D`) and ModelSEED (`cpd00027`) IDs are both accepted. With `--medium-name`, fast-mic translates BiGG → SEED via `--compounds-tsv` (ModelSEED `compounds.tsv`) so AGORA-style and gapseq-style models are both matched.
+
+### CSV medium file / CSV 培养基文件
+
+For gapseq models, use `--medium-file` with CSV format:
+
+```
+compounds,name,maxFlux
+cpd00027,D-Glucose,10.0
+cpd00035,L-Alanine,1.0
+cpd00009,Phosphate,1000.0
+```
+
+### Tiered uptake limits / 分级摄取限制
+
+Compound class is auto-detected from compound ID.
+
+| Class | Default rate | Examples |
+|---|---|---|
+| Carbon sources | `--medium-uptake-limit` (10.0 mmol/gDW/h) | Sugars, organic acids |
+| Amino acids | 1.0 mmol/gDW/h | Standard 20 + D-forms + ornithine |
+| Nucleobases / nucleosides | 0.5 mmol/gDW/h | Adenine, uracil, adenosine |
+| Cofactors / vitamins | 0.1 mmol/gDW/h | Folate, B12, riboflavin |
+| Inorganic ions | Unlimited (−1000) | Na⁺, K⁺, Fe²⁺, PO₄³⁻ |
+
+---
+
+## Examples / 示例
+
+### Pairwise + SCFA tracking / 两两配对 + 短链脂肪酸追踪
+
+```bash
+fast-mic \
+  --group1 producers/ --group2 consumers/ \
+  --medium-name WesternDiet \
+  --media-db media/media_db.tsv \
+  --compounds-tsv media/compounds.tsv \
+  --target-reaction EX_ac_e,EX_ppa_e,EX_but_e \
+  -o scfa.tsv --full-tsv scfa_full.tsv \
+  --threads 0
+```
+
+---
+
+## Downstream analysis / 下游分析流水线
+
+fast-mic produces TSV outputs that feed a set of post-processing scripts in `scripts/`. All scripts run from the repository root.
+
+### 1. Prebiotic gradient / 益生元梯度分析
+
+`media/` contains 10 gapseq medium CSV files (`gradient_L0_base_gapseq.csv` through `gradient_L9_mos_gapseq.csv`) spanning a cumulative prebiotic gradient. Each level adds one prebiotic's hydrolysis products on top of the mucin-containing base (design: Akkermansia viable at all levels).
+
+| Level | Prebiotic | New compounds |
+|---|---|---|
+| L0 | Base (mucin) | — |
+| L1 | Inulin | D-Fructose, Sucrose |
+| L2 | FOS | Inulobiose |
+| L3 | GOS | Lactulose, Lactose, D-Galactose |
+| L4 | XOS / Arabinoxylan | D-Xylose, L-Arabinose |
+| L5 | Pectin | Galacturonate, L-Rhamnose |
+| L6 | Resistant starch | D-Glucose, Maltose, Maltodextrin |
+| L7 | β-glucan | Cellobiose |
+| L8 | HMO | Lacto-N-biose |
+| L9 | MOS | D-Mannose, Mannobiose |
+
+**Run gradient** / 运行梯度分析:
+
+```bash
+bash scripts/run_gradient.sh \
+     --group1 test/akk/akk_gapseq_xml \
+     --group2 test/UHGG_v2/final_bacteria_gapseq_xml \
+     --threads 12 --full-tsv
+# Output: gradient_result/L{0-9}_*.tsv  +  L{0-9}_*.full.tsv
+```
+
+**Aggregate across levels** / 汇总各级:
+
+```bash
+python3 scripts/analyze_gradient.py --results gradient_result
+# Output: gradient_result/summary/  (viability, interaction fractions, figures)
+```
+
+**Profile mutualism subpopulation** / 互利共生亚群画像:
+
+```bash
+python3 scripts/analyze_mutualism.py \
+  --level 8 \
+  --stability-levels 1,2,3,4,5,6,7,8,9 \
+  --exclude-low-confidence
+# Output: gradient_result/mutualism/  (species frequency, metabolites, stability)
+```
+
+### 2. Multi-site candidate analysis / 多生境候选菌分析
+
+Produces paper figures from gut, vaginal, and oral cross-group TSVs:
+
+```bash
+Rscript scripts/make_main_figures.R
+# Fig 1: interaction-type landscape (gut / vaginal / oral stacked bars)
+# Fig 2: metabolite-flow Sankey
+# Fig 3: per-site species candidate ranking + 2-D decision plot
+# Output: results/main_fig{1,2,3}_*.pdf + .png
+```
+
+### 3. EIR pipeline (EcoGS) / 生态互作比计算
+
+Abundance-weights fast-mic predictions with public WGS cohort abundance tables to compute 15 Ecological Interaction Ratios (Marinos *et al.* 2025, *Gut Microbes*).
+
+```bash
+# Install R dependencies once
+Rscript scripts/install_eir_deps.R
+
+# Run pipeline
+Rscript scripts/eir_pipeline.R \
+  --pairwise akk_vs_gut.tsv \
+  --uhgg-metadata test/UHGG_v2/genomes_metadata_with_gtdb.tsv \
+  --study YachidaS_2019,HMP_2012,RampelliS_2015 \
+  --outdir results/eir_demo/
+```
+
+Requires the `curatedMetagenomicData` Bioconductor package. Maps MetaPhlAn4 SGBs to UHGG genome IDs via GTDB taxonomy. Outputs EIR table, linear-model results (FDR-corrected), and 7 figures. See [`scripts/eir_pipeline_README.md`](scripts/eir_pipeline_README.md) for details.
+
+**Longitudinal demo** (time-resolved cohort):
+
+```bash
+Rscript scripts/eir_pipeline.R \
+  --pairwise akk_vs_gut.tsv \
+  --study DavidLA_2015 \
+  --outdir results/eir_time/
+```
+
+### 4. HPLC / GC validation hypotheses / 实验验证假说
+
+Extracts metabolite cross-feeding predictions for specific candidate pairs and ranks them by detectability and gene support:
+
+```bash
+python3 scripts/extract_hplc_hypotheses.py
+# Output: results/hplc_hypotheses.tsv
+#         results/hplc_hypotheses_summary.txt
+```
+
+Assigns each predicted exchange a detection method (HPLC organic-acid, HPLC amino-acid, GC, NMR) and a pilot priority (high / medium / low).
+
+---
+
+## Benchmarking / 基准测试
+
+A standalone binary `bench-single-fba` measures single-species FBA throughput across many models and supports thread-scaling benchmarks.
+
+```bash
+bench-single-fba media/media_db.tsv WesternDiet \
+  --model-list models.txt \
+  --threads 0 \
+  > bench_results.tsv
+```
+
+Output columns: `model_id`, `n_metabolites`, `n_reactions`, `n_genes`, `biomass_rxn`, `growth_rate`, `load_time_s`, `fba_time_s`.
+
+### Reference validation against COBRApy / 与 COBRApy 对照验证
+
+fast-mic ships an end-to-end correctness pipeline: `benchmark/run_thread_scaling.sh` runs both fast-mic and COBRApy (HiGHS backend) on the same model corpus and produces `benchmark_results/correctness/stats.tsv` with Pearson r, R², and MAE. A `cargo` test parses that file and asserts thresholds.
+
+```bash
+# 1. Regenerate the comparison TSVs (~hours on 1000 models; requires Python + cobrapy + highspy + osqp)
+bash benchmark/run_thread_scaling.sh
+
+# 2. Assert the contract: Pearson r ≥ 0.999, R² ≥ 0.998, MAE ≤ 1e-3
+cargo test --test reference_validation -- --ignored
+```
+
+**Current status:** 1,000-model UHGG corpus, Pearson r = 1.000, MAE = 5.1 × 10⁻⁷. Run this gate before tagging a release or merging changes that touch the LP path (`cobra.rs`, `medium.rs`, `sbml.rs`).
+
+---
+
+## Testing / 测试
+
+```bash
+# Default unit + integration tests (fast)
+cargo test
+
+# Reference validation (requires stats.tsv produced by benchmark above)
+cargo test --test reference_validation -- --ignored
+
+# Lint and format
+cargo clippy -- -D warnings
+cargo fmt -- --check
+```
+
+Test coverage:
+
+| Module | Tests | Covers |
+|---|---|---|
+| `cobra` | 22 | Exchange detection, compartment inference, biomass finder, merged-model construction, interaction classification, NaN-safe sorts |
+| `medium` | 4 | Cofactor pre-opened uptake preservation; non-cofactor closed; cofactor in medium uses tier bound; cofactor not pre-opened stays closed |
+| Integration (`tests/`) | 1 (ignored) | COBRApy reference-agreement thresholds |
+
+---
+
+## Library API / 库 API
+
+`fast-mic` is also usable as a Rust library.
+
+```rust
+use fast_mic::{cobra, medium, sbml};
+
+let model = sbml::parse_sbml("model.xml")?;
+let medium_set = medium::expand_medium_compounds(&base_compounds);
+let params = cobra::AnalysisParams::default();
+let result = cobra::run_fba(&model, &medium_set, &params)?;
+println!("growth = {}", result.objective_value);
+```
+
+| Module | Purpose |
+|---|---|
+| `model` | Core types: `MetabolicModel`, `Reaction`, `Metabolite` (with optional `formula`), `PairwiseResult`, `InteractionType`. Also exports the unified `KNOWN_EXTERNAL_COMPARTMENTS`, `EXCHANGE_EXCLUDES`, `is_canonical_exchange`, `is_extracellular_compartment`. |
+| `sbml` | SBML parsing (FBC v2). Two-pass, single read. Extracts `fbc:chemicalFormula`. |
+| `medium` | Compound matching, exchange-reaction detection (COBRApy-style), tiered uptake bounds, cofactor pre-opened preservation, BiGG → SEED translation. |
+| `cobra` | FBA, CycleFreeFlux + pFBA (`run_fba`, `run_fba_locked`), pairwise co-culture lex max-min, cross-feeding analysis. `AnalysisParams::lock_tol` configurable. |
+
+---
+
+## Roadmap / 路线图
+
+### Metatranscriptomics integration / 宏转录组数据接口
+
+fast-mic predicts metabolic interactions at the **genome potential** level — all reactions are assumed to be expressed. Metatranscriptomics (meta-RNA-seq) data can refine these predictions by down-weighting or inactivating reactions whose encoding genes are not expressed in a specific condition.
+
+**Planned approach:**
+1. Accept a per-sample gene-expression table (e.g. TPM matrix from a meta-RNA-seq pipeline such as RPKM-normalised counts from SortMeRNA + HUMAnN3 or a custom read-mapping against the UHGG gene catalogue).
+2. Map transcript IDs to GEM reaction IDs via the `fbc:geneProductAssociation` trees already parsed by the SBML reader.
+3. Apply expression-based flux bounds: for reactions whose GPR evaluates to zero expression (all constituent genes below a user-defined TPM threshold), set the upper bound to zero in both the monoculture and co-culture LPs.
+4. Optionally scale upper bounds continuously by normalised expression (soft constraint mode) rather than binary on/off.
+
+**Relevant flag sketch:**
+```
+--metatranscriptome <FILE>    TSV with columns: genome_id, gene_id, tpm
+--expression-threshold <VAL>  Min TPM to consider a gene expressed (default 1.0)
+--expression-mode binary|scale  Binary cutoff or continuous scaling (default binary)
+```
+
+This would allow condition-specific interaction predictions and is the natural complement to the EIR pipeline: compute EIRs stratified by expression state rather than only by species abundance.
+
+### Meta-Ribo-seq integration / Meta-Ribo-seq 数据接口
+
+Meta-Ribo-seq measures **ribosome-protected mRNA fragments** and is a more direct proxy for active translation than steady-state RNA-seq. The integration strategy mirrors the metatranscriptomics interface above but with important differences:
+
+- **Higher signal-to-noise**: ribosome footprints are less contaminated by stable non-coding RNAs and are better correlated with protein levels, making them a more reliable constraint for FBA.
+- **Translation efficiency**: Ribo-seq / RNA-seq read-density ratios (TE scores) can be used to weight bounds independently of absolute expression level.
+- **Codon-usage correction**: in bacteria, Ribo-seq density is confounded by codon-specific ribosome pausing; a GEM constraint should integrate over the entire CDS footprint rather than individual pausing peaks.
+- **Data availability**: currently sparse for gut microbiome communities; Ribo-seq processing pipelines (e.g. RiboTish, ORFik) need to be applied to each community metagenome reference.
+
+**Planned flag sketch:**
+```
+--metariboseq <FILE>   TSV with columns: genome_id, gene_id, rpkm_ribo, rpkm_rna
+--te-threshold <VAL>   Min translation efficiency (rpkm_ribo / rpkm_rna) (default 0.1)
+```
+
+Both interfaces would share the same GPR-to-reaction mapping layer and could be combined (RNA-seq for gene presence, Ribo-seq TE for flux magnitude).
+
+These features are tracked as future work; contributions and discussion are welcome.
+
+---
+
+## Citing / 引用
+
+If you use fast-mic in published work, please cite:
+
+- **Desouki *et al.* (2015)**, *CycleFreeFlux: efficient removal of thermodynamically infeasible loops from flux distributions*, BMC Bioinformatics **16**:283 — *cycle-removal algorithm.*
+- **Bertsimas, Farias & Trichakis (2011)**, *The Price of Fairness*, Operations Research **59**(1):17-31 — *lexicographic max-min co-culture formulation.*
+- **Marinos *et al.* (2025)**, *EcoGS: Ecological Interaction Ratios from genome-scale metabolic models*, Gut Microbes — *EIR / EcoGS framework.*
+
+---
+
+## License / 许可证
+
+MIT or Apache-2.0, at your option.
+
+## Issues & contributions / 问题反馈与贡献
+
+Bug reports and PRs welcome at the project repository.
