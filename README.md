@@ -4,8 +4,6 @@
 
 快速代谢互作计算器 —— 基于 Rust 实现的高性能两两 pFBA 微生物互作分析工具。从基因组尺度代谢模型（GEM）批量计算交叉营养、竞争与互作类型。
 
-> **Associated study / 关联研究**: fast-mic was developed for the study *"Carbon quality governs probiotic cooperation across a prebiotic gradient"* — an exhaustive pairwise interaction screen of *Akkermansia* and *Lactobacillus*-group probiotics against gut (UHGG) and vaginal (VMGC) communities across a 10-level prebiotic gradient (L0–L9). / fast-mic 用于研究《碳源质量决定益生元梯度下的益生菌合作》：在 10 级益生元梯度下，对 *Akkermansia* 与 *Lactobacillus* 类益生菌与肠道（UHGG）、阴道（VMGC）菌群进行穷举式两两互作筛选。
-
 ---
 
 ## Highlights / 功能亮点
