@@ -1,0 +1,29 @@
+[package]
+name = "fast-mic"
+version = "1.0.0"
+edition = "2021"
+
+[[bin]]
+name = "fast-mic"
+path = "src/main.rs"
+
+[[bin]]
+name = "bench-single-fba"
+path = "src/bin/bench_single_fba.rs"
+
+[dependencies]
+anyhow = "1"
+clap = { version = "4", features = ["derive"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+quick-xml = "0.31"
+indicatif = "0.17"
+libc = "0.2"
+rayon = "1.10"
+
+# good_lp is required (cobra is the core algorithm).
+# Pick ONE solver feature that matches your system:
+#   "highs"    — self-contained, no system libs needed
+#   "coin_cbc" — needs CBC installed (brew install cbc)
+#   "lp-solvers" — uses external solver binaries
+good_lp = { version = "1.8", default-features = false, features = ["highs"] }
