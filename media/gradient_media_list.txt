@@ -1,0 +1,10 @@
+/Users/jingyi/fast-mic/media/gradient_L0_base_gapseq.csv
+/Users/jingyi/fast-mic/media/gradient_L1_inulin_gapseq.csv
+/Users/jingyi/fast-mic/media/gradient_L2_fos_gapseq.csv
+/Users/jingyi/fast-mic/media/gradient_L3_gos_gapseq.csv
+/Users/jingyi/fast-mic/media/gradient_L4_xos_gapseq.csv
+/Users/jingyi/fast-mic/media/gradient_L5_pectin_gapseq.csv
+/Users/jingyi/fast-mic/media/gradient_L6_resistant_starch_gapseq.csv
+/Users/jingyi/fast-mic/media/gradient_L7_bglucan_gapseq.csv
+/Users/jingyi/fast-mic/media/gradient_L8_hmo_gapseq.csv
+/Users/jingyi/fast-mic/media/gradient_L9_mos_gapseq.csv
