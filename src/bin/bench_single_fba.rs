@@ -113,6 +113,8 @@ struct Args {
     model_paths: Vec<String>,
     threads: usize,      // --threads N (0 = rayon default = all cores; 1 = serial)
     medium_file: Option<String>,   // --medium-file CSV (gapseq SEED-format)
+    media_list: Option<String>,    // --media-list FILE (one medium CSV path per line);
+                                   // each model is loaded once and evaluated under EVERY medium
     compounds_tsv: Option<String>, // --compounds-tsv (ModelSEED BiGG↔SEED aliases)
     medium_uptake_limit: f64,      // --medium-uptake-limit (carbon-source cap, mmol/gDW/h)
 }
@@ -125,6 +127,7 @@ fn parse_args() -> Result<Args> {
     let mut model_list_path: Option<String> = None;
     let mut threads: usize = 0;
     let mut medium_file: Option<String> = None;
+    let mut media_list: Option<String> = None;
     let mut compounds_tsv: Option<String> = None;
     let mut medium_uptake_limit: f64 = 10.0; // matches fast-mic main binary default
 
@@ -147,6 +150,12 @@ fn parse_args() -> Result<Args> {
                 i += 1;
                 medium_file = Some(raw.get(i)
                     .ok_or_else(|| anyhow::anyhow!("--medium-file needs a CSV path"))?
+                    .clone());
+            }
+            "--media-list" => {
+                i += 1;
+                media_list = Some(raw.get(i)
+                    .ok_or_else(|| anyhow::anyhow!("--media-list needs a file path"))?
                     .clone());
             }
             "--compounds-tsv" => {
@@ -173,7 +182,7 @@ fn parse_args() -> Result<Args> {
 
     // When --medium-file is given, positional <media_db> <medium_name> are
     // optional (the CSV alone defines the medium). Otherwise they are required.
-    let need_positional = if medium_file.is_some() { 0 } else { 2 };
+    let need_positional = if medium_file.is_some() || media_list.is_some() { 0 } else { 2 };
     if positional.len() < need_positional {
         eprintln!("Usage: bench-single-fba <media_db.tsv> <medium_name> <model1.xml> [model2.xml ...]");
         eprintln!("       bench-single-fba <media_db.tsv> <medium_name> --model-list <file.txt>");
@@ -226,6 +235,7 @@ fn parse_args() -> Result<Args> {
         model_paths,
         threads,
         medium_file,
+        media_list,
         compounds_tsv,
         medium_uptake_limit,
     })
@@ -248,81 +258,78 @@ fn main() -> Result<()> {
     // For (B), an optional --compounds-tsv can be supplied to translate BiGG
     // names to ModelSEED cpd IDs, so the same media_db.tsv works on both
     // BiGG (CarveMe/AGORA) and SEED (gapseq) models.
-    let (medium_label, base_compounds, per_compound_bounds): (
-        String,
-        std::collections::HashSet<String>,
-        Option<std::collections::HashMap<String, f64>>,
-    ) = if let Some(ref csv_path) = args.medium_file {
+    // Each model is evaluated under EVERY medium in `media` (loaded once, looped
+    // over media inner). For a single medium this is a length-1 list, identical
+    // to the original behaviour. `--media-list FILE` (one medium CSV per line)
+    // gives the multi-medium (e.g. L0-L9 prebiotic-gradient) workload.
+    type MediumSpec = (
+        String,                                          // label
+        std::collections::HashSet<String>,               // base compounds
+        std::collections::HashSet<String>,               // expanded medium set
+        Option<std::collections::HashMap<String, f64>>,  // per-compound bounds
+    );
+
+    let resolve_csv = |csv_path: &str| -> Result<MediumSpec> {
         let (compounds, per_bounds) = medium::parse_medium_csv(csv_path)?;
         let label = std::path::Path::new(csv_path)
-            .file_stem()
-            .and_then(|s| s.to_str())
-            .unwrap_or("medium-file")
-            .to_string();
-        (label, compounds, Some(per_bounds))
+            .file_stem().and_then(|s| s.to_str()).unwrap_or("medium-file").to_string();
+        let expanded = medium::expand_medium_compounds(&compounds);
+        Ok((label, compounds, expanded, Some(per_bounds)))
+    };
+
+    let media: Vec<MediumSpec> = if let Some(ref list_path) = args.media_list {
+        let content = std::fs::read_to_string(list_path)
+            .map_err(|e| anyhow::anyhow!("Cannot read media-list '{}': {}", list_path, e))?;
+        let paths: Vec<String> = content.lines().map(|l| l.trim().to_string())
+            .filter(|l| !l.is_empty() && !l.starts_with('#')).collect();
+        if paths.is_empty() { anyhow::bail!("media-list '{}' is empty", list_path); }
+        paths.iter().map(|p| resolve_csv(p)).collect::<Result<Vec<_>>>()?
+    } else if let Some(ref csv_path) = args.medium_file {
+        vec![resolve_csv(csv_path)?]
     } else {
         let media_db = parse_media_db(&args.media_db)?;
-        let (desc, base_compounds) = media_db
-            .get(&args.medium_name)
-            .ok_or_else(|| {
-                let available: Vec<_> = media_db.keys().collect();
-                anyhow::anyhow!(
-                    "Medium '{}' not found in '{}'. Available: {:?}",
-                    args.medium_name,
-                    args.media_db,
-                    available
-                )
-            })?;
-
-        // Optionally augment with BiGG→SEED aliases so SEED-format models
-        // (e.g. gapseq) recognise BiGG-named medium entries.
+        let (desc, base_compounds) = media_db.get(&args.medium_name).ok_or_else(|| {
+            let available: Vec<_> = media_db.keys().collect();
+            anyhow::anyhow!("Medium '{}' not found in '{}'. Available: {:?}",
+                args.medium_name, args.media_db, available)
+        })?;
         let mut compounds = base_compounds.clone();
         if let Some(ref tsv) = args.compounds_tsv {
             let map = medium::load_bigg_to_seed(tsv);
-            let mut added = 0usize;
             for c in base_compounds.iter() {
                 let stripped = c.strip_prefix("M_").unwrap_or(c);
-                let root = stripped
-                    .strip_suffix("_e0").or_else(|| stripped.strip_suffix("_e"))
+                let root = stripped.strip_suffix("_e0").or_else(|| stripped.strip_suffix("_e"))
                     .unwrap_or(stripped);
                 if let Some(seeds) = map.get(root) {
                     for s in seeds {
-                        if compounds.insert(format!("{}_e0", s)) { added += 1; }
+                        compounds.insert(format!("{}_e0", s));
                         compounds.insert(format!("{}_e", s));
                         compounds.insert(s.clone());
                     }
                 }
             }
-            eprintln!("  Compounds DB: {} → +{} SEED aliases from {}",
-                map.len(), added, tsv);
         }
-        (format!("{} ({})", args.medium_name, desc), compounds, None)
+        let expanded = medium::expand_medium_compounds(&compounds);
+        vec![(format!("{} ({})", args.medium_name, desc), compounds, expanded, None)]
     };
 
-    let medium_set = medium::expand_medium_compounds(&base_compounds);
     // Tiered uptake bounds (default: carbon 10 / aa 1 / nuc 0.5 / cofactor 0.1).
-    // `--medium-uptake-limit` overrides the carbon-source cap, matching the
-    // main fast-mic binary's flag of the same name.  Per-compound maxFlux
-    // from a `--medium-file` CSV still overrides these defaults.
     let mub = medium::MediumBounds {
         carbon_source: args.medium_uptake_limit,
         ..Default::default()
     };
 
-    eprintln!(
-        "Medium: {} — {} base → {} expanded compounds",
-        medium_label,
-        base_compounds.len(),
-        medium_set.len()
-    );
-    eprintln!(
-        "Uptake limits: carbon={:.2}  aa={:.2}  nucleobase={:.2}  cofactor={:.2}{}",
-        mub.carbon_source, mub.amino_acid, mub.nucleobase, mub.cofactor,
-        if per_compound_bounds.is_some() {
-            "  (per-compound overrides from CSV)"
-        } else { "" }
-    );
-    eprintln!("Models: {}", args.model_paths.len());
+    if media.len() == 1 {
+        eprintln!("Medium: {} — {} base → {} expanded compounds",
+            media[0].0, media[0].1.len(), media[0].2.len());
+    } else {
+        eprintln!("Media: {} (per-model loop): {}",
+            media.len(),
+            media.iter().map(|m| m.0.as_str()).collect::<Vec<_>>().join(", "));
+    }
+    eprintln!("Uptake limits: carbon={:.2}  aa={:.2}  nucleobase={:.2}  cofactor={:.2}",
+        mub.carbon_source, mub.amino_acid, mub.nucleobase, mub.cofactor);
+    eprintln!("Models: {}  ×  {} media", args.model_paths.len(), media.len());
 
     // ── Configure rayon thread pool ──
     // threads=0 means rayon default (num_cpus); 1 = serial; N = N workers.
@@ -358,36 +365,48 @@ fn main() -> Result<()> {
     let counter = AtomicUsize::new(0);
 
     // ── Parallel per-model pFBA. par_iter preserves input order in collect(). ──
-    let processed: Vec<(usize, Result<ModelBenchResult>)> = args.model_paths
+    let processed: Vec<(usize, Result<Vec<ModelBenchResult>>)> = args.model_paths
         .par_iter()
         .enumerate()
         .map(|(idx, path)| {
-            let res = (|| -> Result<ModelBenchResult> {
+            let res = (|| -> Result<Vec<ModelBenchResult>> {
+                // Load (parse) the model ONCE, then evaluate it under every
+                // medium. One output row PER (model, medium): each row keeps
+                // that medium's own growth rate (NOT averaged), so the
+                // correctness check compares fast-mic vs COBRApy per medium.
                 let load_start = Instant::now();
                 let mut model = sbml::parse_sbml(path)?;
-                medium::apply_medium(&mut model, &base_compounds, &mub, per_compound_bounds.as_ref());
                 let load_elapsed = load_start.elapsed();
-
-                let fba_start = Instant::now();
-                let fba_result = cobra::run_fba(&model, &medium_set, &params)?;
-                let fba_elapsed = fba_start.elapsed();
+                let load_s = load_elapsed.as_secs_f64();
 
                 let biomass_id = model
-                    .biomass_reaction
-                    .as_deref()
-                    .unwrap_or("NONE")
-                    .to_string();
+                    .biomass_reaction.as_deref().unwrap_or("NONE").to_string();
+                let n_met = model.metabolites.len();
+                let n_rxn = model.reactions.len();
+                let n_gene = model.genes.len();
+                let multi = media.len() > 1;
 
-                Ok(ModelBenchResult {
-                    model_id: model.id.clone(),
-                    n_metabolites: model.metabolites.len(),
-                    n_reactions: model.reactions.len(),
-                    n_genes: model.genes.len(),
-                    biomass_rxn: biomass_id,
-                    growth_rate: fba_result.objective_value,
-                    load_time_s: load_elapsed.as_secs_f64(),
-                    fba_time_s: fba_elapsed.as_secs_f64(),
-                })
+                let mut rows: Vec<ModelBenchResult> = Vec::with_capacity(media.len());
+                for (label, base, mset, per) in &media {
+                    medium::apply_medium(&mut model, base, &mub, per.as_ref());
+                    let fba_start = Instant::now();
+                    let fba_result = cobra::run_fba(&model, mset, &params)?;
+                    let fba_s = fba_start.elapsed().as_secs_f64();
+                    // Unique per-(model,medium) id for the correctness join; a
+                    // single medium keeps the bare model id (back-compatible).
+                    let id = if multi { format!("{}__{}", model.id, label) } else { model.id.clone() };
+                    rows.push(ModelBenchResult {
+                        model_id: id,
+                        n_metabolites: n_met,
+                        n_reactions: n_rxn,
+                        n_genes: n_gene,
+                        biomass_rxn: biomass_id.clone(),
+                        growth_rate: fba_result.objective_value,
+                        load_time_s: load_s,   // same single load on each medium row
+                        fba_time_s: fba_s,
+                    });
+                }
+                Ok(rows)
             })();
 
             let n = counter.fetch_add(1, Ordering::Relaxed) + 1;
@@ -408,7 +427,7 @@ fn main() -> Result<()> {
     let mut n_failed = 0usize;
     for (_, r) in sorted {
         match r {
-            Ok(br) => results.push(br),
+            Ok(rows) => results.extend(rows),
             Err(_) => n_failed += 1,
         }
     }
