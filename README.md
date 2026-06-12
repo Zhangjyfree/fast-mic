@@ -300,16 +300,29 @@ bash scripts/run_gradient.sh \
 
 ## Benchmarking / 基准测试
 
-A standalone binary `bench-single-fba` measures single-species FBA throughput across many models and supports thread-scaling benchmarks.
+A standalone binary `bench-single-fba` measures single-species FBA throughput across many models — under one medium or several at once — and supports thread-scaling benchmarks. / 独立二进制 `bench-single-fba` 在多个模型上测量单物种 FBA 通量，支持单个或多个培养基，以及线程扩展基准。
+
+**Single medium / 单培养基** — a named medium from a TSV database, or one gapseq/SEED-format CSV:
 
 ```bash
+# Named medium from a TSV database / TSV 库中的命名培养基
 bench-single-fba media/media_db.tsv WesternDiet \
-  --model-list models.txt \
-  --threads 0 \
-  > bench_results.tsv
+  --model-list models.txt --threads 0 > bench_results.tsv
+
+# A single gapseq/SEED-format CSV medium / 单个 gapseq/SEED 格式 CSV 培养基
+bench-single-fba --medium-file media/gradient_L0_base_gapseq.csv \
+  --model-list models.txt --threads 0 > bench_results.tsv
 ```
 
-Output columns: `model_id`, `n_metabolites`, `n_reactions`, `n_genes`, `biomass_rxn`, `growth_rate`, `load_time_s`, `fba_time_s`.
+**Several CSV media at once / 一次输入多个 CSV 培养基** — pass `--media-list FILE`, a plain-text file with one medium-CSV path per line (absolute or relative). Each model is loaded **once** and evaluated under **every** medium, yielding one row per (model, medium) pair. This is the workload behind the 10-level prebiotic gradient. / 通过 `--media-list FILE` 传入一个纯文本文件（每行一个培养基 CSV 路径，绝对或相对）。每个模型只加载一次，并在所有培养基下评估，输出每个（模型, 培养基）组合一行——这正是 10 级益生元梯度的工作负载。
+
+```bash
+# media/gradient_media_list.txt lists the 10 gradient CSVs (L0–L9), one path per line
+bench-single-fba --media-list media/gradient_media_list.txt \
+  --model-list models.txt --threads 0 > bench_gradient.tsv
+```
+
+Output columns: `model_id`, `n_metabolites`, `n_reactions`, `n_genes`, `biomass_rxn`, `growth_rate`, `load_time_s`, `fba_time_s`. With `--media-list`, `model_id` is suffixed with the medium label (the CSV file stem), e.g. `L_acidophilus_NCFM__gradient_L0_base_gapseq`, so each row stays uniquely keyed per (model, medium). / 输出列同上；使用 `--media-list` 时 `model_id` 会附加培养基标签（CSV 文件名主干），如 `L_acidophilus_NCFM__gradient_L0_base_gapseq`，保证每个（模型, 培养基）行唯一可索引。
 
 ### Reference validation against COBRApy / 与 COBRApy 对照验证
 
@@ -317,15 +330,17 @@ fast-mic ships an end-to-end correctness pipeline: `benchmark/run_thread_scaling
 
 ```bash
 # 1. Regenerate the comparison TSVs (~hours on 1000 models; requires Python + cobrapy + highspy + osqp)
-bash benchmark/run_thread_scaling.sh
+#    Single medium by default; set MEDIA_LIST to reproduce the 10-level gradient corpus above.
+MEDIA_LIST=media/gradient_media_list.txt bash benchmark/run_thread_scaling.sh
 
 # 2. Assert the contract: Pearson r ≥ 0.999, R² ≥ 0.998, MAE ≤ 1e-3
 cargo test --test reference_validation -- --ignored
 ```
 
-**Current status:** 1,000-model UHGG corpus, Pearson r = 1.000, MAE = 5.1 × 10⁻⁷. Run this gate before tagging a release or merging changes that touch the LP path (`cobra.rs`, `medium.rs`, `sbml.rs`).
+**Current status:** 9,950 genome–medium pairs (1,000 UHGG models across the L0–L9 gradient; 5 COBRApy timeouts excluded), Pearson r = 1.000, MAE = 3.12 × 10⁻⁷. Run this gate before tagging a release or merging changes that touch the LP path (`cobra.rs`, `medium.rs`, `sbml.rs`).
 
 ---
+
 
 ## Testing / 测试
 
