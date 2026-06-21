@@ -48,12 +48,18 @@ pub struct AnalysisParams {
     /// tolerance 1e-7).  Drop to 1e-7 only when exact reproduction of
     /// single-species FBA values is required.
     pub lock_tol: f64,
+    /// Co-culture growth-allocation objective.  `false` (default) uses the
+    /// lexicographic max-min (Rawlsian + utilitarian) allocation; `true`
+    /// pins the co-culture growth ratio to the monoculture ratio
+    /// (μ_A/μ_B = μ_A^alone/μ_B^alone) for the objective-sensitivity analysis.
+    pub fixed_ratio: bool,
 }
 
 impl Default for AnalysisParams {
     fn default() -> Self {
         Self {
             lock_tol: LOCK_TOL,
+            fixed_ratio: false,
         }
     }
 }
@@ -909,6 +915,46 @@ fn lp_max_total_at_z(
     Ok((ga, gb, fluxes))
 }
 
+/// Fixed-ratio co-culture allocation (objective-sensitivity alternative to
+/// the lexicographic max-min).  Maximises total community biomass subject to
+/// the constraint that the co-culture growth-rate ratio equals the
+/// monoculture ratio, μ_A^co/μ_B^co = μ_A^alone/μ_B^alone, applied only when
+/// both partners are viable in monoculture.
+fn lp_fixed_ratio(
+    merged: &MergedModel, sparse_s: &SparseS,
+    growth_a_alone: f64, growth_b_alone: f64,
+    a_viable: bool, b_viable: bool, params: &AnalysisParams,
+) -> anyhow::Result<(f64, f64, HashMap<String, f64>)> {
+    let (bio_a, bio_b) = find_merged_biomass_indices(
+        &merged.reactions, merged.biomass_a_id.as_deref(), merged.biomass_b_id.as_deref())?;
+
+    let mut vars = ProblemVariables::new();
+    let flux_vars: Vec<_> = merged.reactions.iter()
+        .map(|r| create_coculture_flux_var(&mut vars, r, a_viable, b_viable, params)).collect();
+
+    let objective: Expression = 1.0 * flux_vars[bio_a] + 1.0 * flux_vars[bio_b];
+    let mut lp = silent_lp!(maximise objective, vars);
+    lp = add_mass_balance_constraints(lp, sparse_s, &flux_vars);
+
+    // g_b_alone * bio_a − g_a_alone * bio_b = 0  ⇔  bio_a/bio_b = g_a_alone/g_b_alone
+    if a_viable && b_viable
+        && growth_a_alone > MIN_VIABLE_GROWTH && growth_b_alone > MIN_VIABLE_GROWTH {
+        let c: Expression =
+            growth_b_alone * flux_vars[bio_a] + (-growth_a_alone) * flux_vars[bio_b];
+        lp = lp.with(c.clone().leq(0.0));
+        lp = lp.with(c.geq(0.0));
+    }
+
+    let sol = lp.solve()?;
+    let ga = sol.value(flux_vars[bio_a]);
+    let gb = sol.value(flux_vars[bio_b]);
+    let mut fluxes = HashMap::new();
+    for (i, rxn) in merged.reactions.iter().enumerate() {
+        fluxes.insert(rxn.id.clone(), sol.value(flux_vars[i]));
+    }
+    Ok((ga, gb, fluxes))
+}
+
 fn cycle_free_pfba_coculture(
     merged: &MergedModel, sparse_s: &SparseS,
     fluxes: &HashMap<String, f64>,
@@ -991,14 +1037,20 @@ fn run_co_culture(
         return Ok((0.0, 0.0, 0.0, HashMap::new()));
     }
 
-    let z_star = lp_max_min_ratio(
-        merged, sparse_s, growth_a_alone, growth_b_alone, a_viable, b_viable, params)?;
-
-    let (ga2, gb2, fluxes2) = lp_max_total_at_z(
-        merged, sparse_s, growth_a_alone, growth_b_alone, z_star,
-        a_viable, b_viable, params)?;
-
-    eprintln!("    LexMaxMin: z*={:.4}  →  A={:.4} B={:.4}", z_star, ga2, gb2);
+    let (ga2, gb2, fluxes2) = if params.fixed_ratio {
+        let r = lp_fixed_ratio(
+            merged, sparse_s, growth_a_alone, growth_b_alone, a_viable, b_viable, params)?;
+        eprintln!("    FixedRatio:  →  A={:.4} B={:.4}", r.0, r.1);
+        r
+    } else {
+        let z_star = lp_max_min_ratio(
+            merged, sparse_s, growth_a_alone, growth_b_alone, a_viable, b_viable, params)?;
+        let r = lp_max_total_at_z(
+            merged, sparse_s, growth_a_alone, growth_b_alone, z_star,
+            a_viable, b_viable, params)?;
+        eprintln!("    LexMaxMin: z*={:.4}  →  A={:.4} B={:.4}", z_star, r.0, r.1);
+        r
+    };
 
     let (ga, gb, fluxes) = if a_viable || b_viable {
         match cycle_free_pfba_coculture(
