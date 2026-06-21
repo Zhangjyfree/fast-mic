@@ -4,6 +4,8 @@
 
 快速代谢互作计算器 —— 基于 Rust 实现的高性能两两 pFBA 微生物互作分析工具。从基因组尺度代谢模型（GEM）批量计算交叉营养、竞争与互作类型。
 
+> **Associated study / 关联研究**: fast-mic was developed for the study *"Genome-scale modelling indicates that carbon quality governs how generalist and specialist probiotics cooperate with the resident microbiome across a prebiotic gradient"* — an exhaustive pairwise interaction screen of six *Akkermansia* strains (3 species, mucin specialist) and ten *Lactobacillus*-group strains (9 species, metabolic generalist) against the gut (UHGG) community across a 10-level prebiotic gradient (L0–L9). / fast-mic 用于研究《基因组尺度建模揭示碳源质量如何决定泛化型与专化型益生菌在益生元梯度下与常驻菌群的合作》：在 10 级益生元梯度下，对 6 株 *Akkermansia*（3 个种，黏蛋白专化型）与 10 株 *Lactobacillus* 类益生菌（9 个种，代谢泛化型）与肠道（UHGG）菌群进行穷举式两两互作筛选。
+
 ---
 
 ## Highlights / 功能亮点
@@ -13,9 +15,9 @@
 - **Lexicographic max-min pairwise co-culture** — Rawlsian fairness (max-min growth ratio) followed by utilitarian total-biomass maximisation. Two LPs, unique optimum, no Pareto-front scan. / 两两共培养字典序最大最小优化：先公平，后效率，唯一最优。
 - **Massively parallel** — Rayon-driven per-pair parallelism, near-linear scaling to all cores. Monoculture pFBA cache delivers ~30-50 % speedup in cross-group mode. / Rayon 并行，近线性扩展，单培养 pFBA 缓存再加速 30-50 %。
 - **Dual medium support** — Named medium from TSV database (BiGG IDs, auto-translated to SEED via `--compounds-tsv`) or explicit CSV file (SEED IDs + per-compound `maxFlux`, for gapseq models). / 双重培养基支持。
-- **Validated against COBRApy** — `cargo test -- --ignored` enforces Pearson r ≥ 0.999, MAE ≤ 1e-3. Current cross-tool agreement on 1,000 UHGG models: r = 1.000, MAE = 5.19 × 10⁻⁷. / 与 COBRApy 在 1,000 个模型上对照验证：r = 1.000、MAE = 5.19 × 10⁻⁷。
-- **~149 × faster than COBRApy** on the same LP problem, single-threaded (~27.7 vs 0.19 models s⁻¹); peaking around ~210 models s⁻¹ at 12 threads on the 1,000-model corpus. / 单线程比 COBRApy 快约 149 倍，12 线程峰值约 210 models/s。
-- **Multi-site analysis** — Cross-group mode (gut × vaginal × oral) with site-resolved figures. Candidate partner ranking, metabolite-flow Sankey. / 跨生境分析：肠道 × 阴道 × 口腔跨组配对，候选合作菌排名与代谢流 Sankey 图。
+- **Validated against COBRApy** — `cargo test -- --ignored` enforces Pearson r ≥ 0.999, MAE ≤ 1e-3. Current cross-tool agreement on 9,950 genome–medium pairs (1,000 UHGG models × the L0–L9 gradient): r = 1.000, MAE = 3.12 × 10⁻⁷. / 与 COBRApy 在 9,950 个基因组×培养基组合上对照验证：r = 1.000、MAE = 3.12 × 10⁻⁷。
+- **~221 × faster than COBRApy** on the same LP problem, single-threaded (~49 vs 0.22 genome–medium evaluations s⁻¹); peaking around ~333 evaluations s⁻¹ at 12 threads on the 1,000-model corpus. / 单线程比 COBRApy 快约 221 倍，12 线程峰值约 333 evaluations/s。
+- **Cross-group analysis** — Group-1 × group-2 mode (e.g. probiotic panel × resident community) with candidate partner ranking and metabolite-flow Sankey. / 跨组分析：第一组 × 第二组（如益生菌 panel × 常驻菌群）配对，候选合作菌排名与代谢流 Sankey 图。
 - **Prebiotic gradient pipeline** — 10-level cumulative medium gradient (L0–L9) covering inulin, FOS, GOS, XOS, pectin, resistant starch, β-glucan, HMO, MOS. / 10 级益生元梯度培养基流水线。
 - **Interaction typing & metrics** — Per-pair relative benefit (β), competition intensity, cross-feeding score, gene-supported fraction, and six-class interaction typing (mutualism / competition / commensalism / parasitism / amensalism / neutral). / 逐对相对收益（β）、竞争强度、交叉营养得分、基因支持比例与六类互作分型。
 
@@ -24,7 +26,7 @@
 ## Installation / 安装
 
 ```bash
-git clone https://github.com/Zhangjyfree/fast-mic.git
+git clone https://github.com/your-org/fast-mic.git
 cd fast-mic
 cargo build --release
 # Binary: ./target/release/fast-mic
@@ -110,6 +112,12 @@ Tiered limits for amino acids (1.0), nucleobases/nucleosides (0.5), and cofactor
 | `--threads N` | 0 | Worker threads. 0 = all cores; 1 = serial. / 工作线程数。 |
 | `--cache-monoculture` | true | Pre-compute monoculture pFBA per model and reuse across pairs (~30-50 % speedup). / 单培养 pFBA 缓存。 |
 
+### Co-culture objective / 共培养目标函数
+
+| Flag | Default | Description / 说明 |
+|---|---|---|
+| `--fixed-ratio` | off | Use a fixed-ratio co-culture objective — total community biomass maximised subject to μ_A/μ_B pinned to the monoculture ratio (μ_A^co/μ_B^co = μ_A^alone/μ_B^alone) — instead of the default lexicographic max-min allocation. Intended for objective-sensitivity analysis. / 使用固定比例共培养目标（共培养生长比 = 单培养比，最大化群落总生物量），替代默认字典序最大最小分配；用于目标函数敏感性分析。 |
+
 ---
 
 ## Output schemas / 输出格式
@@ -175,6 +183,8 @@ max g_A + g_B   s.t.  g_A ≥ (z* − τ) · g_A^alone
 A co-culture CycleFreeFlux pass then removes inter-species cycles.
 
 **Reference**: Bertsimas *et al.* (2011), *The Price of Fairness*, Operations Research **59**(1):17-31.
+
+**Alternative objective (`--fixed-ratio`)**: For objective-sensitivity analysis, the two-phase allocation can be replaced by a single LP that maximises total community biomass subject to a fixed growth ratio, `g_A / g_B = g_A^alone / g_B^alone`. On a representative subset (*L. gasseri* × UHGG at L5 / L6) the two objectives give identical mutualism fractions (33.4 % / 22.4 %) and ≥ 99 % per-pair classification agreement (all disagreements confined to the commensalism↔neutral boundary), confirming the core conclusions are robust to the choice of growth-allocation rule. / 目标函数敏感性分析：可用 `--fixed-ratio` 将两阶段分配替换为"固定生长比 + 最大化总生物量"的单 LP，在代表子集上两种目标给出完全一致的互利比例与 ≥99% 的逐对分类一致率，证明核心结论不依赖分配规则。
 
 ### Design principles / 设计原则
 
@@ -292,11 +302,44 @@ fast-mic produces TSV outputs that feed a set of post-processing scripts in `scr
 
 ```bash
 bash scripts/run_gradient.sh \
-     --group1 test/akk/akk_gapseq_xml \
-     --group2 test/UHGG_v2/final_bacteria_gapseq_xml \
+     --group1 test/akk/akk_genomes_faa_gapseq_wdm_xml \
+     --group2 test/UHGG/final_bacteria_gapseq_xml \
      --threads 12 --full-tsv
 # Output: gradient_result/L{0-9}_*.tsv  +  L{0-9}_*.full.tsv
 ```
+
+### 2. Paper figures & supplementary tables / 论文图表生成
+
+**Generate paper figures** / 生成论文图（输出至 `results/figures_paper/`，TIFF/PDF/PNG）:
+
+```bash
+Rscript scripts/plot_fig1_benchmark.R                # Figure 1: fast-mic vs COBRApy benchmark (accuracy + thread scaling)
+Rscript scripts/plot_fig2_phylo_trees.R              # Figure 2: phylogenetic trees (Akkermansia / Lactobacillus-group)
+Rscript scripts/plot_fig3_gradient_overview.R        # Figure 3: interaction fractions across the L0–L9 gradient
+Rscript scripts/plot_fig4_mechanisms.R               # Figure 4: competition intensity, cross-feeding, growth ratios
+Rscript scripts/plot_fig5_crossfeed_sankey.R         # Figure 5: genome-encoded cross-feeding currencies (Sankey)
+Rscript scripts/plot_fig6_strain_heatmap.R           # Figure 6: strain-resolved mutualism heatmaps
+Rscript scripts/plot_figS1_interaction_composition.R # Fig S1: full six-category interaction composition
+Rscript scripts/plot_figS2_benefit_landscape.R       # Fig S2: β_A vs β_B benefit landscape
+Rscript scripts/plot_figS3_crossfeed_landscape.R     # Fig S3: top cross-fed metabolites per system
+Rscript scripts/plot_figS4_threshold_sensitivity.R   # Fig S4: robustness to classification thresholds
+Rscript scripts/plot_figS5_objective_sensitivity.R   # Fig S5: objective-function sensitivity (lex vs fixed-ratio)
+```
+
+**Generate supplementary tables** / 生成附表:
+
+```bash
+python3 scripts/make_supplementary_tables.py
+# Output: results/figures_paper/Supplementary_Tables.xlsx
+#   (genome panel & CheckM2 QC, prebiotic levels, gradient interaction summary,
+#    strain-resolved mutualism, cross-fed metabolites, benchmark accuracy & scaling)
+```
+
+### 3. Archived analyses / 已归档分析
+
+Earlier multi-site candidate analysis, EIR/EcoGS abundance-weighting, and HPLC/GC validation-hypothesis scripts have been moved to `scripts/_archive/` and are no longer part of the main pipeline. / 早期的多生境候选分析、EIR/EcoGS 丰度加权与 HPLC/GC 验证假说脚本已移至 `scripts/_archive/`，不再属于主流程。
+
+---
 
 ## Benchmarking / 基准测试
 
@@ -341,7 +384,6 @@ cargo test --test reference_validation -- --ignored
 
 ---
 
-
 ## Testing / 测试
 
 ```bash
@@ -385,7 +427,7 @@ println!("growth = {}", result.objective_value);
 | `model` | Core types: `MetabolicModel`, `Reaction`, `Metabolite` (with optional `formula`), `PairwiseResult`, `InteractionType`. Also exports the unified `KNOWN_EXTERNAL_COMPARTMENTS`, `EXCHANGE_EXCLUDES`, `is_canonical_exchange`, `is_extracellular_compartment`. |
 | `sbml` | SBML parsing (FBC v2). Two-pass, single read. Extracts `fbc:chemicalFormula`. |
 | `medium` | Compound matching, exchange-reaction detection (COBRApy-style), tiered uptake bounds, cofactor pre-opened preservation, BiGG → SEED translation. |
-| `cobra` | FBA, CycleFreeFlux + pFBA (`run_fba`, `run_fba_locked`), pairwise co-culture lex max-min, cross-feeding analysis. `AnalysisParams::lock_tol` configurable. |
+| `cobra` | FBA, CycleFreeFlux + pFBA (`run_fba`, `run_fba_locked`), pairwise co-culture (lexicographic max-min, or fixed-ratio via `AnalysisParams::fixed_ratio`), cross-feeding analysis. `AnalysisParams::lock_tol` and `::fixed_ratio` configurable. |
 
 ---
 
@@ -400,7 +442,7 @@ If you use fast-mic in published work, please cite:
 
 ## License / 许可证
 
-MIT
+MIT or Apache-2.0, at your option.
 
 ## Issues & contributions / 问题反馈与贡献
 
