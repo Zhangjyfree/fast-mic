@@ -87,6 +87,12 @@ struct Cli {
     #[arg(long, default_value_t = true, help_heading = "Performance")]
     cache_monoculture: bool,
 
+    /// Use the fixed-ratio co-culture objective (μ_A/μ_B pinned to the
+    /// monoculture ratio) instead of the default lexicographic max-min
+    /// allocation.  Intended for objective-sensitivity analysis.
+    #[arg(long, help_heading = "Co-culture objective")]
+    fixed_ratio: bool,
+
     // ── DEPRECATED (kept hidden for backwards CLI compatibility) ────────
     #[arg(long, hide = true)]
     max_synergy: Option<f64>,
@@ -470,6 +476,7 @@ fn main() -> Result<()> {
 
     let params = cobra::AnalysisParams {
         lock_tol: cli.lock_tol,
+        fixed_ratio: cli.fixed_ratio,
     };
 
     if !cli.summary {
