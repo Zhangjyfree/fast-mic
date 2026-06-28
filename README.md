@@ -15,7 +15,7 @@
 - **Lexicographic max-min pairwise co-culture** — Rawlsian fairness (max-min growth ratio) followed by utilitarian total-biomass maximisation. Two LPs, unique optimum, no Pareto-front scan. / 两两共培养字典序最大最小优化：先公平，后效率，唯一最优。
 - **Massively parallel** — Rayon-driven per-pair parallelism, near-linear scaling to all cores. Monoculture pFBA cache delivers ~30-50 % speedup in cross-group mode. / Rayon 并行，近线性扩展，单培养 pFBA 缓存再加速 30-50 %。
 - **Dual medium support** — Named medium from TSV database (BiGG IDs, auto-translated to SEED via `--compounds-tsv`) or explicit CSV file (SEED IDs + per-compound `maxFlux`, for gapseq models). / 双重培养基支持。
-- **Validated against COBRApy** — `cargo test -- --ignored` enforces Pearson r ≥ 0.999, MAE ≤ 1e-3. Current cross-tool agreement on 9,950 genome–medium pairs (1,000 UHGG models × the L0–L9 gradient): r = 1.000, MAE = 3.12 × 10⁻⁷. / 与 COBRApy 在 9,950 个基因组×培养基组合上对照验证：r = 1.000、MAE = 3.12 × 10⁻⁷。
+- **Validated against COBRApy** — `cargo test -- --ignored` enforces Pearson r ≥ 0.999, MAE ≤ 1e-3. Current cross-tool agreement on 9,950 genome–medium pairs (1,000 UHGG models × the L0–L9 gradient): r = 1.000, MAE = 3.12 × 10⁻⁷. A second check (`bench-cff-deviation`) confirms loop removal preserves the FBA optimum (max post-CFF biomass deviation 1.0 × 10⁻⁵ h⁻¹ = ε). / 与 COBRApy 在 9,950 个组合上对照：r = 1.000、MAE = 3.12 × 10⁻⁷；另有去环验证（`bench-cff-deviation`）确认去环保持 FBA 最优值（最大偏差 1.0 × 10⁻⁵ h⁻¹ = ε）。
 - **~221 × faster than COBRApy** on the same LP problem, single-threaded (~49 vs 0.22 genome–medium evaluations s⁻¹); peaking around ~333 evaluations s⁻¹ at 12 threads on the 1,000-model corpus. / 单线程比 COBRApy 快约 221 倍，12 线程峰值约 333 evaluations/s。
 - **Cross-group analysis** — Group-1 × group-2 mode (e.g. probiotic panel × resident community) with candidate partner ranking and metabolite-flow Sankey. / 跨组分析：第一组 × 第二组（如益生菌 panel × 常驻菌群）配对，候选合作菌排名与代谢流 Sankey 图。
 - **Prebiotic gradient pipeline** — 10-level cumulative medium gradient (L0–L9) covering inulin, FOS, GOS, XOS, pectin, resistant starch, β-glucan, HMO, MOS. / 10 级益生元梯度培养基流水线。
@@ -155,12 +155,12 @@ After standard FBA (max biomass), a single LP achieves cycle removal **and** par
 ```
 min  Σ |v_i|        over non-exchange, non-biomass reactions
 s.t. S v = 0
-     v_exch_j ∈ [v*_exch_j ± ε]    (preserve FBA exchange profile)
-     0 ≤ v_biomass ≤ v*_biomass
+     v_exch_j ∈ [v*_exch_j ± ε]              (preserve FBA exchange profile)
+     v*_biomass − ε ≤ v_biomass ≤ v*_biomass + ε   (hold growth at the FBA optimum)
      lb_i ≤ v_i ≤ ub_i
 ```
 
-Fixing exchange fluxes eliminates Type-III internal cycles (they carry net-zero exchange flux). Minimising Σ|v| drives every closed loop to zero.
+Fixing exchange fluxes eliminates Type-III internal cycles (they carry net-zero exchange flux). Minimising Σ|v| drives every closed loop to zero. The biomass flux is **constrained to its Stage-1 FBA optimum within the lock tolerance ε** (band form, `ε = LOCK_TOL`), so the parsimony objective cannot trade growth rate for lower total flux — loop removal therefore preserves the optimal growth rate rather than only bounding it above. This is validated empirically: across 7,463 growing model–medium evaluations (1,000 UHGG models × the L0–L9 gradient) the post-CycleFreeFlux biomass deviates from the FBA optimum by at most **1.0 × 10⁻⁵ h⁻¹ (= ε)**, biologically negligible (≤ 5.2 × 10⁻⁴ relative); see [Benchmarking](#benchmarking--基准测试). / 生物量被约束在 Stage-1 FBA 最优值的 ε 容差带内（`ε = LOCK_TOL`），因此简约步骤不会以降低生长率换取更低总通量；去环保持最优生长率。实测最大偏差 1.0 × 10⁻⁵ h⁻¹（= ε）。
 
 **Reference**: Desouki *et al.* (2015), *CycleFreeFlux*, BMC Bioinformatics **16**:283.
 
@@ -194,7 +194,7 @@ Three scalar constants control the entire FBA pipeline; one is user-configurable
 |---|---|---|
 | `MIN_VIABLE_GROWTH` | 1×10⁻⁴ h⁻¹ | Biological viability floor (~4 doublings/day). / 生物可行性下限。 |
 | `NUMERICAL_TOL` | 1×10⁻⁶ | LP comparison tolerance (10 × HiGHS default primal tolerance). / LP 比较公差。 |
-| `LOCK_TOL` (`--lock-tol`) | 1×10⁻⁵ | CFF/pFBA lock-constraint tolerance. Configurable. / CFF/pFBA 锁约束公差，可配置。 |
+| `LOCK_TOL` (`--lock-tol`) | 1×10⁻⁵ | CFF/pFBA lock-constraint tolerance — the ε band on both exchange-flux locks and the biomass constraint (`v ∈ [v* ± ε]`). Configurable. / CFF/pFBA 锁约束公差 —— 同时作用于交换通量锁定与生物量约束的 ε 带，可配置。 |
 
 No empirical synergy caps, flux-ratio thresholds, metabolite blacklists, or Pareto-front scans. / 无经验性协同上限、通量比阈值、代谢物黑名单或 Pareto 前沿扫描。
 
@@ -382,6 +382,20 @@ cargo test --test reference_validation -- --ignored
 
 **Current status:** 9,950 genome–medium pairs (1,000 UHGG models across the L0–L9 gradient; 5 COBRApy timeouts excluded), Pearson r = 1.000, MAE = 3.12 × 10⁻⁷. Run this gate before tagging a release or merging changes that touch the LP path (`cobra.rs`, `medium.rs`, `sbml.rs`).
 
+### Loop-removal validation (post-CFF biomass deviation) / 去环验证（CFF 后生物量偏差）
+
+The binary `bench-cff-deviation` checks that the CycleFreeFlux + pFBA step does not reduce the growth rate below the Stage-1 FBA optimum. For every (model, medium) it reports the deviation `fba_optimal − post_cff_biomass`; with the band-form biomass constraint this is bounded by ε. / 二进制 `bench-cff-deviation` 验证去环步骤不会把生长率降到 FBA 最优值以下，逐（模型, 培养基）报告 `fba_optimal − post_cff_biomass` 偏差。
+
+```bash
+bench-cff-deviation \
+  --media-list media/gradient_media_list.txt \
+  --model-list models.txt --threads 0 > cff_deviation.tsv
+```
+
+Per-row TSV columns: `model_id`, `medium`, `fba_optimal`, `post_cff_biomass`, `deviation`, `viable`. The summary (stderr) reports the **max** and **mean** |deviation| over the growing (viable) evaluations and the worst case. / 每行输出列如上；stderr 汇总报告可生长评估上的最大/平均 |偏差| 与最坏情形。
+
+**Current status:** across 7,463 growing evaluations (1,000 models × L0–L9), max |deviation| = **1.0 × 10⁻⁵ h⁻¹ (= ε = `LOCK_TOL`)**, mean 9.7 × 10⁻⁶ h⁻¹ — within the LP tolerance and biologically negligible; growth rates are unchanged. / 7,463 个可生长评估上，最大偏差 1.0 × 10⁻⁵ h⁻¹（= ε），平均 9.7 × 10⁻⁶ h⁻¹，在 LP 容差内、可忽略。
+
 ---
 
 ## Testing / 测试
@@ -419,7 +433,8 @@ let model = sbml::parse_sbml("model.xml")?;
 let medium_set = medium::expand_medium_compounds(&base_compounds);
 let params = cobra::AnalysisParams::default();
 let result = cobra::run_fba(&model, &medium_set, &params)?;
-println!("growth = {}", result.objective_value);
+println!("growth = {}", result.objective_value);   // post-CycleFreeFlux biomass
+println!("FBA optimum = {}", result.fba_optimal);  // Stage-1 optimum; difference = loop-removal deviation
 ```
 
 | Module | Purpose |
@@ -427,7 +442,7 @@ println!("growth = {}", result.objective_value);
 | `model` | Core types: `MetabolicModel`, `Reaction`, `Metabolite` (with optional `formula`), `PairwiseResult`, `InteractionType`. Also exports the unified `KNOWN_EXTERNAL_COMPARTMENTS`, `EXCHANGE_EXCLUDES`, `is_canonical_exchange`, `is_extracellular_compartment`. |
 | `sbml` | SBML parsing (FBC v2). Two-pass, single read. Extracts `fbc:chemicalFormula`. |
 | `medium` | Compound matching, exchange-reaction detection (COBRApy-style), tiered uptake bounds, cofactor pre-opened preservation, BiGG → SEED translation. |
-| `cobra` | FBA, CycleFreeFlux + pFBA (`run_fba`, `run_fba_locked`), pairwise co-culture (lexicographic max-min, or fixed-ratio via `AnalysisParams::fixed_ratio`), cross-feeding analysis. `AnalysisParams::lock_tol` and `::fixed_ratio` configurable. |
+| `cobra` | FBA, CycleFreeFlux + pFBA (`run_fba`, `run_fba_locked`), pairwise co-culture (lexicographic max-min, or fixed-ratio via `AnalysisParams::fixed_ratio`), cross-feeding analysis. `FBAResult` carries both `objective_value` (post-CFF biomass) and `fba_optimal` (Stage-1 optimum); their difference is the loop-removal deviation. `AnalysisParams::lock_tol` and `::fixed_ratio` configurable. |
 
 ---
 
