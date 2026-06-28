@@ -308,39 +308,6 @@ bash scripts/run_gradient.sh \
 # Output: gradient_result/L{0-9}_*.tsv  +  L{0-9}_*.full.tsv
 ```
 
-### 2. Paper figures & supplementary tables / 论文图表生成
-
-**Generate paper figures** / 生成论文图（输出至 `results/figures_paper/`，TIFF/PDF/PNG）:
-
-```bash
-Rscript scripts/plot_fig1_benchmark.R                # Figure 1: fast-mic vs COBRApy benchmark (accuracy + thread scaling)
-Rscript scripts/plot_fig2_phylo_trees.R              # Figure 2: phylogenetic trees (Akkermansia / Lactobacillus-group)
-Rscript scripts/plot_fig3_gradient_overview.R        # Figure 3: interaction fractions across the L0–L9 gradient
-Rscript scripts/plot_fig4_mechanisms.R               # Figure 4: competition intensity, cross-feeding, growth ratios
-Rscript scripts/plot_fig5_crossfeed_sankey.R         # Figure 5: genome-encoded cross-feeding currencies (Sankey)
-Rscript scripts/plot_fig6_strain_heatmap.R           # Figure 6: strain-resolved mutualism heatmaps
-Rscript scripts/plot_figS1_interaction_composition.R # Fig S1: full six-category interaction composition
-Rscript scripts/plot_figS2_benefit_landscape.R       # Fig S2: β_A vs β_B benefit landscape
-Rscript scripts/plot_figS3_crossfeed_landscape.R     # Fig S3: top cross-fed metabolites per system
-Rscript scripts/plot_figS4_threshold_sensitivity.R   # Fig S4: robustness to classification thresholds
-Rscript scripts/plot_figS5_objective_sensitivity.R   # Fig S5: objective-function sensitivity (lex vs fixed-ratio)
-```
-
-**Generate supplementary tables** / 生成附表:
-
-```bash
-python3 scripts/make_supplementary_tables.py
-# Output: results/figures_paper/Supplementary_Tables.xlsx
-#   (genome panel & CheckM2 QC, prebiotic levels, gradient interaction summary,
-#    strain-resolved mutualism, cross-fed metabolites, benchmark accuracy & scaling)
-```
-
-### 3. Archived analyses / 已归档分析
-
-Earlier multi-site candidate analysis, EIR/EcoGS abundance-weighting, and HPLC/GC validation-hypothesis scripts have been moved to `scripts/_archive/` and are no longer part of the main pipeline. / 早期的多生境候选分析、EIR/EcoGS 丰度加权与 HPLC/GC 验证假说脚本已移至 `scripts/_archive/`，不再属于主流程。
-
----
-
 ## Benchmarking / 基准测试
 
 A standalone binary `bench-single-fba` measures single-species FBA throughput across many models — under one medium or several at once — and supports thread-scaling benchmarks. / 独立二进制 `bench-single-fba` 在多个模型上测量单物种 FBA 通量，支持单个或多个培养基，以及线程扩展基准。
@@ -366,21 +333,6 @@ bench-single-fba --media-list media/gradient_media_list.txt \
 ```
 
 Output columns: `model_id`, `n_metabolites`, `n_reactions`, `n_genes`, `biomass_rxn`, `growth_rate`, `load_time_s`, `fba_time_s`. With `--media-list`, `model_id` is suffixed with the medium label (the CSV file stem), e.g. `L_acidophilus_NCFM__gradient_L0_base_gapseq`, so each row stays uniquely keyed per (model, medium). / 输出列同上；使用 `--media-list` 时 `model_id` 会附加培养基标签（CSV 文件名主干），如 `L_acidophilus_NCFM__gradient_L0_base_gapseq`，保证每个（模型, 培养基）行唯一可索引。
-
-### Reference validation against COBRApy / 与 COBRApy 对照验证
-
-fast-mic ships an end-to-end correctness pipeline: `benchmark/run_thread_scaling.sh` runs both fast-mic and COBRApy (HiGHS backend) on the same model corpus and produces `benchmark_results/correctness/stats.tsv` with Pearson r, R², and MAE. A `cargo` test parses that file and asserts thresholds.
-
-```bash
-# 1. Regenerate the comparison TSVs (~hours on 1000 models; requires Python + cobrapy + highspy + osqp)
-#    Single medium by default; set MEDIA_LIST to reproduce the 10-level gradient corpus above.
-MEDIA_LIST=media/gradient_media_list.txt bash benchmark/run_thread_scaling.sh
-
-# 2. Assert the contract: Pearson r ≥ 0.999, R² ≥ 0.998, MAE ≤ 1e-3
-cargo test --test reference_validation -- --ignored
-```
-
-**Current status:** 9,950 genome–medium pairs (1,000 UHGG models across the L0–L9 gradient; 5 COBRApy timeouts excluded), Pearson r = 1.000, MAE = 3.12 × 10⁻⁷. Run this gate before tagging a release or merging changes that touch the LP path (`cobra.rs`, `medium.rs`, `sbml.rs`).
 
 ### Loop-removal validation (post-CFF biomass deviation) / 去环验证（CFF 后生物量偏差）
 
