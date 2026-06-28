@@ -6,23 +6,6 @@
 
 > **Associated study / 关联研究**: fast-mic was developed for the study *"Genome-scale modelling indicates that carbon quality governs how generalist and specialist probiotics cooperate with the resident microbiome across a prebiotic gradient"* — an exhaustive pairwise interaction screen of six *Akkermansia* strains (3 species, mucin specialist) and ten *Lactobacillus*-group strains (9 species, metabolic generalist) against the gut (UHGG) community across a 10-level prebiotic gradient (L0–L9). / fast-mic 用于研究《基因组尺度建模揭示碳源质量如何决定泛化型与专化型益生菌在益生元梯度下与常驻菌群的合作》：在 10 级益生元梯度下，对 6 株 *Akkermansia*（3 个种，黏蛋白专化型）与 10 株 *Lactobacillus* 类益生菌（9 个种，代谢泛化型）与肠道（UHGG）菌群进行穷举式两两互作筛选。
 
----
-
-## Highlights / 功能亮点
-
-- **Pure Rust + HiGHS LP solver** — Single static binary, no Python / COBRApy runtime dependency. / 纯 Rust + HiGHS LP 求解器，单一静态二进制文件。
-- **Hyperparameter-free FBA pipeline** — FBA → CycleFreeFlux (Desouki *et al.* 2015) → parsimonious FBA in one LP. No empirical synergy caps, no flux-ratio thresholds. / 无超参数 FBA 流程，三步合一 LP，无经验性协同上限或通量比阈值。
-- **Lexicographic max-min pairwise co-culture** — Rawlsian fairness (max-min growth ratio) followed by utilitarian total-biomass maximisation. Two LPs, unique optimum, no Pareto-front scan. / 两两共培养字典序最大最小优化：先公平，后效率，唯一最优。
-- **Massively parallel** — Rayon-driven per-pair parallelism, near-linear scaling to all cores. Monoculture pFBA cache delivers ~30-50 % speedup in cross-group mode. / Rayon 并行，近线性扩展，单培养 pFBA 缓存再加速 30-50 %。
-- **Dual medium support** — Named medium from TSV database (BiGG IDs, auto-translated to SEED via `--compounds-tsv`) or explicit CSV file (SEED IDs + per-compound `maxFlux`, for gapseq models). / 双重培养基支持。
-- **Validated against COBRApy** — `cargo test -- --ignored` enforces Pearson r ≥ 0.999, MAE ≤ 1e-3. Current cross-tool agreement on 9,950 genome–medium pairs (1,000 UHGG models × the L0–L9 gradient): r = 1.000, MAE = 3.12 × 10⁻⁷. A second check (`bench-cff-deviation`) confirms loop removal preserves the FBA optimum (max post-CFF biomass deviation 1.0 × 10⁻⁵ h⁻¹ = ε). / 与 COBRApy 在 9,950 个组合上对照：r = 1.000、MAE = 3.12 × 10⁻⁷；另有去环验证（`bench-cff-deviation`）确认去环保持 FBA 最优值（最大偏差 1.0 × 10⁻⁵ h⁻¹ = ε）。
-- **~221 × faster than COBRApy** on the same LP problem, single-threaded (~49 vs 0.22 genome–medium evaluations s⁻¹); peaking around ~333 evaluations s⁻¹ at 12 threads on the 1,000-model corpus. / 单线程比 COBRApy 快约 221 倍，12 线程峰值约 333 evaluations/s。
-- **Cross-group analysis** — Group-1 × group-2 mode (e.g. probiotic panel × resident community) with candidate partner ranking and metabolite-flow Sankey. / 跨组分析：第一组 × 第二组（如益生菌 panel × 常驻菌群）配对，候选合作菌排名与代谢流 Sankey 图。
-- **Prebiotic gradient pipeline** — 10-level cumulative medium gradient (L0–L9) covering inulin, FOS, GOS, XOS, pectin, resistant starch, β-glucan, HMO, MOS. / 10 级益生元梯度培养基流水线。
-- **Interaction typing & metrics** — Per-pair relative benefit (β), competition intensity, cross-feeding score, gene-supported fraction, and six-class interaction typing (mutualism / competition / commensalism / parasitism / amensalism / neutral). / 逐对相对收益（β）、竞争强度、交叉营养得分、基因支持比例与六类互作分型。
-
----
-
 ## Installation / 安装
 
 ```bash
