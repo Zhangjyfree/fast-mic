@@ -11,6 +11,10 @@ path = "src/main.rs"
 name = "bench-single-fba"
 path = "src/bin/bench_single_fba.rs"
 
+[[bin]]
+name = "bench-cff-deviation"
+path = "src/bin/bench_cff_deviation.rs"
+
 [dependencies]
 anyhow = "1"
 clap = { version = "4", features = ["derive"] }
