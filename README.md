@@ -392,7 +392,7 @@ If you use fast-mic in published work, please cite:
 
 ## License / 许可证
 
-MIT or Apache-2.0, at your option.
+MIT
 
 ## Issues & contributions / 问题反馈与贡献
 
