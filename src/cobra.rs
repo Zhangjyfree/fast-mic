@@ -99,6 +99,9 @@ pub struct FBAResult {
     /// step. Equals `objective_value` when no CFF refinement was applied;
     /// otherwise `fba_optimal - objective_value` is the post-CFF biomass
     /// deviation reported as a loop-removal validation metric.
+    /// Used by the `bench-cff-deviation` binary, so silence dead-code warnings
+    /// when compiling the main `fast-mic` binary.
+    #[allow(dead_code)]
     pub fba_optimal: f64,
 }
 
