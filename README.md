@@ -2,27 +2,27 @@
 
 **Fast Metabolic Interaction Calculator** — A high-performance Rust tool for pairwise pFBA-based microbial community analysis. Compute cross-feeding, competition, and interaction-type predictions from genome-scale metabolic models (GEMs) at scale.
 
-快速代谢互作计算器 —— 基于 Rust 实现的高性能两两 pFBA 微生物互作分析工具。从基因组尺度代谢模型（GEM）批量计算交叉营养、竞争与互作类型。
-
-> **Associated study / 关联研究**: fast-mic was developed for the study *"Genome-scale modelling indicates that carbon quality governs how generalist and specialist probiotics cooperate with the resident microbiome across a prebiotic gradient"* — an exhaustive pairwise interaction screen of six *Akkermansia* strains (3 species, mucin specialist) and ten *Lactobacillus*-group strains (9 species, metabolic generalist) against the gut (UHGG) community across a 10-level prebiotic gradient (L0–L9). / fast-mic 用于研究《基因组尺度建模揭示碳源质量如何决定泛化型与专化型益生菌在益生元梯度下与常驻菌群的合作》：在 10 级益生元梯度下，对 6 株 *Akkermansia*（3 个种，黏蛋白专化型）与 10 株 *Lactobacillus* 类益生菌（9 个种，代谢泛化型）与肠道（UHGG）菌群进行穷举式两两互作筛选。
-
-## Installation / 安装
-
-```bash
-git clone https://github.com/your-org/fast-mic.git
-cd fast-mic
-cargo build --release
-# Binary: ./target/release/fast-mic
-```
-
-Requires Rust ≥ 1.75 and a C compiler for the bundled HiGHS solver. / 需要 Rust ≥ 1.75 与 C 编译器（用于内置 HiGHS）。
+> **Associated study**: fast-mic was developed for the study *"Genome-scale modelling indicates that carbon quality governs how generalist and specialist probiotics cooperate with the resident microbiome across a prebiotic gradient"* — an exhaustive pairwise interaction screen of six *Akkermansia* strains (3 species, mucin specialist) and ten *Lactobacillus*-group strains (9 species, metabolic generalist) against the gut (UHGG) community across a 10-level prebiotic gradient (L0–L9).
 
 ---
 
-## Quick start / 快速开始
+## Installation
 
 ```bash
-# All-vs-all pairwise within one model set / 单组模型两两互作
+git clone https://github.com/Zhangjyfree/fast-mic.git
+cd fast-mic
+cargo build --release
+# Binaries: ./target/release/{fast-mic, bench-single-fba, bench-cff-deviation}
+```
+
+Requires Rust ≥ 1.75 and a C compiler for the bundled HiGHS solver.
+
+---
+
+## Quick start
+
+```bash
+# All-vs-all pairwise within one model set
 fast-mic \
   --medium-name WesternDiet \
   --media-db media/media_db.tsv \
@@ -31,7 +31,6 @@ fast-mic \
   models/*.xml
 
 # Cross-group: each Akkermansia × each gut commensal
-# 跨组：每个 Akkermansia 模型 × 每个肠道共生菌
 fast-mic \
   --group1 akk_strains/ \
   --group2 commensals/ \
@@ -43,93 +42,91 @@ fast-mic \
 
 ---
 
-## Command-line reference / 命令行参考
+## Command-line reference
 
-### Input / 输入
+### Input
 
-| Flag | Description / 说明 |
+| Flag | Description |
 |---|---|
-| `<files>...` | Positional SBML model paths; forms all-vs-all pairs. / 位置参数 SBML 模型路径，自动两两配对。 |
-| `--group1 <DIR>` | Directory of `.xml`/`.sbml` files (group 1). / 第一组模型目录。 |
-| `--group2 <DIR>` | Directory of `.xml`/`.sbml` files (group 2). Computes cross-group pairs with `--group1`. / 第二组目录，与 `--group1` 配合跨组配对。 |
-| `--medium-name <NAME>` | Named medium from `--media-db`. Mutually exclusive with `--medium-file`. / 命名培养基。 |
-| `--medium-file <FILE>` | CSV medium file with SEED compound IDs and per-compound `maxFlux`. For gapseq models. / SEED 格式 CSV 培养基，适用于 gapseq 模型。 |
-| `--media-db <FILE>` | Medium definition TSV (`medium`, `description`, `compound`, `name`). Default: `media_db.tsv`. / 培养基定义 TSV。 |
-| `--compounds-tsv <FILE>` | ModelSEED `compounds.tsv` for BiGG→SEED translation. Default: `compounds.tsv`. / 用于 BiGG→SEED ID 转换。 |
-| `--pair-filter <FILE>` | 2-column TSV restricting which `(species_a, species_b)` pairs to compute. / 限制计算范围的 TSV。 |
+| `<files>...` | Positional SBML model paths; forms all-vs-all pairs. |
+| `--group1 <DIR>` | Directory of `.xml`/`.sbml` files (group 1). |
+| `--group2 <DIR>` | Directory of `.xml`/`.sbml` files (group 2). Computes cross-group pairs with `--group1`. |
+| `--medium-name <NAME>` | Named medium from `--media-db`. Mutually exclusive with `--medium-file`. |
+| `--medium-file <FILE>` | CSV medium file with SEED compound IDs and per-compound `maxFlux`. For gapseq models. |
+| `--media-db <FILE>` | Medium definition TSV (`medium`, `description`, `compound`, `name`). Default: `media_db.tsv`. |
+| `--compounds-tsv <FILE>` | ModelSEED `compounds.tsv` for BiGG→SEED translation. Default: `compounds.tsv`. |
+| `--pair-filter <FILE>` | 2-column TSV restricting which `(species_a, species_b)` pairs to compute. |
 
-### Output / 输出
+### Output
 
-| Flag | Description / 说明 |
+| Flag | Description |
 |---|---|
-| `-o, --output <FILE>` | Compact pairwise TSV. Default: `output.tsv`. / 紧凑两两互作 TSV。 |
-| `--full-tsv <FILE>` | Verbose TSV with per-metabolite cross-feeding details and gene attributions. / 详细 TSV，含逐代谢物交叉营养与基因归因。 |
-| `--json <FILE>` | JSON dump of all pairwise results. / 所有配对结果的 JSON 输出。 |
-| `-v, --verbose` | Per-pair details to stderr. / 在 stderr 输出逐对详情。 |
-| `--summary` | Suppress per-pair output; print final summary only. / 仅输出最终汇总。 |
+| `-o, --output <FILE>` | Compact pairwise TSV. Default: `output.tsv`. |
+| `--full-tsv <FILE>` | Verbose TSV with per-metabolite cross-feeding details and gene attributions. |
+| `--json <FILE>` | JSON dump of all pairwise results. |
+| `-v, --verbose` | Per-pair details to stderr. |
+| `--summary` | Suppress per-pair output; print final summary only. |
 
-### Medium uptake limits / 培养基摄取限制
+### Medium uptake limits
 
-| Flag | Default | Description / 说明 |
+| Flag | Default | Description |
 |---|---|---|
-| `--medium-uptake-limit` | 10.0 | Max uptake rate (mmol/gDW/h) for carbon-source compounds. / 碳源最大摄取速率。 |
+| `--medium-uptake-limit` | 10.0 | Max uptake rate (mmol/gDW/h) for carbon-source compounds. |
 
-Tiered limits for amino acids (1.0), nucleobases/nucleosides (0.5), and cofactors (0.1) are applied automatically based on compound classification. / 氨基酸、核碱基/核苷、辅因子的分级限制自动应用。
+Tiered limits for amino acids (1.0), nucleobases/nucleosides (0.5), and cofactors (0.1) are applied automatically based on compound classification.
 
-### Target-reaction tracking / 目标反应追踪
+### Target-reaction tracking
 
-| Flag | Description / 说明 |
+| Flag | Description |
 |---|---|
-| `--target-reaction R1,R2,...` | Track flux of one or more reactions (e.g. `EX_ac_e,EX_ppa_e,EX_but_e` for SCFAs). Outputs five columns per reaction: `alone_a`, `alone_b`, `co_total`, `co_a`, `co_b`. / 追踪反应的通量，每个反应输出五列。 |
+| `--target-reaction R1,R2,...` | Track flux of one or more reactions (e.g. `EX_ac_e,EX_ppa_e,EX_but_e` for SCFAs). Outputs five columns per reaction: `alone_a`, `alone_b`, `co_total`, `co_a`, `co_b`. |
 
-### LP tolerances / LP 数值公差
+### LP tolerances
 
-| Flag | Default | Description / 说明 |
+| Flag | Default | Description |
 |---|---|---|
-| `--lock-tol` | 1e-5 | Tolerance for pinning fluxes in CFF/pFBA lock constraints (`v ∈ [v* ± tol]`). 100 × HiGHS feasibility tolerance. Drop to 1e-7 only for exact single-species reproduction. / CFF/pFBA 锁约束公差。 |
+| `--lock-tol` | 1e-5 | Tolerance for pinning fluxes in CFF/pFBA lock constraints (`v ∈ [v* ± tol]`). 100 × HiGHS feasibility tolerance. Drop to 1e-7 only for exact single-species reproduction. |
 
-### Performance / 性能
+### Performance
 
-| Flag | Default | Description / 说明 |
+| Flag | Default | Description |
 |---|---|---|
-| `--threads N` | 0 | Worker threads. 0 = all cores; 1 = serial. / 工作线程数。 |
-| `--cache-monoculture` | true | Pre-compute monoculture pFBA per model and reuse across pairs (~30-50 % speedup). / 单培养 pFBA 缓存。 |
+| `--threads N` | 0 | Worker threads. 0 = all cores; 1 = serial. |
+| `--cache-monoculture` | true | Pre-compute monoculture pFBA per model and reuse across pairs (~30-50 % speedup). |
 
-### Co-culture objective / 共培养目标函数
+### Co-culture objective
 
-| Flag | Default | Description / 说明 |
+| Flag | Default | Description |
 |---|---|---|
-| `--fixed-ratio` | off | Use a fixed-ratio co-culture objective — total community biomass maximised subject to μ_A/μ_B pinned to the monoculture ratio (μ_A^co/μ_B^co = μ_A^alone/μ_B^alone) — instead of the default lexicographic max-min allocation. Intended for objective-sensitivity analysis. / 使用固定比例共培养目标（共培养生长比 = 单培养比，最大化群落总生物量），替代默认字典序最大最小分配；用于目标函数敏感性分析。 |
+| `--fixed-ratio` | off | Use a fixed-ratio co-culture objective — total community biomass maximised subject to μ_A/μ_B pinned to the monoculture ratio (μ_A^co/μ_B^co = μ_A^alone/μ_B^alone) — instead of the default lexicographic max-min allocation. Intended for objective-sensitivity analysis. |
 
 ---
 
-## Output schemas / 输出格式
+## Output schemas
 
 ### Compact TSV (`-o`)
 
-Each row is one species pair. / 每行为一个物种配对。
+Each row is one species pair.
 
-| Column | Description / 说明 |
+| Column | Description |
 |---|---|
-| `species_a`, `species_b` | Model IDs. / 模型 ID。 |
-| `growth_a_alone`, `growth_b_alone` | Monoculture growth rates (h⁻¹). / 单培养生长速率。 |
-| `growth_a_co`, `growth_b_co` | Co-culture growth rates. / 共培养生长速率。 |
-| `benefit_a`, `benefit_b` | `(growth_co − growth_alone) / growth_alone`. / 相对收益。 |
-| `interaction_type` | `mutualism`, `commensalism`, `parasitism`, `competition`, `amensalism`, or `neutral`. / 互作类型。 |
-| `gene_supported_fraction` | Fraction of cross-feeding flux attributable to annotated genes. / 有基因注释支持的比例。 |
-| `n_exchanged_metabolites` | Number of metabolites exchanged in either direction. / 交换代谢物数量。 |
-| `competition_intensity` | Σ min(uptake_a, uptake_b) over shared resources. / 共享资源竞争强度。 |
-| `{rxn}__alone_a/b`, `{rxn}__co_total/a/b` | Per-reaction flux columns for each `--target-reaction`. / 每个目标反应的通量列。 |
+| `species_a`, `species_b` | Model IDs. |
+| `growth_a_alone`, `growth_b_alone` | Monoculture growth rates (h⁻¹). |
+| `growth_a_co`, `growth_b_co` | Co-culture growth rates. |
+| `benefit_a`, `benefit_b` | `(growth_co − growth_alone) / growth_alone`. |
+| `interaction_type` | `mutualism`, `commensalism`, `parasitism`, `competition`, `amensalism`, or `neutral`. |
+| `gene_supported_fraction` | Fraction of cross-feeding flux attributable to annotated genes. |
+| `n_exchanged_metabolites` | Number of metabolites exchanged in either direction. |
+| `competition_intensity` | Σ min(uptake_a, uptake_b) over shared resources. |
+| `{rxn}__alone_a/b`, `{rxn}__co_total/a/b` | Per-reaction flux columns for each `--target-reaction`. |
 
 ### Full TSV (`--full-tsv`)
 
 Adds per-metabolite cross-feeding columns: `a_to_b_metabolites`, `a_to_b_fluxes`, `a_to_b_donor_genes`, `a_to_b_receiver_genes`, mirror columns for B→A, `a_to_b_inferred` (hypothesis-grade entries), `a_to_b_low_confidence`, and competed-resource columns. Lists are `;`-separated.
 
-在紧凑 TSV 基础上增加逐代谢物交叉营养列：代谢物 ID、通量、供体/受体基因、推断标记、低置信度标记、以及竞争资源列。列表以 `;` 分隔。
-
 ---
 
-## Algorithm / 算法
+## Algorithm
 
 ### Single-species: FBA → CycleFreeFlux + pFBA
 
@@ -143,7 +140,7 @@ s.t. S v = 0
      lb_i ≤ v_i ≤ ub_i
 ```
 
-Fixing exchange fluxes eliminates Type-III internal cycles (they carry net-zero exchange flux). Minimising Σ|v| drives every closed loop to zero. The biomass flux is **constrained to its Stage-1 FBA optimum within the lock tolerance ε** (band form, `ε = LOCK_TOL`), so the parsimony objective cannot trade growth rate for lower total flux — loop removal therefore preserves the optimal growth rate rather than only bounding it above. This is validated empirically: across 7,463 growing model–medium evaluations (1,000 UHGG models × the L0–L9 gradient) the post-CycleFreeFlux biomass deviates from the FBA optimum by at most **1.0 × 10⁻⁵ h⁻¹ (= ε)**, biologically negligible (≤ 5.2 × 10⁻⁴ relative); see [Benchmarking](#benchmarking--基准测试). / 生物量被约束在 Stage-1 FBA 最优值的 ε 容差带内（`ε = LOCK_TOL`），因此简约步骤不会以降低生长率换取更低总通量；去环保持最优生长率。实测最大偏差 1.0 × 10⁻⁵ h⁻¹（= ε）。
+Fixing exchange fluxes eliminates Type-III internal cycles (they carry net-zero exchange flux). Minimising Σ|v| drives every closed loop to zero. The biomass flux is **constrained to its Stage-1 FBA optimum within the lock tolerance ε** (band form, `ε = LOCK_TOL`), so the parsimony objective cannot trade growth rate for lower total flux — loop removal therefore preserves the optimal growth rate rather than only bounding it above. This is validated empirically: across 7,463 growing model–medium evaluations (1,000 UHGG models × the L0–L9 gradient) the post-CycleFreeFlux biomass deviates from the FBA optimum by at most **1.0 × 10⁻⁵ h⁻¹ (= ε)**, biologically negligible (≤ 5.2 × 10⁻⁴ relative); see [Benchmarking](#benchmarking).
 
 **Reference**: Desouki *et al.* (2015), *CycleFreeFlux*, BMC Bioinformatics **16**:283.
 
@@ -167,34 +164,34 @@ A co-culture CycleFreeFlux pass then removes inter-species cycles.
 
 **Reference**: Bertsimas *et al.* (2011), *The Price of Fairness*, Operations Research **59**(1):17-31.
 
-**Alternative objective (`--fixed-ratio`)**: For objective-sensitivity analysis, the two-phase allocation can be replaced by a single LP that maximises total community biomass subject to a fixed growth ratio, `g_A / g_B = g_A^alone / g_B^alone`. On a representative subset (*L. gasseri* × UHGG at L5 / L6) the two objectives give identical mutualism fractions (33.4 % / 22.4 %) and ≥ 99 % per-pair classification agreement (all disagreements confined to the commensalism↔neutral boundary), confirming the core conclusions are robust to the choice of growth-allocation rule. / 目标函数敏感性分析：可用 `--fixed-ratio` 将两阶段分配替换为"固定生长比 + 最大化总生物量"的单 LP，在代表子集上两种目标给出完全一致的互利比例与 ≥99% 的逐对分类一致率，证明核心结论不依赖分配规则。
+**Alternative objective (`--fixed-ratio`)**: For objective-sensitivity analysis, the two-phase allocation can be replaced by a single LP that maximises total community biomass subject to a fixed growth ratio, `g_A / g_B = g_A^alone / g_B^alone`. On a representative subset (*L. gasseri* × UHGG at L5 / L6) the two objectives give identical mutualism fractions (33.4 % / 22.4 %) and ≥ 99 % per-pair classification agreement (all disagreements confined to the commensalism↔neutral boundary), confirming the core conclusions are robust to the choice of growth-allocation rule.
 
-### Design principles / 设计原则
+### Design principles
 
 Three scalar constants control the entire FBA pipeline; one is user-configurable.
 
-| Constant | Default | Role / 作用 |
+| Constant | Default | Role |
 |---|---|---|
-| `MIN_VIABLE_GROWTH` | 1×10⁻⁴ h⁻¹ | Biological viability floor (~4 doublings/day). / 生物可行性下限。 |
-| `NUMERICAL_TOL` | 1×10⁻⁶ | LP comparison tolerance (10 × HiGHS default primal tolerance). / LP 比较公差。 |
-| `LOCK_TOL` (`--lock-tol`) | 1×10⁻⁵ | CFF/pFBA lock-constraint tolerance — the ε band on both exchange-flux locks and the biomass constraint (`v ∈ [v* ± ε]`). Configurable. / CFF/pFBA 锁约束公差 —— 同时作用于交换通量锁定与生物量约束的 ε 带，可配置。 |
+| `MIN_VIABLE_GROWTH` | 1×10⁻⁴ h⁻¹ | Biological viability floor (~4 doublings/day). |
+| `NUMERICAL_TOL` | 1×10⁻⁶ | LP comparison tolerance (10 × HiGHS default primal tolerance). |
+| `LOCK_TOL` (`--lock-tol`) | 1×10⁻⁵ | CFF/pFBA lock-constraint tolerance — the ε band on both exchange-flux locks and the biomass constraint (`v ∈ [v* ± ε]`). Configurable. |
 
-No empirical synergy caps, flux-ratio thresholds, metabolite blacklists, or Pareto-front scans. / 无经验性协同上限、通量比阈值、代谢物黑名单或 Pareto 前沿扫描。
+No empirical synergy caps, flux-ratio thresholds, metabolite blacklists, or Pareto-front scans.
 
 ---
 
-## Supported SBML features / 支持的 SBML 特性
+## Supported SBML features
 
 The parser is a hand-written two-pass `quick-xml` reader. It handles the common GEM dialects (BiGG, AGORA, CarveMe, gapseq) but does **not** implement the full SBML L3 spec.
 
-**Supported / 支持:**
+**Supported:**
 - SBML L3 core: `<model>`, `<listOfSpecies>`, `<listOfReactions>`, `<listOfCompartments>`, `<listOfParameters>`
 - Species attributes: `id`, `name`, `compartment`, `boundaryCondition`, `fbc:chemicalFormula`
 - Reaction attributes: `id`, `name`, `reversible`, `fbc:lowerFluxBound`, `fbc:upperFluxBound`
 - FBC v2: `<fbc:listOfObjectives>`, `<fbc:objective>`, `<fbc:fluxObjective>`, `<fbc:listOfGeneProducts>`, `<fbc:geneProductAssociation>` with `<fbc:and>`/`<fbc:or>` trees
 - Namespace-prefixed attribute names via local-name matching
 
-**NOT supported / 不支持** (silently ignored or fallback to defaults):
+**NOT supported** (silently ignored or fallback to defaults):
 - `<initialAssignment>` — bounds set via initial assignment not picked up
 - `<listOfRules>` — assignment / rate rules ignored
 - `<listOfEvents>` — kinetic events ignored
@@ -204,7 +201,7 @@ If your model uses unsupported features, convert it to plain FBC v2 first (e.g. 
 
 ---
 
-## Media database format / 培养基数据库格式
+## Media database format
 
 `media_db.tsv` — tab-separated TSV with four columns: `medium`, `description`, `compound`, `name`.
 
@@ -218,7 +215,7 @@ LB            Lysogeny broth       ala__L      L-Alanine
 
 BiGG (`glc__D`) and ModelSEED (`cpd00027`) IDs are both accepted. With `--medium-name`, fast-mic translates BiGG → SEED via `--compounds-tsv` (ModelSEED `compounds.tsv`) so AGORA-style and gapseq-style models are both matched.
 
-### CSV medium file / CSV 培养基文件
+### CSV medium file
 
 For gapseq models, use `--medium-file` with CSV format:
 
@@ -229,7 +226,7 @@ cpd00035,L-Alanine,1.0
 cpd00009,Phosphate,1000.0
 ```
 
-### Tiered uptake limits / 分级摄取限制
+### Tiered uptake limits
 
 Compound class is auto-detected from compound ID.
 
@@ -243,9 +240,9 @@ Compound class is auto-detected from compound ID.
 
 ---
 
-## Examples / 示例
+## Examples
 
-### Pairwise + SCFA tracking / 两两配对 + 短链脂肪酸追踪
+### Pairwise + SCFA tracking
 
 ```bash
 fast-mic \
@@ -260,13 +257,9 @@ fast-mic \
 
 ---
 
-## Downstream analysis / 下游分析流水线
+## Prebiotic-gradient media
 
-fast-mic produces TSV outputs that feed a set of post-processing scripts in `scripts/`. All scripts run from the repository root.
-
-### 1. Prebiotic gradient / 益生元梯度分析
-
-`media/` contains 10 gapseq medium CSV files (`gradient_L0_base_gapseq.csv` through `gradient_L9_mos_gapseq.csv`) spanning a cumulative prebiotic gradient. Each level adds one prebiotic's hydrolysis products on top of the mucin-containing base (design: Akkermansia viable at all levels).
+`media/` ships the 10 gapseq medium CSVs (`gradient_L0_base_gapseq.csv` … `gradient_L9_mos_gapseq.csv`) plus `gradient_media_list.txt` (one CSV path per line), spanning a cumulative prebiotic gradient. Each level adds one prebiotic's hydrolysis products on top of the mucin-containing base (design: *Akkermansia* viable at all levels).
 
 | Level | Prebiotic | New compounds |
 |---|---|---|
@@ -281,33 +274,39 @@ fast-mic produces TSV outputs that feed a set of post-processing scripts in `scr
 | L8 | HMO | Lacto-N-biose |
 | L9 | MOS | D-Mannose, Mannobiose |
 
-**Run gradient** / 运行梯度分析:
+**Run the pairwise gradient screen, one level at a time**:
 
 ```bash
-bash scripts/run_gradient.sh \
-     --group1 test/akk/akk_genomes_faa_gapseq_wdm_xml \
-     --group2 test/UHGG/final_bacteria_gapseq_xml \
-     --threads 12 --full-tsv
-# Output: gradient_result/L{0-9}_*.tsv  +  L{0-9}_*.full.tsv
+for L in media/gradient_L*_gapseq.csv; do
+  fast-mic --group1 akk_strains/ --group2 commensals/ \
+    --medium-file "$L" --threads 0 \
+    -o "gradient_$(basename "$L" .csv).tsv"
+done
 ```
 
-## Benchmarking / 基准测试
+For single-species throughput across **all** levels in one pass, the bench tools below accept `--media-list media/gradient_media_list.txt`.
 
-A standalone binary `bench-single-fba` measures single-species FBA throughput across many models — under one medium or several at once — and supports thread-scaling benchmarks. / 独立二进制 `bench-single-fba` 在多个模型上测量单物种 FBA 通量，支持单个或多个培养基，以及线程扩展基准。
+> **Figures, supplementary tables, and the full COBRApy-comparison / reproduction pipeline** (R plotting scripts, `run_thread_scaling.sh`, the `cobrapy` cross-check, etc.) are **not** part of this crate — they live in the companion analysis repository. This repo ships only the Rust tool (`src/`) and the gradient media (`media/`).
 
-**Single medium / 单培养基** — a named medium from a TSV database, or one gapseq/SEED-format CSV:
+---
+
+## Benchmarking
+
+A standalone binary `bench-single-fba` measures single-species FBA throughput across many models — under one medium or several at once — and supports thread-scaling benchmarks.
+
+**Single medium** — a named medium from a TSV database, or one gapseq/SEED-format CSV:
 
 ```bash
-# Named medium from a TSV database / TSV 库中的命名培养基
+# Named medium from a TSV database
 bench-single-fba media/media_db.tsv WesternDiet \
   --model-list models.txt --threads 0 > bench_results.tsv
 
-# A single gapseq/SEED-format CSV medium / 单个 gapseq/SEED 格式 CSV 培养基
+# A single gapseq/SEED-format CSV medium
 bench-single-fba --medium-file media/gradient_L0_base_gapseq.csv \
   --model-list models.txt --threads 0 > bench_results.tsv
 ```
 
-**Several CSV media at once / 一次输入多个 CSV 培养基** — pass `--media-list FILE`, a plain-text file with one medium-CSV path per line (absolute or relative). Each model is loaded **once** and evaluated under **every** medium, yielding one row per (model, medium) pair. This is the workload behind the 10-level prebiotic gradient. / 通过 `--media-list FILE` 传入一个纯文本文件（每行一个培养基 CSV 路径，绝对或相对）。每个模型只加载一次，并在所有培养基下评估，输出每个（模型, 培养基）组合一行——这正是 10 级益生元梯度的工作负载。
+**Several CSV media at once** — pass `--media-list FILE`, a plain-text file with one medium-CSV path per line (absolute or relative). Each model is loaded **once** and evaluated under **every** medium, yielding one row per (model, medium) pair. This is the workload behind the 10-level prebiotic gradient.
 
 ```bash
 # media/gradient_media_list.txt lists the 10 gradient CSVs (L0–L9), one path per line
@@ -315,11 +314,17 @@ bench-single-fba --media-list media/gradient_media_list.txt \
   --model-list models.txt --threads 0 > bench_gradient.tsv
 ```
 
-Output columns: `model_id`, `n_metabolites`, `n_reactions`, `n_genes`, `biomass_rxn`, `growth_rate`, `load_time_s`, `fba_time_s`. With `--media-list`, `model_id` is suffixed with the medium label (the CSV file stem), e.g. `L_acidophilus_NCFM__gradient_L0_base_gapseq`, so each row stays uniquely keyed per (model, medium). / 输出列同上；使用 `--media-list` 时 `model_id` 会附加培养基标签（CSV 文件名主干），如 `L_acidophilus_NCFM__gradient_L0_base_gapseq`，保证每个（模型, 培养基）行唯一可索引。
+Output columns: `model_id`, `n_metabolites`, `n_reactions`, `n_genes`, `biomass_rxn`, `growth_rate`, `load_time_s`, `fba_time_s`. With `--media-list`, `model_id` is suffixed with the medium label (the CSV file stem), e.g. `L_acidophilus_NCFM__gradient_L0_base_gapseq`, so each row stays uniquely keyed per (model, medium).
 
-### Loop-removal validation (post-CFF biomass deviation) / 去环验证（CFF 后生物量偏差）
+### Reference validation against COBRApy
 
-The binary `bench-cff-deviation` checks that the CycleFreeFlux + pFBA step does not reduce the growth rate below the Stage-1 FBA optimum. For every (model, medium) it reports the deviation `fba_optimal − post_cff_biomass`; with the band-form biomass constraint this is bounded by ε. / 二进制 `bench-cff-deviation` 验证去环步骤不会把生长率降到 FBA 最优值以下，逐（模型, 培养基）报告 `fba_optimal − post_cff_biomass` 偏差。
+fast-mic's single-species growth rates have been validated against COBRApy (HiGHS backend) on **9,950 genome–medium pairs** (1,000 UHGG models across the L0–L9 gradient; 5 COBRApy timeouts excluded): **Pearson r = 1.000, MAE = 3.12 × 10⁻⁷**, with 100 % of growing models agreeing to within 1 % relative error.
+
+The end-to-end comparison driver (which additionally requires Python + `cobrapy` + `highspy`) and its threshold-asserting integration test are part of the companion analysis repository, not this crate.
+
+### Loop-removal validation (post-CFF biomass deviation)
+
+The binary `bench-cff-deviation` checks that the CycleFreeFlux + pFBA step does not reduce the growth rate below the Stage-1 FBA optimum. For every (model, medium) it reports the deviation `fba_optimal − post_cff_biomass`; with the band-form biomass constraint this is bounded by ε.
 
 ```bash
 bench-cff-deviation \
@@ -327,37 +332,33 @@ bench-cff-deviation \
   --model-list models.txt --threads 0 > cff_deviation.tsv
 ```
 
-Per-row TSV columns: `model_id`, `medium`, `fba_optimal`, `post_cff_biomass`, `deviation`, `viable`. The summary (stderr) reports the **max** and **mean** |deviation| over the growing (viable) evaluations and the worst case. / 每行输出列如上；stderr 汇总报告可生长评估上的最大/平均 |偏差| 与最坏情形。
+Per-row TSV columns: `model_id`, `medium`, `fba_optimal`, `post_cff_biomass`, `deviation`, `viable`. The summary (stderr) reports the **max** and **mean** |deviation| over the growing (viable) evaluations and the worst case.
 
-**Current status:** across 7,463 growing evaluations (1,000 models × L0–L9), max |deviation| = **1.0 × 10⁻⁵ h⁻¹ (= ε = `LOCK_TOL`)**, mean 9.7 × 10⁻⁶ h⁻¹ — within the LP tolerance and biologically negligible; growth rates are unchanged. / 7,463 个可生长评估上，最大偏差 1.0 × 10⁻⁵ h⁻¹（= ε），平均 9.7 × 10⁻⁶ h⁻¹，在 LP 容差内、可忽略。
+**Current status:** across 7,463 growing evaluations (1,000 models × L0–L9), max |deviation| = **1.0 × 10⁻⁵ h⁻¹ (= ε = `LOCK_TOL`)**, mean 9.7 × 10⁻⁶ h⁻¹ — within the LP tolerance and biologically negligible; growth rates are unchanged.
 
 ---
 
-## Testing / 测试
+## Testing
 
 ```bash
-# Default unit + integration tests (fast)
+# Unit tests (fast)
 cargo test
-
-# Reference validation (requires stats.tsv produced by benchmark above)
-cargo test --test reference_validation -- --ignored
 
 # Lint and format
 cargo clippy -- -D warnings
 cargo fmt -- --check
 ```
 
-Test coverage:
+Test coverage (unit tests embedded in `src/`):
 
 | Module | Tests | Covers |
 |---|---|---|
 | `cobra` | 22 | Exchange detection, compartment inference, biomass finder, merged-model construction, interaction classification, NaN-safe sorts |
 | `medium` | 4 | Cofactor pre-opened uptake preservation; non-cofactor closed; cofactor in medium uses tier bound; cofactor not pre-opened stays closed |
-| Integration (`tests/`) | 1 (ignored) | COBRApy reference-agreement thresholds |
 
 ---
 
-## Library API / 库 API
+## Library API
 
 `fast-mic` is also usable as a Rust library.
 
@@ -381,7 +382,7 @@ println!("FBA optimum = {}", result.fba_optimal);  // Stage-1 optimum; differenc
 
 ---
 
-## Citing / 引用
+## Citing
 
 If you use fast-mic in published work, please cite:
 
@@ -390,10 +391,10 @@ If you use fast-mic in published work, please cite:
 
 ---
 
-## License / 许可证
+## License
 
-MIT
+MIT or Apache-2.0, at your option.
 
-## Issues & contributions / 问题反馈与贡献
+## Issues & contributions
 
 Bug reports and PRs welcome at the project repository.
