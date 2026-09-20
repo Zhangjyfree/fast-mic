@@ -2,7 +2,7 @@
 
 **Fast Metabolic Interaction Calculator** — A high-performance Rust tool for pairwise pFBA-based microbial community analysis. Compute cross-feeding, competition, and interaction-type predictions from genome-scale metabolic models (GEMs) at scale.
 
-> **Associated study**: fast-mic was developed for the study *"Genome-scale modelling indicates that carbon quality governs how generalist and specialist probiotics cooperate with the resident microbiome across a prebiotic gradient"* — an exhaustive pairwise interaction screen of six *Akkermansia* strains (3 species, mucin specialist) and ten *Lactobacillus*-group strains (9 species, metabolic generalist) against the gut (UHGG) community across a 10-level prebiotic gradient (L0–L9).
+> **Associated study**: fast-mic was developed for the study *"Fast-mic: a scalable tool for exhaustive pairwise interaction typing of genome-scale metabolic models reveals that carbon quality shapes probiotic–microbiome cooperation across a prebiotic gradient"* — an exhaustive pairwise interaction screen of six *Akkermansia* strains (3 species, mucin specialist) and ten *Lactobacillus*-group strains (9 species, metabolic generalist) against the gut (UHGG) community across a 10-level prebiotic gradient (L0–L9).
 
 ---
 
